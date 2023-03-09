@@ -1,11 +1,25 @@
+# write a ci cd file for gitlab given that the project is using psql with username and password in settings.py and using docker
 # https://testdriven.io/blog/deploying-django-to-digitalocean-with-docker-and-gitlab/
 image: 
   name: docker/compose:1.29.2
   entrypoint: [""]
 
+variables:
+  CI_IMG: '"${CI_REGISTRY_IMAGE}:latest"'
+  TP_URL: '${CI_PROJECT_NAMESPACE}.bham.team'
+  TP_CONTACT: '${GITLAB_USER_EMAIL}'
+  # PSQL_USER: '${PSQL_USER}'
+  # PSQL_PASSWORD: '${PSQL_PASSWORD}'
+  # PSQL_DB: '${PSQL_DB}'
+  # PSQL_HOST: '${PSQL_HOST}'
+  # PSQL_PORT: '${PSQL_PORT}'
+cache: 
+  key: '$CI_COMMIT_REF_NAME'
+
 stages:
   - test
-  - deploy
+  - build
+  # - deploy
 
 test_stage:
   stage: test
@@ -13,27 +27,15 @@ test_stage:
     - docker
   script:
     - echo "test"
-# deploy_stage:
-#   stage: deploy
-#   tags:
-#     - docker
-#   script:
-#     - ./deploy.sh
+# variables:
+#   DOCKER_HOST: tcp://docker:2375/
+#   DOCKER_DRIVER: overlay2
 
-deploy-git:
-  image: alpine:latest
-  stage: deploy
-  when: on_success
-  before_script:
-    - chmod og= $RSA
-    - apk update && apk add openssh-client
-    # - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker compose -f ~/team-project-deployment/src/main/docker/app.yml down || true"
-    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker rm -f $(docker ps -a -q) || true"
-    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker volume rm $(docker volume ls -q) || true"
-    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "rm -rf ~/team-project-deployment || true"
-    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
-    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker pull ${CI_REGISTRY_IMAGE}:latest"
+build_stage:
+  stage: build
+  # before_script:
+  #   - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
+  #   - export WEB_IMAGE=$IMAGE:web
+  #   - export NGINX_IMAGE=$IMAGE:nginx
   script:
-    - scp -o StrictHostKeyChecking=no -i $RSA -r . $VM_USER@$VM:~/team-project-deployment
-    # - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "sed -i '5s|teamproject|$CI_IMG|' ~/team-project-deployment/src/main/docker/app.yml"
-    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker compose -f docker-compose.ci.yml buildup -d"
+    echo "build"
