@@ -1,20 +1,20 @@
 # write a ci cd file for gitlab given that the project is using psql with username and password in settings.py and using docker
 # https://testdriven.io/blog/deploying-django-to-digitalocean-with-docker-and-gitlab/
-image: 
+image:
   name: docker/compose:1.29.2
   entrypoint: [""]
 
 variables:
   CI_IMG: '"${CI_REGISTRY_IMAGE}:latest"'
-  TP_URL: '${CI_PROJECT_NAMESPACE}.bham.team'
-  TP_CONTACT: '${GITLAB_USER_EMAIL}'
+  TP_URL: "${CI_PROJECT_NAMESPACE}.bham.team"
+  TP_CONTACT: "${GITLAB_USER_EMAIL}"
   # PSQL_USER: '${PSQL_USER}'
   # PSQL_PASSWORD: '${PSQL_PASSWORD}'
   # PSQL_DB: '${PSQL_DB}'
   # PSQL_HOST: '${PSQL_HOST}'
   # PSQL_PORT: '${PSQL_PORT}'
-cache: 
-  key: '$CI_COMMIT_REF_NAME'
+cache:
+  key: "$CI_COMMIT_REF_NAME"
 
 stages:
   - test
@@ -23,8 +23,6 @@ stages:
 
 test_stage:
   stage: test
-  tags:
-    - docker
   script:
     - echo "test"
 # variables:
@@ -37,5 +35,4 @@ build_stage:
   #   - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
   #   - export WEB_IMAGE=$IMAGE:web
   #   - export NGINX_IMAGE=$IMAGE:nginx
-  script:
-    echo "build"
+  script: echo "build"
