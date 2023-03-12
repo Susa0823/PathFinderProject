@@ -23,6 +23,8 @@ stages:
 
 test_stage:
   stage: test
+  tags:
+    - docker
   script:
     - echo "test"
 # variables:
@@ -35,4 +37,13 @@ build_stage:
   #   - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
   #   - export WEB_IMAGE=$IMAGE:web
   #   - export NGINX_IMAGE=$IMAGE:nginx
-  script: echo "build"
+  script:
+    - echo "Activating venv..."
+    - source $(pwd)/venv/bin/activate
+    - echo "running eventual tests"
+    - python manage.py test
+    # ensure server is up
+    - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up"
+    - sudo pkill python
+    - deactivate
+    - echo "building docker images"
