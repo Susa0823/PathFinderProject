@@ -23,8 +23,6 @@ stages:
 
 test_stage:
   stage: test
-  tags:
-    - docker
   script:
     - echo "test"
 # variables:
