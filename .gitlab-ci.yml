@@ -24,7 +24,8 @@ stages:
 test_stage:
   stage: test
   script:
-    - echo "test"
+    - echo "Running fictional test suite..."
+    - ./test.sh
 # variables:
 #   DOCKER_HOST: tcp://docker:2375/
 #   DOCKER_DRIVER: overlay2
