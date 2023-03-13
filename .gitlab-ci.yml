@@ -52,7 +52,7 @@ build_stage:
     - echo "Activating venv..."
     # - source $(pwd)/venv/bin/activate
     # ensure server is up
-    - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up"
+    - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up" &
     - pkill python
     - deactivate
     - echo "building docker images"
