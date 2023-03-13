@@ -25,7 +25,7 @@ test_stage:
   stage: test
   script:
     - echo "Running fictional test suite..."
-    - ./test.sh
+    - chmod +x ./test.sh; ./test.sh
 # variables:
 #   DOCKER_HOST: tcp://docker:2375/
 #   DOCKER_DRIVER: overlay2
@@ -37,9 +37,9 @@ build_stage:
   #   - export WEB_IMAGE=$IMAGE:web
   #   - export NGINX_IMAGE=$IMAGE:nginx
   script:
-    # Write a build script that prepares the django environment and builds the docker images to have the django app running on vm
+    # Write a build script that prepares the django python virtual environment and builds the docker images to have the django app running on vm
     - echo "Activating venv..."
-    - source $(pwd)/venv/bin/activate
+    # - source $(pwd)/venv/bin/activate
     - echo "running eventual tests"
     - python manage.py test
     # ensure server is up
