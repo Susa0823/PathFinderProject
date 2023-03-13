@@ -37,7 +37,6 @@ build_stage:
   #   - export WEB_IMAGE=$IMAGE:web
   #   - export NGINX_IMAGE=$IMAGE:nginx
   script:
-    # Write a build script that prepares the django python virtual environment and builds the docker images to have the django app running on vm
     - echo "Activating venv..."
     # - source $(pwd)/venv/bin/activate
     - echo "running eventual tests"
