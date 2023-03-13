@@ -1,0 +1,27 @@
+version: '3.11.2'
+
+services:
+  pathfinderapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app
+    environment:
+      - SECRET_KEY=SuperSecretDevKey
+      - DEBUG=1
+      - DB_HOST=pathfinderdb
+      - DB_NAME=devdb
+      - DB_USER=postgres
+      - DB_PASSWORD=SuperSecretDevPassword
+    depends_on:
+      - pathfinderdb
+
+  pathfinderdb:
+    image: postgres:14.0-alpine
+    environment:
+      - POSTGRES_DB=pathfinderdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=SuperSecretDevPassword
