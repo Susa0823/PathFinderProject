@@ -28,7 +28,8 @@ DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 # Security measure to prevent HTTP Host header attacks (see https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts)
 # Only when DEBUG is False, the ALLOWED_HOSTS list is used
 ALLOWED_HOSTS = []
-ALLOWED_HOSTS.extend(filter(None, os.environ.get('ALLOWED_HOSTS', '').split(',')))
+ALLOWED_HOSTS.extend(
+    filter(None, os.environ.get('ALLOWED_HOSTS', '').split(',')))
 
 # Application definition
 
@@ -40,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # below entry added so django knows about the app and its config
-    'PathFinderAPP.apps.PathfinderappConfig',
+    'PathFinder.PathFinderApp.apps.PathfinderappConfig',
 ]
 MIDDLEWARE = [
 
@@ -53,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'PathFinder.urls'
+ROOT_URLCONF = 'PathFinder.PathFinderBase.urls'
 
 TEMPLATES = [
     {
@@ -71,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'PathFinder.wsgi.application'
+WSGI_APPLICATION = 'PathFinder.PathFinderBase.wsgi.application'
 
 
 # Database
@@ -81,9 +82,9 @@ WSGI_APPLICATION = 'PathFinder.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME','AppDBdjango'),
-        'USER': os.environ.get('DB_USER','pathfinderdbsu'),
-        'PASSWORD': os.environ.get('DB_PASSWORD','pa$$wordFinder'),
+        'NAME': os.environ.get('DB_NAME', 'AppDBdjango'),
+        'USER': os.environ.get('DB_USER', 'pathfinderdbsu'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'pa$$wordFinder'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': '5432',
     }
