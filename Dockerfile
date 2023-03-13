@@ -1,13 +1,26 @@
-FROM python:3.11.0
+FROM python:3.11.2-alpine3.16
+
+# No buffered std output from python is ensured by the following line
 ENV PYTHONUNBUFFERED=1
-RUN mkdir /PathFinder
+
+COPY ./requirements.txt /requirements.txt
+COPY ./PathFinder /PathFinder
+
 WORKDIR /PathFinder
-ADD . /PathFinder/
 
-RUN pip install -r requirements.txt
+# apk -> Alpine Package Keeper
+RUN python -m venv /py && \
+    /py/bin/pip install --upgrade pip && \
+    apk add --no-cache --update postgresql-client && \
+    apk add --no-cache --update --virtual .tmp-build-deps \
+    build-base postgresql-dev musl-dev &&\
+    /py/bin/pip install -r /requirements.txt && \
+    apk del .tmp-build-deps && \
+    adduser --disabled-password --no-create-home PathFinderDevUser
 
-ENV env $env
+ENV PATH="/py/bin:$PATH"
+USER PathFinderDevUser
 
-CMD ["python3 manage.py runserver &"]
+# CMD ["python3 manage.py runserver &"]
 
 EXPOSE 8000
