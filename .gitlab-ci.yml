@@ -78,7 +78,7 @@ publish_stage:
   services:
     - docker:dind
   before_script:
-    # - chmod 400 $RSA4
+    - chmod 400 $RSA4
     - ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
     # - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
