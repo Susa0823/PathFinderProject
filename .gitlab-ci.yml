@@ -4,6 +4,9 @@ image:
   name: docker:latest
   entrypoint: [""]
 
+services:
+  - docker:dind
+
 variables:
   CI_IMG: '"${CI_REGISTRY_IMAGE}:latest"'
   TP_URL: "${CI_PROJECT_NAMESPACE}.bham.team"
@@ -12,11 +15,15 @@ variables:
   # PSQL_PASSWORD: '${PSQL_PASSWORD}'
   # PSQL_DB: '${PSQL_DB}'
   # PSQL_HOST: '${PSQL_HOST}'
+  DOCKER_HOST: tcp://docker:2375
   # PSQL_PORT: '${PSQL_PORT}'
 cache:
   key: "$CI_COMMIT_REF_NAME"
 
 before_script:
+  - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
+  - export WEB_IMAGE=$IMAGE:web
+  - apk add --no-cache bash
   - apk add --no-cache python3
   - apk add --no-cache python3-dev
   - apk add --no-cache postgresql-client
