@@ -76,12 +76,12 @@ publish_stage:
   services:
     - docker:dind
   before_script:
-    - chmod 400 $RSA4
-    - ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
+    - chmod 400 temp
+    - ssh -o StrictHostKeyChecking=no -i temp $VMUSER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
     # - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "docker build -t $CI_IMG ."
-    - ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "docker push $CI_IMG"
+    - ssh -o StrictHostKeyChecking=no -i temp $VMUSER@$VM "docker build -t $CI_IMG ."
+    - ssh -o StrictHostKeyChecking=no -i temp $VMUSER@$VM "docker push $CI_IMG"
     # - docker build -t $CI_IMG .
     # - docker push $CI_IMG
 # deploy_stage:
