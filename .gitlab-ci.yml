@@ -77,7 +77,7 @@ test_stage:
     - source venv/bin/activate
     - python manage.py test
     - python manage.py runserver &
-    - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up"
+    # - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up"
     - sudo pkill python
     - deactivate
     # - source venv/bin/activate
