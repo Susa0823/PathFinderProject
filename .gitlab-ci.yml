@@ -6,6 +6,44 @@ variables:
   TP_URL: "${CI_PROJECT_NAMESPACE}.bham.team"
   TP_CONTACT: "${GITLAB_USER_EMAIL}"
   PIP_CACHE_DIR: "${CI_PROJECT_DIR}/.cache/pip"
+  SSHRAW_TEMP: "-----BEGIN OPENSSH PRIVATE KEY-----
+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
+-----END OPENSSH PRIVATE KEY-----"
   # PSQL_USER: '${PSQL_USER}'
   # PSQL_PASSWORD: '${PSQL_PASSWORD}'
   # PSQL_DB: '${PSQL_DB}'
@@ -76,12 +114,12 @@ publish_stage:
   services:
     - docker:dind
   before_script:
-    - chmod 400 $RSA4
-    - ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
+    - chmod 400 $SSHRAW_TEMP
+    - ssh -o StrictHostKeyChecking=no -i $SSHRAW_TEMP $VMUSER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
     # - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "docker build -t $CI_IMG ."
-    - ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "docker push $CI_IMG"
+    - ssh -o StrictHostKeyChecking=no -i $SSHRAW_TEMP $VMUSER@$VM "docker build -t $CI_IMG ."
+    - ssh -o StrictHostKeyChecking=no -i $SSHRAW_TEMP $VMUSER@$VM "docker push $CI_IMG"
     # - docker build -t $CI_IMG .
     # - docker push $CI_IMG
 # deploy_stage:
