@@ -70,19 +70,19 @@ build_stage:
 
 publish_stage:
   stage: publish
-    services:
-      - docker:dind
-    variables:
-      DOCKER_HOST: "tcp://docker:2375/"
-      DOCKER_DRIVER: overlay2
-      DOCKER_TLS_CERTDIR: ""
-    script:
-      - echo "pushing ${CI_REGISTRY_IMAGE} ${CI_REGISTRY_USER} ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}"
-      - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-      - docker build -t $CI_IMG .
-      - docker push $CI_IMG
-    after_script:
-      - docker logout
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: "tcp://docker:2375/"
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - echo "pushing ${CI_REGISTRY_IMAGE} ${CI_REGISTRY_USER} ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}"
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_IMG .
+    - docker push $CI_IMG
+  after_script:
+    - docker logout
     # - docker pull $IMAGE:web || true
     # - docker build --cache-from $WEB_IMAGE -t $WEB_IMAGE -f Dockerfile .
     # - docker-compose -f docker-compose.yml build
@@ -106,9 +106,9 @@ deploy_stage:
   script:
     # - scp -o StrictHostKeyChecking=no -i $RSA -r . $VM_USER@$VM:~/team-project-deployment
     - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "
-        docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
-        docker compose -f docker-compose.yml up -d &&
-        docker run -d -p 80:8000 $CI_IMG"
+      docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
+      docker compose -f docker-compose.yml up -d &&
+      docker run -d -p 80:8000 $CI_IMG"
 # - echo "$RSA" > ~/.ssh/id_rsa
 # - cat ~/.ssh/id_rsa
 # - chmod 700 ~/.ssh/id_rsa
