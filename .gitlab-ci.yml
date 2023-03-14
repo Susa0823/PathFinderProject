@@ -67,7 +67,7 @@ build_stage:
     # - python manage.py runserver
   artifacts:
     paths:
-      - $(pwd)/venv
+      - /venv
 
 publish_stage:
   stage: publish
@@ -97,7 +97,7 @@ deploy_stage:
   stage: deploy
   when: on_success
   before_script:
-    - chmod og=$RSA
+    - chmod 700 $RSA
     - apk update && apk add openssh-client
     # - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker compose -f docker-compose.yml down || true"
     # - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker rm -f $(docker ps -a -q) || true"
