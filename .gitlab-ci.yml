@@ -28,22 +28,6 @@ stages:
   - publish
   - deploy
 
-# before_script:
-#   - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
-#   # - export WEB_IMAGE=$IMAGE:web
-#   - apk update
-#   - apk add --no-cache bash
-#   - apk add --no-cache python3
-#   - apk add --no-cache python3-dev
-#   - apk add --no-cache --update postgresql-client
-#   - apk add --no-cache postgresql-dev
-#   - apk add --no-cache build-base
-#   - apk add --no-cache curl
-#   - pip install --upgrade pip
-#   - python3 -m venv venv
-#   - source venv/bin/activate
-#   - pip install -r requirements.txt
-
 build_stage:
   stage: build
   # before_script:
@@ -92,25 +76,13 @@ publish_stage:
   services:
     - docker:dind
   before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
+    # - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker build -t $CI_IMG .
-    - docker push $CI_IMG
-#   variables:
-#     DOCKER_HOST: "tcp://docker:2375/"
-#     DOCKER_DRIVER: overlay2
-#     DOCKER_TLS_CERTDIR: ""
-#   script:
-#     - echo "pushing ${CI_REGISTRY_IMAGE} ${CI_REGISTRY_USER} ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}"
-#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-#     - docker build -t $CI_IMG .
-#     - docker push $CI_IMG
-# - docker pull $IMAGE:web || true
-# - docker build --cache-from $WEB_IMAGE -t $WEB_IMAGE -f Dockerfile .
-# - docker-compose -f docker-compose.yml build
-# - docker push $WEB_IMAGE:web
-# - pkill python
-# - deactivate
+    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker build -t $CI_IMG ."
+    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker push $CI_IMG"
+    # - docker build -t $CI_IMG .
+    # - docker push $CI_IMG
 # deploy_stage:
 #   image: alpine:latest
 #   stage: deploy
@@ -134,3 +106,19 @@ publish_stage:
 # - chmod +x deploy.sh
 # - scp -o StrictHostKeyChecking=no -r ./docker-compose.yml root@143.198.222.14:/PathFinder
 # - bash ./deploy.sh
+
+# before_script:
+#   - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
+#   # - export WEB_IMAGE=$IMAGE:web
+#   - apk update
+#   - apk add --no-cache bash
+#   - apk add --no-cache python3
+#   - apk add --no-cache python3-dev
+#   - apk add --no-cache --update postgresql-client
+#   - apk add --no-cache postgresql-dev
+#   - apk add --no-cache build-base
+#   - apk add --no-cache curl
+#   - pip install --upgrade pip
+#   - python3 -m venv venv
+#   - source venv/bin/activate
+#   - pip install -r requirements.txt
