@@ -44,8 +44,8 @@ test_stage:
   script:
     - echo "Running fictional test suite..."
     - python manage.py test
-  # variables:
-  DOCKER_HOST: tcp://docker:2375/
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
 #   DOCKER_DRIVER: overlay2
 
 build_stage:
