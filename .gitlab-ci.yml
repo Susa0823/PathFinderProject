@@ -14,7 +14,7 @@ variables:
   # PSQL_PASSWORD: '${PSQL_PASSWORD}'
   # PSQL_DB: '${PSQL_DB}'
   # PSQL_HOST: '${PSQL_HOST}'
-  # DOCKER_HOST: tcp://docker:2375
+  DOCKER_HOST: tcp://docker:2375
   # PSQL_PORT: '${PSQL_PORT}'
 cache:
   key: "$CI_COMMIT_REF_NAME"
@@ -44,8 +44,8 @@ test_stage:
   script:
     - echo "Running fictional test suite..."
     - python manage.py test
-# variables:
-#   DOCKER_HOST: tcp://docker:2375/
+  # variables:
+  DOCKER_HOST: tcp://docker:2375/
 #   DOCKER_DRIVER: overlay2
 
 build_stage:
