@@ -16,8 +16,8 @@ cache:
 stages:
   - test
   - build
-  - deploy
   - publish
+  - deploy
 
 before_script:
   - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
