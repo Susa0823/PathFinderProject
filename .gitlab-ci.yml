@@ -86,11 +86,16 @@ test_stage:
   # DOCKER_HOST: tcp://docker:2375/
 #   DOCKER_DRIVER: overlay2
 
-# publish_stage:
-#   image: docker:latest
-#   stage: publish
-#   services:
-#     - docker:dind
+publish_stage:
+  image: docker:latest
+  stage: publish
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker build -t $CI_IMG .
+    - docker push $CI_IMG
 #   variables:
 #     DOCKER_HOST: "tcp://docker:2375/"
 #     DOCKER_DRIVER: overlay2
