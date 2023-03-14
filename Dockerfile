@@ -27,4 +27,4 @@ USER PathFinderDevUser
 
 # CMD ["python3 manage.py runserver &"]
 
-EXPOSE 2375
+# EXPOSE 2375
