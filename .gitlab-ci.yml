@@ -70,6 +70,7 @@ build_stage:
       - /venv
 
 publish_stage:
+  image: docker:latest
   stage: publish
   services:
     - docker:dind
