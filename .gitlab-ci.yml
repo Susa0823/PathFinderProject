@@ -1,10 +1,11 @@
 # https://testdriven.io/blog/deploying-django-to-digitalocean-with-docker-and-gitlab/ image:
-# image: python:3.11-alpine3.16
+image: python:latest
 
 variables:
   CI_IMG: '"${CI_REGISTRY_IMAGE}:latest"'
   TP_URL: "${CI_PROJECT_NAMESPACE}.bham.team"
   TP_CONTACT: "${GITLAB_USER_EMAIL}"
+  PIP_CACHE_DIR: "${CI_PROJECT_DIR}/.cache/pip"
   # PSQL_USER: '${PSQL_USER}'
   # PSQL_PASSWORD: '${PSQL_PASSWORD}'
   # PSQL_DB: '${PSQL_DB}'
@@ -13,6 +14,14 @@ variables:
   # PSQL_PORT: '${PSQL_PORT}'
 cache:
   key: "$CI_COMMIT_REF_NAME"
+  paths:
+    - .cache/pip
+    - venv
+    - .venv
+# before_script:
+#   - python -V
+#   - pip install --upgrade pip
+#   - pip install -r requirements.txt
 stages:
   - build
   - test
@@ -48,8 +57,7 @@ build_stage:
   #   DOCKER_DRIVER: overlay2
   #   DOCKER_TLS_CERTDIR: ""
   script:
-    - virtualenv /venv
-    - virtualenv $(pwd)/venv
+    - python3 -m venv venv
     - source $(pwd)venv/bin/activate
     - pip install -r requirements.txt
     - deactivate
