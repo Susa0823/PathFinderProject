@@ -1,7 +1,8 @@
-FROM python:3.11.2-alpine3.16
+FROM python:3.11-alpine3.16
 
 # No buffered std output from python is ensured by the following line
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONWRITEBYTECODE=1
 
 COPY ./requirements.txt /requirements.txt
 COPY ./PathFinder /PathFinder
@@ -20,9 +21,10 @@ RUN python -m venv /py && \
     apk del .tmp-build-deps && \
     adduser --disabled-password --no-create-home PathFinderDevUser
 
+
 ENV PATH="/py/bin:$PATH"
 USER PathFinderDevUser
 
-CMD ["python3 manage.py runserver &"]
+# CMD ["python3 manage.py runserver &"]
 
 EXPOSE 8000

@@ -37,7 +37,7 @@ before_script:
 stages:
   - test
   - build
-  # - deploy
+  - deploy
 
 test_stage:
   stage: test
@@ -56,9 +56,24 @@ build_stage:
   #   - export NGINX_IMAGE=$IMAGE:nginx
   script:
     - echo "Starting build stage"
-    # - source $(pwd)/venv/bin/activate
+    - docker pull $IMAGE:web || true
+    - docker build --cache-from $WEB_IMAGE -t $WEB_IMAGE -f Dockerfile .
+    - docker-compose -f docker-compose.yml build
+    - docker push $WEB_IMAGE:web
     # ensure server is up
     # - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up" &
     # - pkill python
     # - deactivate
-    # - echo "building docker images"
+deploy_stage:
+  stage: deploy
+  script:
+    - mkdir -p ~/.ssh
+    - echo "$RSA" > ~/.ssh/id_rsa
+    - cat ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+    - ssh-keyscan -H 'git.cs.bham.ac.uk/' >> ~/.ssh/known_hosts
+    - chmod +x deploy.sh
+    - scp -o StrictHostKeyChecking=no -r ./docker-compose.yml root@143.198.222.14:/PathFinder
+    - bash ./deploy.sh
