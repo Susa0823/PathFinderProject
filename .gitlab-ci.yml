@@ -30,9 +30,9 @@ before_script:
   - apk add --no-cache build-base
   - apk add --no-cache curl
   - pip install --upgrade pip
-  # - python3 -m venv venv
-  # - source venv/bin/activate
-  # - pip install -r requirements.txt
+  - python3 -m venv venv
+  - source venv/bin/activate
+  - pip install -r requirements.txt
 
 test_stage:
   stage: test
@@ -58,7 +58,7 @@ build_stage:
   script:
     - virtualenv $(pwd)/venv
     - source $(pwd)/venv/bin/activate
-    - pip install -r requirements.txt
+    # - pip install -r requirements.txt
     - deactivate
     # - python manage.py collectstatic --noinput
     # - python manage.py makemigrations
