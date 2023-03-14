@@ -58,7 +58,7 @@ build_stage:
   #   DOCKER_TLS_CERTDIR: ""
   script:
     - python3 -m venv venv
-    - source $(pwd)venv/bin/activate
+    - source venv/bin/activate
     - pip install -r requirements.txt
     - deactivate
     # - python manage.py collectstatic --noinput
