@@ -1,5 +1,5 @@
 # https://testdriven.io/blog/deploying-django-to-digitalocean-with-docker-and-gitlab/ image:
-  name: python:3.11-alpine3.16
+name: python:3.11-alpine3.16
 
 variables:
   CI_IMG: '"${CI_REGISTRY_IMAGE}:latest"'
