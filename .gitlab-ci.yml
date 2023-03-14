@@ -1,10 +1,5 @@
-# https://testdriven.io/blog/deploying-django-to-digitalocean-with-docker-and-gitlab/
-image:
-  name: docker:latest
-  entrypoint: [""]
-
-# services:
-#   - docker:dind
+# https://testdriven.io/blog/deploying-django-to-digitalocean-with-docker-and-gitlab/ image:
+  name: python:3.11-alpine3.16
 
 variables:
   CI_IMG: '"${CI_REGISTRY_IMAGE}:latest"'
@@ -18,26 +13,26 @@ variables:
   # PSQL_PORT: '${PSQL_PORT}'
 cache:
   key: "$CI_COMMIT_REF_NAME"
-
-before_script:
-  - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
-  - export WEB_IMAGE=$IMAGE:web
-  - apk add --no-cache bash
-  - apk add --no-cache python3
-  - apk add --no-cache python3-dev
-  - apk add --no-cache postgresql-client
-  - apk add --no-cache postgresql-dev
-  - apk add --no-cache build-base
-  - apk add --no-cache curl
-  - python3 -m venv venv
-  - source venv/bin/activate
-  - pip install --upgrade pip
-  - pip install -r requirements.txt
-
 stages:
   - test
   - build
   - deploy
+  - publish
+
+before_script:
+  - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
+  # - export WEB_IMAGE=$IMAGE:web
+  - apk add --no-cache bash
+  - apk add --no-cache python3
+  - apk add --no-cache python3-dev
+  - apk add --no-cache --update postgresql-client
+  - apk add --no-cache postgresql-dev
+  - apk add --no-cache build-base
+  - apk add --no-cache curl
+  - pip install --upgrade pip
+  # - python3 -m venv venv
+  # - source venv/bin/activate
+  # - pip install -r requirements.txt
 
 test_stage:
   stage: test
@@ -54,17 +49,40 @@ build_stage:
   #   - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
   #   - export WEB_IMAGE=$IMAGE:web
   #   - export NGINX_IMAGE=$IMAGE:nginx
-  services:
-    - docker:dind
-  variables:
-    DOCKER_HOST: "tcp://docker:2375/"
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
+  # services:
+  #   - docker:dind
+  # variables:
+  #   DOCKER_HOST: "tcp://docker:2375/"
+  #   DOCKER_DRIVER: overlay2
+  #   DOCKER_TLS_CERTDIR: ""
   script:
-    - echo "pushing ${CI_REGISTRY_IMAGE} ${CI_REGISTRY_USER} ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}"
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $CI_REGISTRY_IMAGE -f Dockerfile .
-    - docker push $CI_REGISTRY_IMAGE
+    - virtualenv $(pwd)/venv
+    - source $(pwd)/venv/bin/activate
+    - pip install -r requirements.txt
+    - deactivate
+    # - python manage.py collectstatic --noinput
+    # - python manage.py makemigrations
+    # - python manage.py migrate
+    # - python manage.py runserver
+  artifacts:
+    paths:
+      - $(pwd)/venv
+
+publish_stage:
+  stage: publish
+    services:
+      - docker:dind
+    variables:
+      DOCKER_HOST: "tcp://docker:2375/"
+      DOCKER_DRIVER: overlay2
+      DOCKER_TLS_CERTDIR: ""
+    script:
+      - echo "pushing ${CI_REGISTRY_IMAGE} ${CI_REGISTRY_USER} ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}"
+      - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+      - docker build -t $CI_IMG .
+      - docker push $CI_IMG
+    after_script:
+      - docker logout
     # - docker pull $IMAGE:web || true
     # - docker build --cache-from $WEB_IMAGE -t $WEB_IMAGE -f Dockerfile .
     # - docker-compose -f docker-compose.yml build
@@ -80,19 +98,21 @@ deploy_stage:
   before_script:
     - chmod og=$RSA
     - apk update && apk add openssh-client
-    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker compose -f docker-compose.yml down || true"
-    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker rm -f $(docker ps -a -q) || true"
-    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker volume rm $(docker volume ls -q) || true"
-    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
-    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker pull ${CI_REGISTRY_IMAGE}:latest"
+    # - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker compose -f docker-compose.yml down || true"
+    # - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker rm -f $(docker ps -a -q) || true"
+    # - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker volume rm $(docker volume ls -q) || true"
+    # - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
+    # - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker pull ${CI_REGISTRY_IMAGE}:latest"
   script:
-    - scp -o StrictHostKeyChecking=no -i $RSA -r . $VM_USER@$VM:~/team-project-deployment
-    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker compose -f docker-compose.yml up -d"
+    # - scp -o StrictHostKeyChecking=no -i $RSA -r . $VM_USER@$VM:~/team-project-deployment
+    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "
+        docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
+        docker compose -f docker-compose.yml up -d &&
+        docker run -d -p 80:8000 $CI_IMG"
 # - echo "$RSA" > ~/.ssh/id_rsa
 # - cat ~/.ssh/id_rsa
 # - chmod 700 ~/.ssh/id_rsa
-# - eval $(ssh-agent -s)
-# - ssh-add ~/.ssh/id_rsa
+# - eval $(ssh-agent -s)# - ssh-add ~/.ssh/id_rsa
 # - ssh-keyscan -H 'git.cs.bham.ac.uk/' >> ~/.ssh/known_hosts
 # - chmod +x deploy.sh
 # - scp -o StrictHostKeyChecking=no -r ./docker-compose.yml root@143.198.222.14:/PathFinder

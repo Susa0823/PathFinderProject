@@ -3,6 +3,7 @@ FROM python:3.11-alpine3.16
 # No buffered std output from python is ensured by the following line
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONWRITEBYTECODE=1
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 
 COPY ./requirements.txt /requirements.txt
 COPY ./PathFinder /PathFinder
@@ -22,8 +23,9 @@ WORKDIR /PathFinder
 #     adduser --disabled-password --no-create-home PathFinderDevUser
 
 
-ENV PATH="/py/bin:$PATH"
-USER PathFinderDevUser
+CMD python manage.py runserver 0.0.0.0:8000
+# ENV PATH="/py/bin:$PATH"
+# USER PathFinderDevUser
 
 # CMD ["python3 manage.py runserver &"]
 
