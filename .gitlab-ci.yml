@@ -1,5 +1,5 @@
 # https://testdriven.io/blog/deploying-django-to-digitalocean-with-docker-and-gitlab/ image:
-image: python:3.11-alpine3.16
+# image: python:3.11-alpine3.16
 
 variables:
   CI_IMG: '"${CI_REGISTRY_IMAGE}:latest"'
@@ -14,35 +14,26 @@ variables:
 cache:
   key: "$CI_COMMIT_REF_NAME"
 stages:
-  - test
   - build
+  - test
   - publish
   - deploy
 
-before_script:
-  - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
-  # - export WEB_IMAGE=$IMAGE:web
-  - apk add --no-cache bash
-  - apk add --no-cache python3
-  - apk add --no-cache python3-dev
-  - apk add --no-cache --update postgresql-client
-  - apk add --no-cache postgresql-dev
-  - apk add --no-cache build-base
-  - apk add --no-cache curl
-  - pip install --upgrade pip
-  - python3 -m venv venv
-  - source venv/bin/activate
-  - pip install -r requirements.txt
-
-test_stage:
-  stage: test
-  script:
-    - echo "Running fictional test suite..."
-    # - source venv/bin/activate
-    # - python manage.py test
-  variables:
-    # DOCKER_HOST: tcp://docker:2375/
-#   DOCKER_DRIVER: overlay2
+# before_script:
+#   - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
+#   # - export WEB_IMAGE=$IMAGE:web
+#   - apk update
+#   - apk add --no-cache bash
+#   - apk add --no-cache python3
+#   - apk add --no-cache python3-dev
+#   - apk add --no-cache --update postgresql-client
+#   - apk add --no-cache postgresql-dev
+#   - apk add --no-cache build-base
+#   - apk add --no-cache curl
+#   - pip install --upgrade pip
+#   - python3 -m venv venv
+#   - source venv/bin/activate
+#   - pip install -r requirements.txt
 
 build_stage:
   stage: build
@@ -57,9 +48,10 @@ build_stage:
   #   DOCKER_DRIVER: overlay2
   #   DOCKER_TLS_CERTDIR: ""
   script:
-    # - virtualenv /venv
-    - source venv/bin/activate
-    # - pip install -r requirements.txt
+    - virtualenv /venv
+    - virtualenv $(pwd)/venv
+    - source $(pwd)venv/bin/activate
+    - pip install -r requirements.txt
     - deactivate
     # - python manage.py collectstatic --noinput
     # - python manage.py makemigrations
@@ -67,45 +59,59 @@ build_stage:
     # - python manage.py runserver
   artifacts:
     paths:
-      - /venv
+      - $(pwd)/venv
 
-publish_stage:
-  image: docker:latest
-  stage: publish
-  services:
-    - docker:dind
-  variables:
-    DOCKER_HOST: "tcp://docker:2375/"
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
+test_stage:
+  stage: test
   script:
-    - echo "pushing ${CI_REGISTRY_IMAGE} ${CI_REGISTRY_USER} ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}"
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $CI_IMG .
-    - docker push $CI_IMG
-    # - docker pull $IMAGE:web || true
-    # - docker build --cache-from $WEB_IMAGE -t $WEB_IMAGE -f Dockerfile .
-    # - docker-compose -f docker-compose.yml build
-    # - docker push $WEB_IMAGE:web
-    # ensure server is up
-    # - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up" &
-    # - pkill python
-    # - deactivate
-deploy_stage:
-  image: alpine:latest
-  stage: deploy
-  when: on_success
-  before_script:
-    - chmod 700 $RSA
-    - apk update && apk add openssh-client
-    # - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker compose -f docker-compose.yml down || true"
-    # - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker rm -f $(docker ps -a -q) || true"
-    # - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker volume rm $(docker volume ls -q) || true"
-    # - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
-    # - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker pull ${CI_REGISTRY_IMAGE}:latest"
-  script:
-    # - scp -o StrictHostKeyChecking=no -i $RSA -r . $VM_USER@$VM:~/team-project-deployment
-    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY && docker compose -f docker-compose.yml up -d && docker run -d -p 80:8000 $CI_IMG"
+    - echo "Running fictional test suite..."
+    - source $(pwd)venv/bin/activate
+    - python manage.py test
+    - python manage.py runserver &
+    - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up"
+    - sudo pkill python
+    - deactivate
+    # - source venv/bin/activate
+    # - python manage.py test
+  # variables:
+  # DOCKER_HOST: tcp://docker:2375/
+#   DOCKER_DRIVER: overlay2
+
+# publish_stage:
+#   image: docker:latest
+#   stage: publish
+#   services:
+#     - docker:dind
+#   variables:
+#     DOCKER_HOST: "tcp://docker:2375/"
+#     DOCKER_DRIVER: overlay2
+#     DOCKER_TLS_CERTDIR: ""
+#   script:
+#     - echo "pushing ${CI_REGISTRY_IMAGE} ${CI_REGISTRY_USER} ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}"
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     - docker build -t $CI_IMG .
+#     - docker push $CI_IMG
+# - docker pull $IMAGE:web || true
+# - docker build --cache-from $WEB_IMAGE -t $WEB_IMAGE -f Dockerfile .
+# - docker-compose -f docker-compose.yml build
+# - docker push $WEB_IMAGE:web
+# - pkill python
+# - deactivate
+# deploy_stage:
+#   image: alpine:latest
+#   stage: deploy
+#   when: on_success
+#   before_script:
+#     - chmod 400 $RSA
+#     - apk update && apk add openssh-client
+# - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker compose -f docker-compose.yml down || true"
+# - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker rm -f $(docker ps -a -q) || true"
+# - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker volume rm $(docker volume ls -q) || true"
+# - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
+# - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker pull ${CI_REGISTRY_IMAGE}:latest"
+# script:
+# - scp -o StrictHostKeyChecking=no -i $RSA -r . $VM_USER@$VM:~/team-project-deployment
+# - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY && docker run -d -p 80:8000 $CI_IMG"
 # - echo "$RSA" > ~/.ssh/id_rsa
 # - cat ~/.ssh/id_rsa
 # - chmod 700 ~/.ssh/id_rsa

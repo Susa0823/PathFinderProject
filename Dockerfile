@@ -5,10 +5,10 @@ ENV PYTHONUNBUFFERED=1
 ENV PYTHONWRITEBYTECODE=1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 
-COPY ./requirements.txt /requirements.txt
-COPY ./PathFinder /PathFinder
-
 WORKDIR /PathFinder
+
+COPY . .
+RUN pip install -r requirements.txt
 
 # apk -> Alpine Package Keeper
 # RUN python -m venv /py && \
