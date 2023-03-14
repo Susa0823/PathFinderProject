@@ -23,6 +23,6 @@ RUN python -m venv /py && \
 ENV PATH="/py/bin:$PATH"
 USER PathFinderDevUser
 
-# CMD ["python3 manage.py runserver &"]
+CMD ["python3 manage.py runserver &"]
 
 EXPOSE 8000

@@ -1,4 +1,3 @@
-# write a ci cd file for gitlab given that the project is using psql with username and password in settings.py and using docker
 # https://testdriven.io/blog/deploying-django-to-digitalocean-with-docker-and-gitlab/
 image:
   name: docker:latest
