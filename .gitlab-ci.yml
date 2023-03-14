@@ -82,8 +82,6 @@ publish_stage:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $CI_IMG .
     - docker push $CI_IMG
-  after_script:
-    - docker logout
     # - docker pull $IMAGE:web || true
     # - docker build --cache-from $WEB_IMAGE -t $WEB_IMAGE -f Dockerfile .
     # - docker-compose -f docker-compose.yml build

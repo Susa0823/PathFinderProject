@@ -86,7 +86,7 @@ DATABASES = {
         'USER': os.environ.get('DB_USER', 'pathfinderdbsu'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'pa$$wordFinder'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': '5432',
+        # 'PORT': '5432',
     }
 }
 
