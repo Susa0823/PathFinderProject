@@ -20,5 +20,5 @@ urlpatterns = [
     # create a path to the default django page
     # path('', include('PathFinderAPP.urls')),
     path('admin/', admin.site.urls),
-    path('PathFinder/PathFinderApp/', include('PathFinder.PathFinderApp.urls')),
+    # path('PathFinderApp/', include('PathFinderApp.urls.index')),
 ]
