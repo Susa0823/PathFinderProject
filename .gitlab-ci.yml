@@ -54,26 +54,44 @@ build_stage:
   #   - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
   #   - export WEB_IMAGE=$IMAGE:web
   #   - export NGINX_IMAGE=$IMAGE:nginx
+  variables:
+    DOCKER_HOST: "tcp://docker:2375/"
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
   script:
-    - echo "Starting build stage"
-    - docker pull $IMAGE:web || true
-    - docker build --cache-from $WEB_IMAGE -t $WEB_IMAGE -f Dockerfile .
-    - docker-compose -f docker-compose.yml build
-    - docker push $WEB_IMAGE:web
+    - echo "pushing ${CI_REGISTRY_IMAGE} ${CI_REGISTRY_USER} ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}"
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE -f Dockerfile .
+    - docker push $CI_REGISTRY_IMAGE
+    # - docker pull $IMAGE:web || true
+    # - docker build --cache-from $WEB_IMAGE -t $WEB_IMAGE -f Dockerfile .
+    # - docker-compose -f docker-compose.yml build
+    # - docker push $WEB_IMAGE:web
     # ensure server is up
     # - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up" &
     # - pkill python
     # - deactivate
 deploy_stage:
+  image: alpine:latest
   stage: deploy
+  when: on_success
+  before_script:
+    - chmod og=$RSA
+    - apk update && apk add openssh-client
+    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker compose -f docker-compose.yml down || true"
+    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker rm -f $(docker ps -a -q) || true"
+    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker volume rm $(docker volume ls -q) || true"
+    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
+    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker pull $CI_REGISTRY_IMAGE:latest"
   script:
-    - mkdir -p ~/.ssh
-    - echo "$RSA" > ~/.ssh/id_rsa
-    - cat ~/.ssh/id_rsa
-    - chmod 700 ~/.ssh/id_rsa
-    - eval $(ssh-agent -s)
-    - ssh-add ~/.ssh/id_rsa
-    - ssh-keyscan -H 'git.cs.bham.ac.uk/' >> ~/.ssh/known_hosts
-    - chmod +x deploy.sh
-    - scp -o StrictHostKeyChecking=no -r ./docker-compose.yml root@143.198.222.14:/PathFinder
-    - bash ./deploy.sh
+    - scp -o StrictHostKeyChecking=no -i $RSA -r . $VM_USER@$VM:~/team-project-deployment
+    - ssh -o StrictHostKeyChecking=no -i $RSA $VM_USER@$VM "docker compose -f docker-compose.yml up -d"
+# - echo "$RSA" > ~/.ssh/id_rsa
+# - cat ~/.ssh/id_rsa
+# - chmod 700 ~/.ssh/id_rsa
+# - eval $(ssh-agent -s)
+# - ssh-add ~/.ssh/id_rsa
+# - ssh-keyscan -H 'git.cs.bham.ac.uk/' >> ~/.ssh/known_hosts
+# - chmod +x deploy.sh
+# - scp -o StrictHostKeyChecking=no -r ./docker-compose.yml root@143.198.222.14:/PathFinder
+# - bash ./deploy.sh
