@@ -1,5 +1,5 @@
-# https://testdriven.io/blog/deploying-django-to-digitalocean-with-docker-and-gitlab/ image:
 image: python:latest
+# https://testdriven.io/blog/deploying-django-to-digitalocean-with-docker-and-gitlab/ image:
 
 variables:
   CI_IMG: '"${CI_REGISTRY_IMAGE}:latest"'
@@ -17,7 +17,7 @@ cache:
   paths:
     - .cache/pip
     - venv
-    - .venv
+    # - .venv
 # before_script:
 #   - python -V
 #   - pip install --upgrade pip
@@ -67,13 +67,13 @@ build_stage:
     # - python manage.py runserver
   artifacts:
     paths:
-      - $(pwd)/venv
+      - /venv
 
 test_stage:
   stage: test
   script:
     - echo "Running fictional test suite..."
-    - source $(pwd)venv/bin/activate
+    - source venv/bin/activate
     - python manage.py test
     - python manage.py runserver &
     - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up"
