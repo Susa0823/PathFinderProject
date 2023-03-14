@@ -10,9 +10,11 @@ services:
     image: "${WEB_IMAGE}"
     command: python manage.py runserver
     ports:
-      - 8080:8080
+      - 0.0.0.0:8080:8080
     volumes:
       - .:/app
+  patjfinderdb:
+    image: postgres:14.7
     environment:
       - SECRET_KEY=SuperSecretDevKey
       - DEBUG=1
@@ -20,6 +22,8 @@ services:
       - DB_NAME=devdb
       - DB_USER=postgres
       - DB_PASSWORD=SuperSecretDevPassword
+    ports:
+      - 127.0.0.1:5432:5432
 
   # pathfinderdb:
   #   image: postgres:14.0-alpine
