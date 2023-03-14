@@ -114,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'GMT+4'
+TIME_ZONE = 'Asia/Dubai'
 
 USE_I18N = True
 
