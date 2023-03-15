@@ -19,7 +19,7 @@ cache:
     - venv
     # - .venv
 # before_script:
-# - ssh add $RSA4
+# - ssh add $SSHKEY
 #   - python -V
 #   - pip install --upgrade pip
 #   - pip install -r requirements.txt
@@ -65,8 +65,8 @@ test_stage:
     - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up"
     - pkill python
     - deactivate
-    - chmod 400 $RSA4
-    - ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "echo 1"
+    - chmod 400 $SSHKEY
+    - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "echo 1"
     # - source venv/bin/activate
     # - python manage.py test
   # variables:
@@ -81,13 +81,13 @@ publish_stage:
   before_script:
     - "command -v ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
     - eval $(ssh-agent -s)
-    - chmod 400 $RSA4
-    - ssh-add $RSA4
-    - ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
+    - chmod 400 $SSHKEY
+    - ssh-add $SSHKEY
+    - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
     # - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "docker build -t $CI_IMG ."
-    - ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "docker push $CI_IMG"
+    - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "docker build -t $CI_IMG ."
+    - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "docker push $CI_IMG"
     # - docker build -t $CI_IMG .
     # - docker push $CI_IMG
 # deploy_stage:
