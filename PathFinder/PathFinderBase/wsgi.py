@@ -11,6 +11,10 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PathFinder.settings')
+# ! waitress-serve PathFinder.PathFinderBase.wsgi:application
+# Since apparently gunicorn is not available on windows
+# gunicorn --bind 0.0.0.0:8000 myproject.wsgi on remote eventually
+os.environ.setdefault('DJANGO_SETTINGS_MODULE',
+                      'PathFinder.PathFinderBase.settings')
 
 application = get_wsgi_application()

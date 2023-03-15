@@ -16,6 +16,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -27,7 +28,7 @@ DEBUG = bool(int(os.environ.get('DEBUG', 1)))
 
 # Security measure to prevent HTTP Host header attacks (see https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts)
 # Only when DEBUG is False, the ALLOWED_HOSTS list is used
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['143.198.222.14']
 ALLOWED_HOSTS.extend(
     filter(None, os.environ.get('ALLOWED_HOSTS', '').split(',')))
 
@@ -82,6 +83,7 @@ WSGI_APPLICATION = 'PathFinder.PathFinderBase.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
+        # pathfinderdb on remote server, only diff
         'NAME': os.environ.get('DB_NAME', 'AppDBdjango'),
         'USER': os.environ.get('DB_USER', 'pathfinderdbsu'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'pa$$wordFinder'),

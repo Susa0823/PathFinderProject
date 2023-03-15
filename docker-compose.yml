@@ -13,6 +13,19 @@ services:
       - 0.0.0.0:8080:8080
     volumes:
       - .:/app
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - pathfinderapp
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+      # cache_from:
+      #   - "${NGINX_IMAGE}"
   patjfinderdb:
     image: postgres:14.7
     environment:
@@ -25,6 +38,9 @@ services:
     ports:
       - 0.0.0.0:5432:5432
 
+volumes:
+  static_volume:
+  media_volume:
   # pathfinderdb:
   #   image: postgres:14.0-alpine
   #   environment:
