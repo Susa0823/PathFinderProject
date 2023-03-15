@@ -8,39 +8,69 @@ services:
       # cache_from:
       #   - "${WEB_IMAGE}"
     # image: "${WEB_IMAGE}"
-    command: python manage.py runserver
-    ports:
-      - 0.0.0.0:8080:8080
+    command: gunicorn PathFinder.PathFinderBase.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - .:/app
-  nginx:
+      - static_volume:/root/teamdai58-22/PathFinder/static
+      #- media_volume:/PathFinder/media
+    expose:
+      - 8000
+    depends_on:
+      - pathfinderdb
+  nginx-proxy:
+    container_name: nginx
     build:
-      context: .
+      context: ./nginx
       dockerfile: Dockerfile-nginx
+    restart: always
     ports:
-      - "80:80"
+      - 80:80
+      - 443:443
+    volumes:
+      - static_volume:/root/teamdai58-22/PathFinder/static
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - pathfinderapp
+  nginx-proxy-letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    env_file:
+      - ./.env.staging.proxy-companion
     volumes:
-      - static_volume:/app/static
-      - media_volume:/app/media
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - acme:/etc/acme.sh
+    depends_on:
+      - nginx-proxy
+      #- media_volume:/app/media
       # cache_from:
       #   - "${NGINX_IMAGE}"
-  patjfinderdb:
+  pathfinderdb:
     image: postgres:14.7
+    volumes:
+      - pathfinderdb_data:/var/lib/postgresql/data
+    env_file:
+      - ./.env.staging
     environment:
       - SECRET_KEY=SuperSecretDevKey
       - DEBUG=1
-      - DB_HOST=pathfinderdb
-      - DB_NAME=devdb
-      - DB_USER=postgres
-      - DB_PASSWORD=SuperSecretDevPassword
+      - DB_HOST=localhost
+      - DB_NAME=pathfinderdb
+      - DB_USER=pathfinderdbsu
+      - DB_PASSWORD=pa$$wordFinder
     ports:
       - 0.0.0.0:5432:5432
-
 volumes:
+  pathfinderdb_data:
   static_volume:
-  media_volume:
+  certs:
+  html:
+  vhost:
+  acme:
+
   # pathfinderdb:
   #   image: postgres:14.0-alpine
   #   environment:
