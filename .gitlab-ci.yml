@@ -65,31 +65,31 @@ test_stage:
     - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up"
     - pkill python
     - deactivate
-    - chmod 400 $SSHKEY
-    - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "echo 1"
+    # - chmod 400 $SSHKEY
+    # - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "echo 1"
     # - source venv/bin/activate
     # - python manage.py test
   # variables:
   # DOCKER_HOST: tcp://docker:2375/
 #   DOCKER_DRIVER: overlay2
 
-publish_stage:
-  image: docker:latest
-  stage: publish
-  services:
-    - docker:dind
-  before_script:
-    - "command -v ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
-    - eval $(ssh-agent -s)
-    - chmod 400 $SSHKEY
-    - ssh-add $SSHKEY
-    - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
-    # - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  script:
-    - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "docker build -t $CI_IMG ."
-    - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "docker push $CI_IMG"
-    # - docker build -t $CI_IMG .
-    # - docker push $CI_IMG
+# publish_stage:
+#   image: docker:latest
+#   stage: publish
+#   services:
+#     - docker:dind
+#   before_script:
+#     - "command -v ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
+#     - eval $(ssh-agent -s)
+#     - chmod 400 $SSHKEY
+#     - ssh-add $SSHKEY
+#     - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
+#     # - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#   script:
+#     - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "docker build -t $CI_IMG ."
+#     - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "docker push $CI_IMG"
+# - docker build -t $CI_IMG .
+# - docker push $CI_IMG
 # deploy_stage:
 #   image: alpine:latest
 #   stage: deploy
