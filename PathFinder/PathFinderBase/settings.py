@@ -30,7 +30,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Security measure to prevent HTTP Host header attacks (see https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts)
 # Only when DEBUG is False, the ALLOWED_HOSTS list is used
 ALLOWED_HOSTS = ['143.198.222.14', 'localhost',
-                 'www.pathfinder.ink', 'pathfinder.ink']
+                 'www.pathfinder.ink', 'pathfinder.ink', '127.0.0.1']
 ALLOWED_HOSTS.extend(
     filter(None, os.environ.get('ALLOWED_HOSTS', '').split(',')))
 
@@ -86,7 +86,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         # pathfinderdb on remote server, only diff
-        'NAME': os.environ.get('DB_NAME', 'AppDBdjango'),
+        'NAME': os.environ.get('DB_NAME', 'pathfinderdb'),
+        # 'NAME': os.environ.get('DB_NAME', 'AppDBdjango'),
         'USER': os.environ.get('DB_USER', 'pathfinderdbsu'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'pa$$wordFinder'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
