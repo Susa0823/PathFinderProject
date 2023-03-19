@@ -4,6 +4,10 @@
 **/__pycache__/
 db.sqlite3
 media
+PathFinder/__pycache__/
+PathFinder/*/__pycache__/
+PathFinder/*/*/__pycache__/
+PathFinder/*/*/*/__pycache__/
 
 # If you are using PyCharm #
 # User-specific stuff
