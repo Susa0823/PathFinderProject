@@ -65,6 +65,8 @@ test_stage:
     - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up"
     - pkill python
     - deactivate
+    - chmod 400 $RSA4
+    #- ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "echo 1"
     # - chmod 400 $SSHKEY
     # - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "echo 1"
     # - source venv/bin/activate
