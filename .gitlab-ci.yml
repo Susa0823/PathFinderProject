@@ -66,7 +66,7 @@ test_stage:
     - pkill python
     - deactivate
     - chmod 400 $RSA4
-    - ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "echo 1"
+    #- ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "echo 1"
     # - source venv/bin/activate
     # - python manage.py test
   # variables:

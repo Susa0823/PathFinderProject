@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   pathfinderapp:
+    container_name: pathfinderapp
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,54 +11,62 @@ services:
     # image: "${WEB_IMAGE}"
     command: gunicorn PathFinder.PathFinderBase.wsgi:application --bind 0.0.0.0:8000
     volumes:
+      - .:/pathfinderapp
       - static_volume:/root/teamdai58-22/PathFinder/static
       #- media_volume:/PathFinder/media
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env.staging
     expose:
-      - 8000
+      - "8000"
     depends_on:
       - pathfinderdb
+
   nginx-proxy:
-    container_name: nginx
+    #container_name: nginx
+    container_name: nginx-proxy
+    hostname: nginx-proxy
     build:
       context: ./nginx
       dockerfile: Dockerfile-nginx
     restart: always
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
     volumes:
+      - /etc/nginx/:/etc/nginx
+      - /root/teamdai58-22.bham.team:/etc/ssl/private
       - static_volume:/root/teamdai58-22/PathFinder/static
-      - certs:/etc/nginx/certs
-      - html:/usr/share/nginx/html
-      - vhost:/etc/nginx/vhost.d
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      #- certs:/root/teamdai58-22.bham.team/
+      #- html:/usr/share/nginx/html
+      #- vhost:/etc/nginx/vhost.d
+      #- /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - pathfinderapp
-  nginx-proxy-letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    env_file:
-      - ./.env.staging.proxy-companion
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - certs:/etc/nginx/certs
-      - html:/usr/share/nginx/html
-      - vhost:/etc/nginx/vhost.d
-      - acme:/etc/acme.sh
-    depends_on:
-      - nginx-proxy
       #- media_volume:/app/media
       # cache_from:
       #   - "${NGINX_IMAGE}"
+
+  web-api:
+    container_name: web-api
+    depends_on:
+      - nginx-proxy
+    build:
+      context: .
+    ports:
+      - "5000:5000"
+    restart: always
+
   pathfinderdb:
+    container_name: pathfinderdb
     image: postgres:14.7
     volumes:
       - pathfinderdb_data:/var/lib/postgresql/data
-    env_file:
-      - ./.env.staging
     environment:
       - SECRET_KEY=SuperSecretDevKey
-      - DEBUG=1
-      - DB_HOST=localhost
+      #- DEBUG=1
+      #- DB_HOST=localhost
       - DB_NAME=pathfinderdb
       - DB_USER=pathfinderdbsu
       - DB_PASSWORD=pa$$wordFinder

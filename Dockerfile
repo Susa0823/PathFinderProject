@@ -7,9 +7,14 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 
 WORKDIR /PathFinder
 
-COPY . .
+RUN apk update && \ 
+    apk add postgresql-dev gcc python3-dev musl-dev
+
+COPY ./requirements.txt .
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
+COPY . .
 # apk -> Alpine Package Keeper
 # RUN python -m venv /py && \
 #     apk update && \
@@ -23,7 +28,7 @@ RUN pip install -r requirements.txt
 #     adduser --disabled-password --no-create-home PathFinderDevUser
 
 
-CMD python manage.py runserver 0.0.0.0:8000
+#CMD python manage.py runserver 0.0.0.0:8000
 # ENV PATH="/py/bin:$PATH"
 # USER PathFinderDevUser
 
