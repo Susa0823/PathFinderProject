@@ -16,8 +16,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+STATIC_URL = '/static/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -86,11 +86,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         # pathfinderdb on remote server, only diff
-        'NAME': os.environ.get('DB_NAME', 'pathfinderdb'),
+        'NAME': os.environ.get('SQL_NAME', 'pathfinderdb'),
         # 'NAME': os.environ.get('DB_NAME', 'AppDBdjango'),
-        'USER': os.environ.get('DB_USER', 'pathfinderdbsu'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'pa$$wordFinder'),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'USER': os.environ.get('SQL_USER', 'pathfinderdbsu'),
+        'PASSWORD': os.environ.get('SQL_PASSWORD', 'pa$$wordFinder'),
+        'HOST': os.environ.get('SQL_HOST', 'localhost'),
+        'PORT': os.environ.get('SQL_PORT', '5432'),
         # 'PORT': '5432',
     }
 }
@@ -129,7 +130,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
