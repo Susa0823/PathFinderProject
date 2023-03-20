@@ -77,8 +77,8 @@ volumes:
   static_volume:
   certs:
   html:
-  vhost:
-  acme:
+  #vhost:
+  #acme:
 
   # pathfinderdb:
   #   image: postgres:14.0-alpine
