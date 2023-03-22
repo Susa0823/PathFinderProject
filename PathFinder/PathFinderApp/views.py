@@ -4,8 +4,6 @@ import openai
 import os
 
 
-def index(req):
-    return HttpResponse("Hello, world. You're at the pathfinderapp index.")
 # Create your views here.
 
 
@@ -28,7 +26,6 @@ def chatbot(req):
             max_tokens=512,
         )
         print(response)
-        print("salam")
         print(type(req))
 
     return render(req, 'chatgpt.html', {})
