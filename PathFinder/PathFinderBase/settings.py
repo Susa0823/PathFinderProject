@@ -17,7 +17,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
-
+STATIC_URL = '/static/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -91,7 +91,6 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASSWORD', 'pa$$wordFinder'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': os.environ.get('SQL_PORT', 5432),
-        # 'PORT': '5432',
     }
 }
 
@@ -129,7 +128,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

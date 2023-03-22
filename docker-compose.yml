@@ -22,14 +22,14 @@ services:
       - "8000"
     depends_on:
       - pathfinderdb
+ 
 
   nginx-proxy:
-    #container_name: nginx
     container_name: nginx-proxy
     hostname: nginx-proxy
     build:
-      context: ./nginx
-      dockerfile: Dockerfile-nginx
+      context: .
+      dockerfile: ./nginx/Dockerfile-nginx
     restart: always
     ports:
       - "80:80"
@@ -48,15 +48,15 @@ services:
       # cache_from:
       #   - "${NGINX_IMAGE}"
 
-  web-api:
-    container_name: web-api
-    depends_on:
-      - nginx-proxy
-    build:
-      context: .
-    ports:
-      - "5000:5000"
-    restart: always
+  #web-api:
+    #container_name: web-api
+    #depends_on:
+      #- nginx-proxy
+    #build:
+      #context: .
+    #ports:
+      #- "5000:5000"
+    #restart: always
 
   pathfinderdb:
     container_name: pathfinderdb
