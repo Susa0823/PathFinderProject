@@ -1,5 +1,0 @@
-location /static/ {
-  alias /root/temp/teamdai58-22/PathFinder/static;
-  add_header Access-Control-Allow-Origin *;
-}
-

@@ -7,7 +7,7 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 
 WORKDIR /PathFinder
 
-RUN apk update && \ 
+RUN apk update && \
     apk add postgresql-dev gcc python3-dev musl-dev
 
 COPY ./requirements.txt .
