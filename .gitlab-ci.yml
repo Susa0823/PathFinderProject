@@ -1,4 +1,4 @@
-image: python:3.11-alpine3.16
+image: python:3.11
 
 # https://testdriven.io/blog/deploying-django-to-digitalocean-with-docker-and-gitlab/ image:
 
