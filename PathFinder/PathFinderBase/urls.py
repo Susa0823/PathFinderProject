@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from PathFinder.PathFinderApp import views, urls
 urlpatterns = [
     # create a path to the default django page
     # path('', include('PathFinderAPP.urls')),
     path('admin/', admin.site.urls),
+    path('', views.chatbot, name='chatbot'),
     # path('PathFinderApp/', include('PathFinderApp.urls.index')),
 ]
