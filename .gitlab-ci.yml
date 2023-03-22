@@ -46,14 +46,14 @@ build_stage:
     - python3 -m venv venv
     - source venv/bin/activate
     - pip install -r requirements.txt
-    - deactivate
+    # - deactivate
     # - python manage.py collectstatic --noinput
     # - python manage.py makemigrations
     # - python manage.py migrate
     # - python manage.py runserver
   artifacts:
     paths:
-      - /venv
+      - venv/
 
 test_stage:
   stage: test
