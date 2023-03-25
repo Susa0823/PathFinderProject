@@ -3,8 +3,18 @@
 <h3>Chat with GPT-4</h3>
 
 <form method="post">
-    {% csrf_token %}
-    <input type="text" name="query" placeholder="Ask a question" class="form-control" />
-    <button type="submit" class="btn btn-primary">Submit</button>
+  {% csrf_token %}
+
+  <input
+    type="text"
+    name="query"
+    placeholder="Ask a question"
+    class="form-control"
+  />
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+  <!-- write a django function in views.py to retrieve input from this text field -->
 </form>
-{% endblock content %}
+{% if response %}
+<div>{{ response|safe }}</div>
+{% endif %} {% endblock content %}

@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['143.198.222.14', 'localhost',
 ALLOWED_HOSTS.extend(
     filter(None, os.environ.get('ALLOWED_HOSTS', '').split(',')))
 
+PYTHONUNBUFFERED = 0
 # Application definition
 
 INSTALLED_APPS = [
@@ -87,8 +88,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         # pathfinderdb on remote server, only diff
-        # 'NAME': os.environ.get('DB_NAME', 'pathfinderdb'),
-        'NAME': os.environ.get('DB_NAME', 'AppDBdjango'),
+        'NAME': os.environ.get('DB_NAME', 'pathfinderdb'),
+        # 'NAME': os.environ.get('DB_NAME', 'AppDBdjango'),
         'USER': os.environ.get('DB_USER', 'pathfinderdbsu'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'pa$$wordFinder'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),

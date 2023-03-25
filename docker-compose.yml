@@ -22,7 +22,6 @@ services:
       - "8000"
     depends_on:
       - pathfinderdb
- 
 
   nginx-proxy:
     container_name: nginx-proxy
@@ -36,9 +35,7 @@ services:
       - "443:443"
     volumes:
       - /etc/nginx/:/etc/nginx
-      - /root/teamdai58-22.bham.team:/etc/ssl/private
-      - static_volume:/root/teamdai58-22/PathFinder/static
-      #- certs:/root/teamdai58-22.bham.team/
+      - static_volume:./PathFinder/static
       #- html:/usr/share/nginx/html
       #- vhost:/etc/nginx/vhost.d
       #- /var/run/docker.sock:/tmp/docker.sock:ro
@@ -47,16 +44,6 @@ services:
       #- media_volume:/app/media
       # cache_from:
       #   - "${NGINX_IMAGE}"
-
-  #web-api:
-    #container_name: web-api
-    #depends_on:
-      #- nginx-proxy
-    #build:
-      #context: .
-    #ports:
-      #- "5000:5000"
-    #restart: always
 
   pathfinderdb:
     container_name: pathfinderdb
