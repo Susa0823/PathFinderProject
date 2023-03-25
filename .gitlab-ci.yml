@@ -45,6 +45,7 @@ build_stage:
   script:
     - python3 -m venv venv
     - source venv/bin/activate
+    - pip install --upgrade pip
     - pip install -r requirements.txt
     # - deactivate
     # - python manage.py collectstatic --noinput
@@ -54,19 +55,20 @@ build_stage:
   artifacts:
     paths:
       - venv/
+    expire_in: 1 day
 
 test_stage:
   stage: test
   script:
     - echo "Running fictional test suite..."
-    - ls
+    # - ls
     - source venv/bin/activate
     - python manage.py test
     - python manage.py runserver &
+    - sleep 4
     - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up"
     - pkill python
     - deactivate
-    - chmod 400 $RSA4
     #- ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "echo 1"
     # - chmod 400 $SSHKEY
     # - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "echo 1"
