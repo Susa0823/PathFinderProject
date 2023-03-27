@@ -1,5 +1,6 @@
 {% block content %}
 
+{%include "./navbar.html"%}
 <h3>Chat with GPT-4</h3>
 
 <form method="post">
@@ -11,10 +12,10 @@
     placeholder="Ask a question"
     class="form-control"
   />
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Send</button>
 
-  <!-- write a django function in views.py to retrieve input from this text field -->
 </form>
 {% if response %}
 <div>{{ response|safe }}</div>
-{% endif %} {% endblock content %}
+{% endif %}
+{% endblock content %}
