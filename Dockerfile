@@ -16,7 +16,11 @@ RUN pip install -r requirements.txt
 
 COPY . .
 # apk -> Alpine Package Keeper
-# RUN python -m venv /py && \
+RUN apk add --no-cache --update postgresql-client && \
+    apk add --virtual build-deps gcc python3-dev musl-dev && \
+    apk add --no-cache --update postgresql-client && \
+    apk add --no-cache --update --virtual .tmp-build-deps
+    # RUN python -m venv /py && \
 #     apk update && \
 #     /py/bin/pip install --upgrade pip && \
 #     apk add --virtual build-deps gcc python3-dev musl-dev && \

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from PathFinder.PathFinderApp import views, urls
+# from PathFinder.PathFinderApp import views, urls
 urlpatterns = [
     # create a path to the default django page
     path('', include('PathFinder.PathFinderApp.urls')),

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-{% comment %} {%block title%}Index page{%endblock%} {% endcomment %}
-{% load static %}
 
+{% load static %}
+<link rel="stylesheet" href="{% static 'base_style.css' %}">
 <html lang="en">
 {%block template %}
 {% include "./navbar.html" %}
+
 {%endblock%}
 </html>

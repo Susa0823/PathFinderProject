@@ -12,7 +12,7 @@ services:
     command: gunicorn PathFinder.PathFinderBase.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/pathfinderapp
-      - static_volume:/root/teamdai58-22/PathFinder/static
+      - static_volume:/PathFinder/static
       #- media_volume:/PathFinder/media
     ports:
       - "8000:8000"
@@ -35,7 +35,7 @@ services:
       - "443:443"
     volumes:
       - /etc/nginx/:/etc/nginx
-      - static_volume:./PathFinder/static
+      - static_volume:/PathFinder/static
       #- html:/usr/share/nginx/html
       #- vhost:/etc/nginx/vhost.d
       #- /var/run/docker.sock:/tmp/docker.sock:ro

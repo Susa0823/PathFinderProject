@@ -18,6 +18,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_URL = '/static/'
+
+# TODO: Fix routing issue perhaps, because base_style.css returns a 404 when trying to load it in index.html template
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'PathFinder/static')
+]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
