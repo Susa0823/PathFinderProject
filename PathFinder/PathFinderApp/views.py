@@ -62,6 +62,7 @@ def chatbot(chat_query_response):
         print(chat_history)
 
         gpt_response = full_api_response.choices[0].message.content
+        chat_history.append({"role": "assistant", "content": gpt_response})
     return render(chat_query_response, 'chatgpt.html', {'response': gpt_response})
     # print(full_api_response)
     # print(type(chat_query_response))
