@@ -16,12 +16,11 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-STATIC_URL = '/static/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = os.environ.get('SECRET_KEY', 'shawarma')
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -48,6 +47,7 @@ INSTALLED_APPS = [
     # below entry added so django knows about the app and its config
     'PathFinder.PathFinderApp.apps.PathfinderappConfig',
 ]
+
 MIDDLEWARE = [
 
     'django.middleware.security.SecurityMiddleware',
@@ -59,7 +59,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'PathFinder.PathFinderBase.urls'
 
 TEMPLATES = [
     {
@@ -78,11 +77,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'PathFinder.PathFinderBase.wsgi.application'
+ASGI_APPLICATION = 'PathFinder.PathFinderBase.asgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
 # These are the credentials for the local psql database
 DATABASES = {
     'default': {
@@ -132,6 +131,18 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
+STATIC_URL = '/static/'
+
+ROOT_URLCONF = 'PathFinder.PathFinderBase.urls'
+
+# TODO: Fix routing issue perhaps, because base_style.css returns a 404 when trying to load it in index.html template
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+    # os.path.join(BASE_DIR, 'static/pathfinderapp'),
+    # os.path.join(BASE_DIR, 'static/admin')
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
