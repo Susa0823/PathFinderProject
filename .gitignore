@@ -8,6 +8,7 @@ PathFinder/__pycache__/
 PathFinder/*/__pycache__/
 PathFinder/*/*/__pycache__/
 PathFinder/*/*/*/__pycache__/
+api/*
 
 # If you are using PyCharm #
 # User-specific stuff
