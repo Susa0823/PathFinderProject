@@ -94,6 +94,7 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASSWORD', 'pa$$wordFinder'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': os.environ.get('SQL_PORT', 5432),
+    
     }
 }
 
@@ -125,7 +126,7 @@ LANGUAGE_CODE = 'en-us'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
