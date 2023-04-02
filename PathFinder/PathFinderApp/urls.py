@@ -7,4 +7,5 @@ urlpatterns = [
     # path('about', views.about, name='about'),
     path('', views.index, name='index'),
     path('chatbot/', views.chatbot, name='chatbot'),
+    path('policy/', views.gdpr, name='policy'),
 ]
