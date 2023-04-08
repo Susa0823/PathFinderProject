@@ -14,6 +14,10 @@ def index(request):
 def gdpr(request):
     return render(request, 'gdpr.html')
 
+def about(request):
+    return render(request, 'about.html')
+
+
 # *ASIDE: Function for token counting queries.
 
 # def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0301"):
