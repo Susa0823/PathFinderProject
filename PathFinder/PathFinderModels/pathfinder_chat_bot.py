@@ -75,7 +75,7 @@ def make_chain(vectorstore: VectorStore):
 def make_chain_prebuilt(vectorstore: VectorStore):
     qa = VectorDBQA.from_chain_type(llm=OpenAI(temperature=0.5, verbose=True), chain_type="stuff", vectorstore=vectorstore)
     query = "ndtm?"
-    qa.run(query)
+    # qa.run(query)
     chain = load_chain("./temp.json", vectorstore=vectorstore)
     query = "How would you define the class np?"
     print(chain.run(query))
@@ -104,14 +104,12 @@ with open("ndtmvecstore.pkl", "rb") as f:
 
     # llm = OpenAI(temperature=0.5)
     # conversation_chain = ConversationChain(llm=llm, verbose=True, memory=ConversationBufferWindowMemory())
-    # # conversation_chain.predict(input="My name is abdulla and I am from abudhabi.")
-    # # # conversation_chain.predict(input="how are you?")
     # # # # conversation_chain.predict(input="what is my name?")
 
     # history = ChatMessageHistory()
     # chat_history = ChatMessageHistory()
-    # chat_history.add_user_message("My name is abdulla and I am from abudhabi.")
-    # chat_history.add_ai_message("Hello abdulla, how are you?")
+    # chat_history.add_user_message("")
+    # chat_history.add_ai_message("")
     # conv_mem = ConversationBufferWindowMemory()
     # conv_mem.chat_memory.add_user_message("i use arch btw")
     # conv_mem.chat_memory.add_ai_message("Thats crazy")
