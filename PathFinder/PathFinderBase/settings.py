@@ -135,7 +135,6 @@ STATIC_URL = '/static/'
 
 ROOT_URLCONF = 'PathFinder.PathFinderBase.urls'
 
-# TODO: Fix routing issue perhaps, because base_style.css returns a 404 when trying to load it in index.html template
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),

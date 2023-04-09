@@ -1,44 +1,34 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import os
+import json
+import pickle
 import openai
-import os, json
+import PathFinder.PathFinderModels.pathfinder_chat_bot as qamodel
 
+api_key = os.environ.get('OPENAI_API_KEY')
 
-# try to ignore the security precautions taken here-and elsewhere, its a temporary solution (hopefully) (╯‵□′)╯︵┻━┻.
-api_key = os.environ.get(
-    'OPENAI_API_KEY', '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')
+def qachain(request):
+
+    with open("ndtmvecstore.pkl", "rb") as f:
+        vectorstore = pickle.load(f)
+
+    qamodel.make_chain(vectorstore)
+
+    return 0
+qachain(None)
+
 
 def index(request):
     return render(request, 'index.html')
-
-# *ASIDE: Function for token counting queries.
-
-# def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0301"):
-#   try:
-#       encoding = tiktoken.encoding_for_model(model)
-#   except KeyError:
-#       encoding = tiktoken.get_encoding("cl100k_base")
-#   if model == "gpt-3.5-turbo-0301":  # note: future models may deviate from this
-#       num_tokens = 0
-#       for message in messages:
-#           num_tokens += 4  # every message follows <im_start>{role/name}\n{content}<im_end>\n
-#           for key, value in message.items():
-#               num_tokens += len(encoding.encode(value))
-#               if key == "name":  # if there's a name, the role is omitted
-#                   num_tokens += -1  # role is always required and always 1 token
-#       num_tokens += 2  # every reply is primed with <im_start>assistant
-#       return num_tokens
-#   else:
-#       raise NotImplementedError(f"""num_tokens_from_messages() is not presently implemented for model {model}.
-#   See https://github.com/openai/openai-python/blob/main/chatml.md for information on how messages are converted to tokens.""")
-
 
 def chatbot(chat_query_response):
     openai.api_key = api_key
     gpt_response = ''
 
     chat_history = [
-        {"role": "system", "content": "You are PathFinder, ChatGPTs distant cousin trained by us (an unknown entity). Answer as informatively and academically as possible"},
+        {"role": "system",
+            "content": "You are PathFinder, ChatGPTs distant cousin trained by us (an unknown entity). Answer as informatively and academically as possible"},
         {"role": "assistant", "content": "I am a chatbot, I am here to help you"},
         {"role": "assistant", "content": "I will answer questions about academic subjects"},
     ]
@@ -67,9 +57,28 @@ def chatbot(chat_query_response):
     # print(full_api_response)
     # print(type(chat_query_response))
 
-
 # m = openai.Model.list()
 # print([m['id'] for m in m['data'] if m['id'].startswith('gpt')])
 # models= list(openai.Model.list().values())[1]
 # print(models)
 # print(list(filter(lambda x: re.match('*gpt*', x) , models)))
+
+# *ASIDE: Function for token counting queries.
+# def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0301"):
+#   try:
+#       encoding = tiktoken.encoding_for_model(model)
+#   except KeyError:
+#       encoding = tiktoken.get_encoding("cl100k_base")
+#   if model == "gpt-3.5-turbo-0301":  # note: future models may deviate from this
+#       num_tokens = 0
+#       for message in messages:
+#           num_tokens += 4  # every message follows <im_start>{role/name}\n{content}<im_end>\n
+#           for key, value in message.items():
+#               num_tokens += len(encoding.encode(value))
+#               if key == "name":  # if there's a name, the role is omitted
+#                   num_tokens += -1  # role is always required and always 1 token
+#       num_tokens += 2  # every reply is primed with <im_start>assistant
+#       return num_tokens
+#   else:
+#       raise NotImplementedError(f"""num_tokens_from_messages() is not presently implemented for model {model}.
+#   See https://github.com/openai/openai-python/blob/main/chatml.md for information on how messages are converted to tokens.""")

@@ -1,6 +1,10 @@
 gunicorn
 Django>=4.0.0
-psycopg2-binary==2.9.0
+psycopg2-binary
 virtualenv==20.0.0
 #waitress
 openai
+langchain
+faiss-cpu
+pypdf
+tiktoken

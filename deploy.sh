@@ -8,5 +8,6 @@ psql -V > /dev/null 2>&1
 #     docker pull $IMAGE:web
 #     docker-compose -f docker-compose.yml up -d
 # INITSSH
+
 # `$?` for the exit status of the last command
 echo "This deploy script is under development ¯\(°_o)/¯"

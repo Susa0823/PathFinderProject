@@ -8,6 +8,8 @@ PathFinder/__pycache__/
 PathFinder/*/__pycache__/
 PathFinder/*/*/__pycache__/
 PathFinder/*/*/*/__pycache__/
+*.pdf
+*.pkl
 
 # If you are using PyCharm #
 # User-specific stuff
@@ -36,6 +38,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+*env*
 
 
 # Visual Studio Code #
