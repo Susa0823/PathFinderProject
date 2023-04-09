@@ -1,0 +1,69 @@
+/* Navbar background color and height */
+.navbar {
+  background-color: #333;
+  height: 50px;
+}
+
+/* Navbar brand text color and padding */
+.navbar-brand {
+  color: #fff;
+  padding: 15px 0;
+}
+
+/* Navbar links text color, font size, and padding */
+.navbar-nav > li > a {
+  color: #fff;
+  font-size: 16px;
+  padding: 15px;
+}
+
+/* Navbar active link color */
+.navbar-nav > li.active > a {
+  color: #ffcc00;
+}
+
+/* Navbar dropdown menu styles */
+.navbar-nav .dropdown-menu {
+  background-color: #333;
+  border: none;
+}
+
+/* Navbar dropdown menu links text color and padding */
+.navbar-nav .dropdown-menu li a {
+  color: #fff;
+  padding: 10px 20px;
+}
+
+/* Navbar search input style */
+.navbar-form .form-group {
+  margin-bottom: 0;
+}
+
+/* Navbar search input placeholder color */
+.navbar-form .form-control::placeholder {
+  color: #ddd;
+}
+
+/* Navbar search input addon color */
+.navbar-form .input-group-addon {
+  color: #ddd;
+  background-color: #222;
+}
+
+/* Navbar profile and login/signup links text color and padding */
+.navbar-nav.navbar-right > li > a {
+  color: #fff;
+  padding: 15px;
+}
+
+/* Navbar login/signup dropdown menu styles */
+.navbar-nav.navbar-right .dropdown-menu {
+  background-color: #333;
+  border: none;
+}
+
+/* Navbar login/signup dropdown menu links text color and padding */
+.navbar-nav.navbar-right .dropdown-menu li a {
+  color: #fff;
+  padding: 10px 20px;
+}
