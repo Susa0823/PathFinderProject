@@ -37,8 +37,9 @@ def load_embed_pickle():
 
     faiss_vecstore = FAISS.from_documents(doc, OpenAIEmbeddings())
 
-    with open("ndtmvecstore.pkl", "wb") as f:
-        pickle.dump(faiss_vecstore, f)
+    if not os.path.exists("ndtmvecstore.pkl"):
+        with open("ndtmvecstore.pkl", "wb") as f:
+            pickle.dump(faiss_vecstore, f)
 
 def make_chain(vectorstore: VectorStore):
     main_llm = OpenAI(
@@ -69,20 +70,23 @@ def make_chain(vectorstore: VectorStore):
     #     vectorstore=vectorstore,
     #     #combine_documents_chain=machine_learning_101,
     # )
-    load_embed_pickle()
+    # load_embed_pickle()
     return qa_chain
 
 def make_chain_prebuilt(vectorstore: VectorStore):
-    qa = VectorDBQA.from_chain_type(llm=OpenAI(temperature=0.5, verbose=True), chain_type="stuff", vectorstore=vectorstore)
-    query = "ndtm?"
+    # qa = VectorDBQA.from_chain_type(llm=OpenAI(temperature=0.5, verbose=True), chain_type="stuff", vectorstore=vectorstore)
+    # query = "ndtm?"
     # qa.run(query)
+    # llm = OpenAI(temperature=0, verbose=True)
     chain = load_chain("./temp.json", vectorstore=vectorstore)
-    query = "How would you define the class np?"
-    print(chain.run(query))
+    query = "How would you define the class np? explain it like im 4 years old"
+    docs = vectorstore.similarity_search(query)
+    return chain.run(input=docs, query=query)
+    # print(chain.run(query))
 
-with open("ndtmvecstore.pkl", "rb") as f:
-    vecstore = pickle.load(f)
-    make_chain_prebuilt(vecstore)
+# with open("ndtmvecstore.pkl", "rb") as f:
+#     vecstore = pickle.load(f)
+#     make_chain_prebuilt(vecstore)
 
     # split_txts = text_splitter.split_documents(doc)
     # inbedding = OpenAIEmbeddings()

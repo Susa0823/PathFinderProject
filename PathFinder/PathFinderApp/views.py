@@ -10,10 +10,12 @@ api_key = os.environ.get('OPENAI_API_KEY')
 
 def qachain(request):
 
+    #! creating embeddings everytime is rather inefficient
+    qamodel.load_embed_pickle()
     with open("ndtmvecstore.pkl", "rb") as f:
         vectorstore = pickle.load(f)
+        print(qamodel.make_chain_prebuilt(vectorstore))
 
-    qamodel.make_chain(vectorstore)
 
     return 0
 qachain(None)
@@ -64,6 +66,8 @@ def chatbot(chat_query_response):
     if api_key is not None and chat_query_response.method == 'POST':
         user_in = chat_query_response.POST.get('query')
         prompt = user_in
+    else:
+        print("No API key set, please set one in the environment variable OPENAI_API_KEY")
 
         # User msgs below help instruct the 'assistant' aka the GPT model.
         # can be developer set instructs and user set >>> work can be done here regarding tweaking the model to our applications needs.
