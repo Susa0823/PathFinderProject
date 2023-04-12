@@ -16,7 +16,6 @@ def qachain(request):
         vectorstore = pickle.load(f)
         print(qamodel.make_chain_prebuilt(vectorstore))
 
-
     return 0
 qachain(None)
 
