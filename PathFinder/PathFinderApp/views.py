@@ -2,15 +2,16 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import os
 import json
-import pickle
+import pickle, warnings
 import openai
 import PathFinder.PathFinderModels.pathfinder_chat_bot as qamodel
 
 api_key = os.environ.get('OPENAI_API_KEY')
 
+warnings.filterwarnings("ignore")
+
 def qachain(request):
 
-    #! creating embeddings everytime is rather inefficient
     qamodel.load_embed_pickle()
     with open("ndtmvecstore.pkl", "rb") as f:
         vectorstore = pickle.load(f)
@@ -55,6 +56,7 @@ def about(request):
 def chatbot(chat_query_response):
     openai.api_key = api_key
     gpt_response = ''
+    prompt="Welcome the user and ask them what they want to learn about."
 
     chat_history = [
         {"role": "system",
@@ -62,10 +64,10 @@ def chatbot(chat_query_response):
         {"role": "assistant", "content": "I am a chatbot, I am here to help you"},
         {"role": "assistant", "content": "I will answer questions about academic subjects"},
     ]
-    prompt=""
     if api_key is not None and chat_query_response.method == 'POST':
         user_in = chat_query_response.POST.get('query')
         prompt = user_in
+        # print('api key')
     else:
         print("No API key set, please set one in the environment variable OPENAI_API_KEY")
 
@@ -74,18 +76,17 @@ def chatbot(chat_query_response):
         # print(prompt)
 
         # chat history will probably have to be taken care of with js and eventually probably persisted in a db.
+    if prompt is not None:
         chat_history.append({"role": "user", "content": prompt})
         full_api_response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=chat_history,
             max_tokens=2048,
-
         )
-        print(full_api_response)
-        print(chat_history)
-
         gpt_response = full_api_response.choices[0].message.content
-        chat_history.append({"role": "assistant", "content": gpt_response})
+    # print(full_api_response)
+    # print(chat_history)
+    chat_history.append({"role": "assistant", "content": gpt_response})
     return render(chat_query_response, 'chatgpt.html', {'response': gpt_response})
     # print(full_api_response)
     # print(type(chat_query_response))
