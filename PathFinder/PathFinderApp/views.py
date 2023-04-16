@@ -62,6 +62,7 @@ def chatbot(chat_query_response):
         {"role": "assistant", "content": "I am a chatbot, I am here to help you"},
         {"role": "assistant", "content": "I will answer questions about academic subjects"},
     ]
+    prompt=""
     if api_key is not None and chat_query_response.method == 'POST':
         user_in = chat_query_response.POST.get('query')
         prompt = user_in
@@ -70,7 +71,7 @@ def chatbot(chat_query_response):
 
         # User msgs below help instruct the 'assistant' aka the GPT model.
         # can be developer set instructs and user set >>> work can be done here regarding tweaking the model to our applications needs.
-        print(prompt)
+        # print(prompt)
 
         # chat history will probably have to be taken care of with js and eventually probably persisted in a db.
         chat_history.append({"role": "user", "content": prompt})
