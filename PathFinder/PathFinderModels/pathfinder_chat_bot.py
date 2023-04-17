@@ -9,22 +9,23 @@ from langchain.chains import RetrievalQAWithSourcesChain, VectorDBQAWithSourcesC
 from langchain.memory import ConversationBufferWindowMemory, ChatMessageHistory
 
 
+template = """Assistant is a LLM trained by OpenAI.
+Assistant is a language model designed to assist with academic questions and provide guidance as an academic mentor/tutor. With a vast knowledge base and the ability to process natural language, Assistant can answer questions on a wide range of subjects, including but not limited to, law, economics, history, science, mathematics, and literature.
+
+As an academic mentor/tutor, Assistant can provide guidance on study habits, essay writing, research methodologies, and exam preparation. Whether you are a high school student, college student, or graduate student, Assistant is equipped to provide the support and guidance you need to succeed academically.
+
+With its advanced capabilities, Assistant can also help you generate ideas for research projects, provide feedback on writing assignments, and suggest relevant sources of information to support your academic endeavors.
+
+No matter what your academic needs are, Assistant is here to help you achieve your goals.
+{history}
+Human: {user_input}
+Assistant:"""
 
 api_key = os.environ.get('OPENAI_API_KEY')
 
+
 # TODO: langchain has a prebuild QAchain -> VectorDBQA.from_chain_type(llm...)
-def load_embed_pickle():
-    template = """Assistant is a LLM trained by OpenAI.
-    Assistant is a language model designed to assist with academic questions and provide guidance as an academic mentor/tutor. With a vast knowledge base and the ability to process natural language, Assistant can answer questions on a wide range of subjects, including but not limited to, law, economics, history, science, mathematics, and literature.
-
-    As an academic mentor/tutor, Assistant can provide guidance on study habits, essay writing, research methodologies, and exam preparation. Whether you are a high school student, college student, or graduate student, Assistant is equipped to provide the support and guidance you need to succeed academically.
-
-    With its advanced capabilities, Assistant can also help you generate ideas for research projects, provide feedback on writing assignments, and suggest relevant sources of information to support your academic endeavors.
-
-    No matter what your academic needs are, Assistant is here to help you achieve your goals.
-    {history}
-    Human: {user_input}
-    Assistant:"""
+def load_embed_pickle() -> None:
 
     # print(os.getcwd())
     loader = PyPDFLoader('./NDTM_ANDNP.pdf')
@@ -41,7 +42,8 @@ def load_embed_pickle():
         with open("ndtmvecstore.pkl", "wb") as f:
             pickle.dump(faiss_vecstore, f)
 
-def make_chain(vectorstore: VectorStore):
+
+def make_chain(vectorstore: VectorStore) -> RetrievalQAWithSourcesChain:
     main_llm = OpenAI(
         temperature=0.5,
         verbose=True,
@@ -73,7 +75,7 @@ def make_chain(vectorstore: VectorStore):
     # load_embed_pickle()
     return qa_chain
 
-def make_chain_prebuilt(vectorstore: VectorStore):
+def make_chain_prebuilt(vectorstore: VectorStore) -> str:
     # qa = VectorDBQA.from_chain_type(llm=OpenAI(temperature=0.5, verbose=True), chain_type="stuff", vectorstore=vectorstore)
     # query = "ndtm?"
     # qa.run(query)
@@ -83,45 +85,3 @@ def make_chain_prebuilt(vectorstore: VectorStore):
     docs = vectorstore.similarity_search(query)
     return chain.run(input=docs, query=query)
     # print(chain.run(query))
-
-# with open("ndtmvecstore.pkl", "rb") as f:
-#     vecstore = pickle.load(f)
-#     make_chain_prebuilt(vecstore)
-
-    # split_txts = text_splitter.split_documents(doc)
-    # inbedding = OpenAIEmbeddings()
-
-    # vecstore = FAISS.from_documents(split_txts, inbedding)
-
-    # queer = "How important is security in the cyberspace and machine learning"
-    # split_txts = vecstore.similarity_search(queer)
-    # print(split_txts[0])
-    # print(type(split_txts))
-    # print('winkis')
-    # prompt = PromptTemplate(template=template, input_variables=[
-    #                         "history", "user_input"])
-    # chatgpt_conversation_chain = LLMChain(llm=OpenAI(temperature=0.5),
-    #                                       memory=ConversationBufferWindowMemory(
-    #                                           k=2),
-    #                                       prompt=prompt,
-    #                                       )
-
-    # llm = OpenAI(temperature=0.5)
-    # conversation_chain = ConversationChain(llm=llm, verbose=True, memory=ConversationBufferWindowMemory())
-    # # # # conversation_chain.predict(input="what is my name?")
-
-    # history = ChatMessageHistory()
-    # chat_history = ChatMessageHistory()
-    # chat_history.add_user_message("")
-    # chat_history.add_ai_message("")
-    # conv_mem = ConversationBufferWindowMemory()
-    # conv_mem.chat_memory.add_user_message("i use arch btw")
-    # conv_mem.chat_memory.add_ai_message("Thats crazy")
-    # print(conv_mem.load_memory_variables({}))
-    # print(chat_history.messages)
-    # out = ''
-    # out = chatgpt_conversation_chain.predict(
-        # user_input="My name is abdulla and I am from abudhabi.")
-    # print(out)
-    # out = chatgpt_conversation_chain.predict(user_input="What is my name?")
-    # print(out)
