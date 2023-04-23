@@ -1,21 +1,16 @@
 <!DOCTYPE html>
-{%load static%}
-{%csrf_token%}
+{%load static%} {%csrf_token%}
 <html lang="en" litewebchat-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="height=device-height, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Pathfinder Chatbot</title>
+    <link rel="stylesheet" type="text/css" href="{%static 'pathfinderapp/css/webchatcss/litewebchat.min.css'%}" />
     <link
       rel="stylesheet"
       type="text/css"
-      href="../static/pathfinderapp/css/css/litewebchat.min.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../static/pathfinderapp/css/css/litewebchat_input.min.css"
+      href="{%static 'pathfinderapp/css/webchatcss/litewebchat_input.min.css'%}"
     />
     <style>
       /* 全局 */
@@ -46,7 +41,8 @@
     <!-- 主容器 -->
     <div class="lite-chatmaster">
       <div class="lite-chatbox">
-        <iframe id="myIframe" src="Resources.html"> </iframe>
+        {% comment %} this needs a simple fix {% endcomment %}
+        <iframe id="myIframe" src="{%include 'Resources.html'%}"> </iframe>
       </div>
       <div class="lite-chattools">
         <div
@@ -167,9 +163,9 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
-    <script src="../static/pathfinderapp/js/lite-chatbox-dependencies/litewebchat_input.min.js"></script>
+    <script src="{%static 'pathfinderapp/js/lite-chatbox-dependencies/litewebchat_input.min.js'%}"></script>
     <!-- 抽离的聊天信息组件 -->
-    <script src="../static/pathfinderapp/js/lite-chatbox-dependencies/litewebchat_render.min.js"></script>
+    <script src="{%static 'pathfinderapp/js/lite-chatbox-dependencies/litewebchat_render.min.js' %}"></script>
     <script>
       const messageInput = document.querySelector("#message-input");
       const sendButton = document.querySelector("#send-button");
