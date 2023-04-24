@@ -8,6 +8,8 @@ from langchain.vectorstores import VectorStore
 from langchain.chains import RetrievalQAWithSourcesChain, VectorDBQAWithSourcesChain, load_chain
 from langchain.memory import ConversationBufferWindowMemory, ChatMessageHistory
 
+from langchain.vectorstores.pgvector import PGVectorStore
+
 
 template = """Assistant is a LLM trained by OpenAI.
 Assistant is a language model designed to assist with academic questions and provide guidance as an academic mentor/tutor. With a vast knowledge base and the ability to process natural language, Assistant can answer questions on a wide range of subjects, including but not limited to, law, economics, history, science, mathematics, and literature.
@@ -21,7 +23,7 @@ No matter what your academic needs are, Assistant is here to help you achieve yo
 Human: {user_input}
 Assistant:"""
 
-api_key = os.environ.get('OPENAI_API_KEY')
+# api_key = os.environ.get('OPENAI_API_KEY')
 
 
 # TODO: langchain has a prebuild QAchain -> VectorDBQA.from_chain_type(llm...)
@@ -33,14 +35,16 @@ def load_embed_pickle() -> None:
     doc = loader.load()
     # print(doc)
     # print(doc[2])
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=400, chunk_overlap=0)
     doc = text_splitter.split_documents(doc)
 
-    faiss_vecstore = FAISS.from_documents(doc, OpenAIEmbeddings())
+    # faiss_vecstore = FAISS.from_documents(doc, OpenAIEmbeddings())
 
-    if not os.path.exists("ndtmvecstore.pkl"):
-        with open("ndtmvecstore.pkl", "wb") as f:
-            pickle.dump(faiss_vecstore, f)
+    # if not os.path.exists("ndtmvecstore.pkl"):
+        # with open("ndtmvecstore.pkl", "wb") as f:
+            # pickle.dump(faiss_vecstore, f)
+    # print(len(doc))
+    # print(doc[0].page_content)
 
 
 def make_chain(vectorstore: VectorStore) -> RetrievalQAWithSourcesChain:
