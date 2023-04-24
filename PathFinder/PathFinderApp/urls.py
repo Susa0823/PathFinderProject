@@ -10,6 +10,7 @@ urlpatterns = [
     path('chatbot/', views.chatbot, name='chatbot'),
     path('policy/', views.gdpr, name='policy'),
     path('about/', views.about, name='about'),
+    path('chatbox/', views.chatwindow, name='chatbox')
 ]
 
 

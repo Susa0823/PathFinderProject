@@ -4,21 +4,51 @@ import os
 import json
 import pickle, warnings
 import openai
+import pinecone
 import PathFinder.PathFinderModels.pathfinder_chat_bot as qamodel
+from langchain.vectorstores import Pinecone
+from langchain.embeddings.openai import OpenAIEmbeddings
 
 api_key = os.environ.get('OPENAI_API_KEY')
 
-warnings.filterwarnings("ignore")
+# warnings.filterwarnings("ignore")
 
 def qachain(request):
 
-    qamodel.load_embed_pickle()
-    with open("ndtmvecstore.pkl", "rb") as f:
-        vectorstore = pickle.load(f)
-        print(qamodel.make_chain_prebuilt(vectorstore))
+    # qamodel.load_embed_pickle()
+    pinecone.init(api_key='5bf2927b-0fb7-423b-b8f1-2f6a3347a15d',
+                environment='asia-northeast1-gcp')
+    vectorstore = Pinecone.from_existing_index('teamprojindex', OpenAIEmbeddings())
+    pathfinder_chatbot = qamodel.make_chain(vectorstore)
+    chat_history = []
+    # print(vectorstore.similarity_search("what is a computer", 10))
+    question = input("Enter a question: ")
+
+    # answer = pathfinder_chatbot({
+    #     "question": question,
+    #     "chat_history": []
+    # })
+    # print(answer)
+    # print(chatbot.)
+    while 1:
+        answer = pathfinder_chatbot({
+            "question": question,
+            "chat_history": chat_history
+        })
+        print()
+        print(answer)
+        chat_history.append({"role": "assistant", "content": answer})
+        print('type exit to exit...')
+        question = input()
+        if question == "exit":
+            break
+
+    # with open("ndtmvecstore.pkl", "rb") as f:
+    #     vectorstore = pickle.load(f)
+    #     print(qamodel.make_chain_prebuilt(vectorstore))
 
     return 0
-qachain(None)
+# qachain(None)
 
 
 def index(request):
@@ -30,27 +60,8 @@ def gdpr(request):
 def about(request):
     return render(request, 'about.html')
 
-
-# *ASIDE: Function for token counting queries.
-
-# def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0301"):
-#   try:
-#       encoding = tiktoken.encoding_for_model(model)
-#   except KeyError:
-#       encoding = tiktoken.get_encoding("cl100k_base")
-#   if model == "gpt-3.5-turbo-0301":  # note: future models may deviate from this
-#       num_tokens = 0
-#       for message in messages:
-#           num_tokens += 4  # every message follows <im_start>{role/name}\n{content}<im_end>\n
-#           for key, value in message.items():
-#               num_tokens += len(encoding.encode(value))
-#               if key == "name":  # if there's a name, the role is omitted
-#                   num_tokens += -1  # role is always required and always 1 token
-#       num_tokens += 2  # every reply is primed with <im_start>assistant
-#       return num_tokens
-#   else:
-#       raise NotImplementedError(f"""num_tokens_from_messages() is not presently implemented for model {model}.
-#   See https://github.com/openai/openai-python/blob/main/chatml.md for information on how messages are converted to tokens.""")
+def chatwindow(request):
+    return render(request, 'chatwindow.html')
 
 
 def chatbot(chat_query_response):
@@ -96,3 +107,25 @@ def chatbot(chat_query_response):
 # models= list(openai.Model.list().values())[1]
 # print(models)
 # print(list(filter(lambda x: re.match('*gpt*', x) , models)))
+
+
+# *ASIDE: Function for token counting queries.
+
+# def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0301"):
+#   try:
+#       encoding = tiktoken.encoding_for_model(model)
+#   except KeyError:
+#       encoding = tiktoken.get_encoding("cl100k_base")
+#   if model == "gpt-3.5-turbo-0301":  # note: future models may deviate from this
+#       num_tokens = 0
+#       for message in messages:
+#           num_tokens += 4  # every message follows <im_start>{role/name}\n{content}<im_end>\n
+#           for key, value in message.items():
+#               num_tokens += len(encoding.encode(value))
+#               if key == "name":  # if there's a name, the role is omitted
+#                   num_tokens += -1  # role is always required and always 1 token
+#       num_tokens += 2  # every reply is primed with <im_start>assistant
+#       return num_tokens
+#   else:
+#       raise NotImplementedError(f"""num_tokens_from_messages() is not presently implemented for model {model}.
+#   See https://github.com/openai/openai-python/blob/main/chatml.md for information on how messages are converted to tokens.""")
