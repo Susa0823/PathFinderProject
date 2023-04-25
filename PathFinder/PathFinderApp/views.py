@@ -126,6 +126,9 @@ def gdpr(request):
 def about(request):
     return render(request, 'about.html')
 
+def notemaker(request):
+    return render(request, 'notemaker.html')
+
 
 # def chatwindow(request):
     # return render(request, 'chatwindow.html')
