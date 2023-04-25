@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import JsonResponse
 import os
 import json
 import pickle, warnings
@@ -8,6 +8,7 @@ import pinecone
 import PathFinder.PathFinderModels.pathfinder_chat_bot as qamodel
 from langchain.vectorstores import Pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings
+from .forms import ChatBotForm
 
 api_key = os.environ.get('OPENAI_API_KEY')
 
@@ -49,7 +50,26 @@ def qachain(request):
 
     return 0
 # qachain(None)
+def test_chatbotview(request):
+    pinecone.init(api_key='5bf2927b-0fb7-423b-b8f1-2f6a3347a15d',
+                environment='asia-northeast1-gcp')
+    vectorstore = Pinecone.from_existing_index('teamprojindex', OpenAIEmbeddings())
+    pathfinder_chatbot = qamodel.make_chain(vectorstore)
 
+    if request.method == 'POST':
+        form = ChatBotForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            message = form.cleaned_data['message']
+            response = pathfinder_chatbot({
+                "question": message,
+                "name": name,
+                "chat_history": []
+            }) # query the chatbot
+            return JsonResponse({'response': response})
+    else:
+        form = ChatBotForm(request.POST)
+    return render(request, 'chatbox.html', {'form': form})
 
 def index(request):
     return render(request, 'index.html')

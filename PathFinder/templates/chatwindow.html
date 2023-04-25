@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{%load static%} {%csrf_token%}
+{%load static%}
 <html lang="en" litewebchat-theme="dark">
   <head>
     <meta charset="UTF-8" />
@@ -39,6 +39,7 @@
 
   <body>
     <!-- 主容器 -->
+    {% comment %} <form> {% endcomment %}
     <div class="lite-chatmaster">
       <div class="lite-chatbox">
         {% comment %} this needs a simple fix {% endcomment %}
@@ -158,10 +159,28 @@
           contenteditable="true"
           ref="editor"
           id="message-input"
-        ></div>
-        <button class="send" id="send-button">Send</button>
+          >
+        </div>
+        <form method="post">
+          {%csrf_token%}
+          {{ form.as_p }}
+          <button type="submit" class="send" id="send-button">Send</button>
+        </form>
       </div>
     </div>
+    <script>
+      const form = document.querySelector('form');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const response = await fetch('/chatbox/', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json();
+      document.querySelector('#response').textContent = data.response;
+    });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
     <script src="{%static 'pathfinderapp/js/lite-chatbox-dependencies/litewebchat_input.min.js'%}"></script>
     <!-- 抽离的聊天信息组件 -->
@@ -234,5 +253,6 @@
         beforeRenderingHTML(htmls, ".lite-chatbox");
       };
     </script>
+  {% comment %} </form> {% endcomment %}
   </body>
 </html>
