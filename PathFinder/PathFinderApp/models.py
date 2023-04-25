@@ -7,8 +7,17 @@ from django.db import models
 # to do so run `python manage.py makemigrations PathFinderAPP`
 class User(models.Model):
     # user_id = models.AutoField(primary_key=True)
-    user_name = models.CharField(max_length=50)
+    username = models.CharField(max_length=50)
     user_password = models.CharField(max_length=50)
     user_email = models.CharField(max_length=50)
     user_address = models.CharField(max_length=50)
     user_country = models.CharField(max_length=50)
+
+class UserChatPrompt(models.Model):
+    # query_id = models.AutoField(primary_key=True)
+    # need to figure out how to get user model after authentication
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    query = models.CharField(max_length=1000)
+    query_response = models.CharField(max_length=1000)
+    # query_date = models.DateField()
+    # query_time = models.TimeField()
