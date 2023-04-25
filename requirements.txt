@@ -9,3 +9,4 @@ faiss-cpu==1.7.3
 pypdf==3.7.0
 tiktoken==0.3.3
 pinecone-client==2.2.1
+django-allauth
