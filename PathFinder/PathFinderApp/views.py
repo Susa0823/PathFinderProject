@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 import os
 import json
@@ -8,6 +8,11 @@ import pinecone
 import PathFinder.PathFinderModels.pathfinder_chat_bot as qamodel
 from langchain.vectorstores import Pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings
+from PathFinder.PathFinderApp.forms import RegisterUserForm
+import PathFinder.PathFinderModels.pathfinder_chat_bot as qamodel
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
 
 api_key = os.environ.get('OPENAI_API_KEY')
 
@@ -129,3 +134,50 @@ def chatbot(chat_query_response):
 #   else:
 #       raise NotImplementedError(f"""num_tokens_from_messages() is not presently implemented for model {model}.
 #   See https://github.com/openai/openai-python/blob/main/chatml.md for information on how messages are converted to tokens.""")
+
+
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')       
+        else:
+            messages.success(request, ("There was an error logging in, try again..."))	
+            return redirect('login')	
+    else:
+        return render(request, 'login.html', {})
+    
+def logout_user(request):
+    logout(request)
+    messages.success(request, ("You have successfully logged out."))
+    return redirect('index')
+
+def register_user(request):
+    if request.method == "POST":
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, ("Account successfuly created!"))
+            return redirect('index')
+    else:
+        form = RegisterUserForm()
+
+    return render(request, 'signup.html', {'form':form,})
+
+#googlesign in
+from django.contrib.auth import logout
+
+def logout_view(request):
+    logout(request)
+    return redirect("index")
+
+def signup_redirect(request):
+    messages.error(request, "Something wrong here, it may be that you already have account!")
+    return redirect("index")
