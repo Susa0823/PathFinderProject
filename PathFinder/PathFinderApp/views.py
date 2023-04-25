@@ -1,24 +1,33 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.contrib.auth import logout
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, JsonResponse
 import os
 import json
-import pickle, warnings
+import pickle
+import warnings
 import openai
 import pinecone
 import PathFinder.PathFinderModels.pathfinder_chat_bot as qamodel
 from langchain.vectorstores import Pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings
+from PathFinder.PathFinderApp.forms import RegisterUserForm
+import PathFinder.PathFinderModels.pathfinder_chat_bot as qamodel
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
 
 api_key = os.environ.get('OPENAI_API_KEY')
 
 # warnings.filterwarnings("ignore")
 
+
 def qachain(request):
 
     # qamodel.load_embed_pickle()
     pinecone.init(api_key='5bf2927b-0fb7-423b-b8f1-2f6a3347a15d',
-                environment='asia-northeast1-gcp')
-    vectorstore = Pinecone.from_existing_index('teamprojindex', OpenAIEmbeddings())
+                  environment='asia-northeast1-gcp')
+    vectorstore = Pinecone.from_existing_index(
+        'teamprojindex', OpenAIEmbeddings())
     pathfinder_chatbot = qamodel.make_chain(vectorstore)
     chat_history = []
     # print(vectorstore.similarity_search("what is a computer", 10))
@@ -49,10 +58,13 @@ def qachain(request):
 
     return 0
 # qachain(None)
+
+
 def test_chatbotview(request):
     pinecone.init(api_key='5bf2927b-0fb7-423b-b8f1-2f6a3347a15d',
-                environment='asia-northeast1-gcp')
-    vectorstore = Pinecone.from_existing_index('teamprojindex', OpenAIEmbeddings())
+                  environment='asia-northeast1-gcp')
+    vectorstore = Pinecone.from_existing_index(
+        'teamprojindex', OpenAIEmbeddings())
     pathfinder_chatbot = qamodel.make_chain(vectorstore)
 
     if request.method == 'POST':
@@ -64,20 +76,24 @@ def test_chatbotview(request):
                 "question": message,
                 "name": name,
                 "chat_history": []
-            }) # query the chatbot
+            })  # query the chatbot
             return JsonResponse({'response': response})
     else:
         form = ChatBotForm(request.POST)
     return render(request, 'chatbox.html', {'form': form})
 
+
 def index(request):
     return render(request, 'index.html')
+
 
 def gdpr(request):
     return render(request, 'gdpr.html')
 
+
 def about(request):
     return render(request, 'about.html')
+
 
 def chatwindow(request):
     return render(request, 'chatwindow.html')
@@ -86,7 +102,7 @@ def chatwindow(request):
 def chatbot(chat_query_response):
     openai.api_key = api_key
     gpt_response = ''
-    prompt="Welcome the user and ask them what they want to learn about."
+    prompt = "Welcome the user and ask them what they want to learn about."
 
     chat_history = [
         {"role": "system",
@@ -157,17 +173,20 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('index')       
+            return redirect('index')
         else:
-            messages.success(request, ("There was an error logging in, try again..."))	
-            return redirect('login')	
+            messages.success(
+                request, ("There was an error logging in, try again..."))
+            return redirect('login')
     else:
         return render(request, 'login.html', {})
-    
+
+
 def logout_user(request):
     logout(request)
     messages.success(request, ("You have successfully logged out."))
     return redirect('index')
+
 
 def register_user(request):
     if request.method == "POST":
@@ -183,15 +202,18 @@ def register_user(request):
     else:
         form = RegisterUserForm()
 
-    return render(request, 'signup.html', {'form':form,})
+    return render(request, 'signup.html', {'form': form, })
 
-#googlesign in
-from django.contrib.auth import logout
+
+# googlesign in
+
 
 def logout_view(request):
     logout(request)
     return redirect("index")
 
+
 def signup_redirect(request):
-    messages.error(request, "Something wrong here, it may be that you already have account!")
+    messages.error(
+        request, "Something wrong here, it may be that you already have account!")
     return redirect("index")
