@@ -3,15 +3,14 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 import os
 import json
-import pickle
+# import pickle
 import warnings
 import openai
 import pinecone
 import PathFinder.PathFinderModels.pathfinder_chat_bot as qamodel
 from langchain.vectorstores import Pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings
-from PathFinder.PathFinderApp.forms import RegisterUserForm
-import PathFinder.PathFinderModels.pathfinder_chat_bot as qamodel
+from PathFinder.PathFinderApp.forms import RegisterUserForm, ChatBotForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
