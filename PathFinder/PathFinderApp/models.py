@@ -13,6 +13,16 @@ class User(models.Model):
     user_address = models.CharField(max_length=50)
     user_country = models.CharField(max_length=50)
 
+    def save(self, *args, **kwargs):
+        super().save()
+
+        img = Image.open(self.avatar.path)
+
+        if img.height > 100 or img.width > 100:
+            new_img = (100, 100)
+            img.thumbnail(new_img)
+            img.save(self.avatar.path)
+
 class UserChatPrompt(models.Model):
     # query_id = models.AutoField(primary_key=True)
     # need to figure out how to get user model after authentication

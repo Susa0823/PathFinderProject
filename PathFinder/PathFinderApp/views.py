@@ -14,6 +14,11 @@ from PathFinder.PathFinderApp.forms import RegisterUserForm, ChatBotForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
+from .forms import EditProfileForm,UpdateProfile
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
+
+
 
 api_key = os.environ.get('OPENAI_API_KEY')
 
@@ -276,3 +281,20 @@ def login_view(request):
     else:
         # Display login page
         return render(request, 'login.html')
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        user_form = EditProfileForm(request.POST, instance=request.user)
+        profile_form = UpdateProfile(request.POST, request.FILES, instance=request.user)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect('/profile')
+    else:
+        user_form = EditProfileForm(instance=request.user)
+        profile_form = UpdateProfile(instance=request.user)
+
+    return render(request, 'edit.html', {'user_form': user_form, 'profile_form': profile_form})
