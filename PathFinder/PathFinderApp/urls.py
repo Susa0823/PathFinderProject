@@ -15,7 +15,7 @@ urlpatterns = [
     path('chatbox/', views.test_chatbotview, name='chatbox'),
     path('login/', views.login_user, name='login'),
     path('logout/', views.logout_user, name="logout"),
-    path('signin/', views.register_user, name="register_user"),
+    path('signup/', views.register_user, name="register_user"),
     path('social/signup/', views.signup_redirect, name='signup_redirect'),
     path('games/', views.games, name='games'),
 
