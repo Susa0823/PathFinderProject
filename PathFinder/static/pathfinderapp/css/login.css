@@ -74,6 +74,10 @@
     margin-bottom: 10px;
 }
 
+.forget-password{
+    font-size: 12px;
+    margin-bottom: 10px;
+}
 
 .login-button:active{
     background-color: rgb(167, 92, 0) ;
