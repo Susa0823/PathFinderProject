@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {%load static%}
 <html lang="en" litewebchat-theme="dark">
+  {% comment %} {{form.as_p}} {% endcomment %}
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="height=device-height, initial-scale=1.0" />
@@ -122,6 +123,9 @@
         >
           Get Resources
         </button>
+        {% comment %} <div> {% endcomment %}
+        {% comment %} {{pathfinder_response}} {% endcomment %}
+        {% comment %} </div> {% endcomment %}
 
         <!-- JavaScript控制iframe的显示/隐藏 -->
         <script>
@@ -153,40 +157,98 @@
             }
           }
         </script>
-        <div
+        <form method="post">
+        {%csrf_token%}
+        <input
           class="editor chatinput"
           aria-label="input area"
           contenteditable="true"
           ref="editor"
-          id="message-input"
+          id="chat-input"
+          name = "chat-input"
           >
+        <button type="submit" class="send" id="send-button">Send</button>
         </div>
-        <form method="post">
-          {%csrf_token%}
-          {{ form.as_p }}
-          <button type="submit" class="send" id="send-button">Send</button>
+          {% comment %} {{form}} {% endcomment %}
         </form>
       </div>
     </div>
-    <script>
-      const form = document.querySelector('form');
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const formData = new FormData(event.target);
-      const response = await fetch('/chatbox/', {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await response.json();
-      document.querySelector('#response').textContent = data.response;
-    });
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
     <script src="{%static 'pathfinderapp/js/lite-chatbox-dependencies/litewebchat_input.min.js'%}"></script>
     <!-- 抽离的聊天信息组件 -->
     <script src="{%static 'pathfinderapp/js/lite-chatbox-dependencies/litewebchat_render.min.js' %}"></script>
+
+    {% comment %} <script>
+      const htmls = [
+        {
+          messageType: "tipsSuccess",
+          html: "Welcome to Pathfinder Chatbot!",
+        },
+        {
+          messageType: "raw",
+          headIcon: "../static/pathfinderapp/img/B.jpg",
+          name: "SuperPaxxs",
+          position: "right",
+          html: "{{user_message}}",
+        },
+        {
+          messageType: "raw",
+          headIcon: "../static/pathfinderapp/img/A.jpg",
+          name: "Pathfinder Chatbot",
+          position: "left",
+          html: "{{pathfinder_response}}",
+        },
+      ];
+      beforeRenderingHTML(htmls, ".lite-chatbox");
+    </script> {% endcomment %}
+
+    {%if pathfinder_response%}
     <script>
-      const messageInput = document.querySelector("#message-input");
+      const htmls = [
+      {
+        messageType: "raw",
+        headIcon: "../static/pathfinderapp/img/B.jpg",
+        name: "RealHumanUser4000",
+        position: "right",
+        html:  "{{user_message}}",
+      },
+      {
+        messageType: "raw",
+        headIcon: "../static/pathfinderapp/img/A.jpg",
+        name: "PathFinder Knowledge Bot",
+        position: "left",
+        html: "{{pathfinder_response}}",
+      },
+      ];
+      beforeRenderingHTML(htmls, ".lite-chatbox");
+    </script>
+    {%endif%}
+    {% comment %} <script>
+    const htmls = [
+        {
+          messageType: "tipsSuccess",
+          html: "Welcome to Pathfinder Chatbot!",
+        },
+        {
+          messageType: "raw",
+          headIcon: "../static/pathfinderapp/img/B.jpg",
+          name: "SuperPaxxs",
+          position: "right",
+          html: "Can you reccomend some Java program resources?",
+        },
+        {
+          messageType: "raw",
+          headIcon: "../static/pathfinderapp/img/A.jpg",
+          name: "Pathfinder Chatbot",
+          position: "left",
+          html: `Sure. Here is some high rating resources of Java program. <br> ... <br> ... <br> ...`,
+        },
+      ];
+      beforeRenderingHTML(htmls, ".lite-chatbox")
+    </script> {% endcomment %}
+
+    <script>
+      const messageInput = document.querySelector("#chat-input");
       const sendButton = document.querySelector("#send-button");
 
       function handleEnterKey(event) {
@@ -199,29 +261,7 @@
 
       messageInput.addEventListener("keydown", handleEnterKey);
     </script>
-    <script>
-      const htmls = [
-        {
-          messageType: "tipsSuccess",
-          html: "Welcome to Pathfinder Chatbot!",
-        },
-        {
-          messageType: "raw",
-          headIcon: "../static/pathfinderapp/img/B.jpg",
-          name: "SuperPaxxs",
-          position: "right",
-          html: "Can you recommand some Java program resources?",
-        },
-        {
-          messageType: "raw",
-          headIcon: "../static/pathfinderapp/img/A.jpg",
-          name: "Pathfinder Chatbot",
-          position: "left",
-          html: `Sure. Here is some high rating resources of Java program. <br> ... <br> ... <br> ...`,
-        },
-      ];
-      beforeRenderingHTML(htmls, ".lite-chatbox");
-    </script>
+
     <script>
       const btns = document.querySelectorAll("#theme-switch");
       const html = document.documentElement;
@@ -240,19 +280,8 @@
         addEvent(btn);
       });
     </script>
-    <script>
-      document.querySelector(".send").onclick = function () {
-        htmls.push({
-          messageType: "raw",
-          headIcon: "../static/pathfinderapp/img/B.jpg",
-          name: "SuperPaxxs",
-          position: "right",
-          html: document.querySelector(".chatinput").innerHTML,
-        });
-        document.querySelector(".chatinput").innerHTML = "";
-        beforeRenderingHTML(htmls, ".lite-chatbox");
-      };
-    </script>
-  {% comment %} </form> {% endcomment %}
+
+    {% comment %} prev render belowhtml: document.querySelector(".chatinput").innerHTML {% endcomment %}
+
   </body>
 </html>

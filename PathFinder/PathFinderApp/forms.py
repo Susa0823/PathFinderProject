@@ -1,12 +1,24 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import UserChatPrompt, User
 
 
-class ChatBotForm(forms.Form):
+class ChatBotForm(forms.ModelForm):
+    class Meta:
+        model = UserChatPrompt
+        fields = ['user_query', 'pathfinder_response']
+
+    def t(self):
+        data = self.cleaned_data
+        prompt = data['user_query']
+        response = data['pathfinder_response']
+        return prompt, response
+
+#     user_query, pathfinder_response = None, None
     user_query = forms.CharField(label='User Query', max_length=1000)
     pathfinder_response = forms.CharField(
-        label='PathFinder Response', max_length=1000)
+       label='PathFinder Response', max_length=1000)
 
 
 class RegisterUserForm(UserCreationForm):

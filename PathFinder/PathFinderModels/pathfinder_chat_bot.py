@@ -63,7 +63,7 @@ def load_embed_pickle() -> None:
 
 
 def make_chain(vectorstore: VectorStore) -> ConversationalRetrievalChain:
-    alignment_prompt = """You will be asked theoretical computer science questions, if you are unsure of the answer say you do not know. Use the given context to the best of your abilities, do not try to make up an answer.
+    alignment_prompt = """You will be asked theoretical computer science questions, if you are unsure of the answer try to answer to the best of your abilities but state that you are unsure. Use the given context to the best of your abilities, do not try to make up an answer.
     {context}
 
     Question: {question}

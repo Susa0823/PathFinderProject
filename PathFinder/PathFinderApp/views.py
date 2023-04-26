@@ -64,22 +64,55 @@ def test_chatbotview(request):
                   environment='asia-northeast1-gcp')
     vectorstore = Pinecone.from_existing_index(
         'teamprojindex', OpenAIEmbeddings())
+
+    # try:
+    #     if request.method == 'POST':
+    #         message = request.POST.get('chatinput')
+    #     # message=''
+    #     if message is not None:
+    #         print(message)
+    #         print('message is not none')
+    # except UnboundLocalError as e:
+    #     print(e)
+    #     print('message is none')
+    message = "The user is about to enter a conversation with you, greet them and let them know what you can do."
+
     pathfinder_chatbot = qamodel.make_chain(vectorstore)
 
     if request.method == 'POST':
-        form = ChatBotForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            message = form.cleaned_data['message']
-            response = pathfinder_chatbot({
-                "question": message,
-                "name": name,
-                "chat_history": []
-            })  # query the chatbot
-            return JsonResponse({'response': response})
-    else:
-        form = ChatBotForm(request.POST)
-    return render(request, 'chatbox.html', {'form': form})
+        message = request.POST.get('chat-input')
+        # print(message)
+        # print('message is not none')
+    if message=='':
+        # TODO: Obviously a temporary fix
+        message= 'I\'ve sent you an empty message, I will try again.'
+    if message is not None:
+        response = pathfinder_chatbot({
+            "question": message,
+            # "name": name,
+            "chat_history": []
+        })  # query the chatbot
+
+    # # form = ChatBotForm(request.POST or None)
+    # # content = {
+    # #     'form': form
+    # # }
+    # # if form.is_valid():
+    # #     chat_prompt = form.save()
+    # #     print(chat_prompt)
+    # #     content['form'] = ChatBotForm()
+    # #     name = form.cleaned_data['name']
+    # message = form.cleaned_data['message']
+    # #     return JsonResponse({'response': response})
+    # else:
+    #     form = ChatBotForm(request.POST)
+    # test ={
+    #     'name': request.user.username,
+    # }
+    # return render(request, 'chatwindow.html', context=content)
+    pathfinder_response = response['answer']
+
+    return render(request, 'chatwindow.html', {'pathfinder_response': pathfinder_response, 'user_message': message})
 
 
 def index(request):
@@ -93,9 +126,12 @@ def gdpr(request):
 def about(request):
     return render(request, 'about.html')
 
+def notemaker(request):
+    return render(request, 'notemaker.html')
 
-def chatwindow(request):
-    return render(request, 'chatwindow.html')
+
+# def chatwindow(request):
+    # return render(request, 'chatwindow.html')
 
 
 def chatbot(chat_query_response):
