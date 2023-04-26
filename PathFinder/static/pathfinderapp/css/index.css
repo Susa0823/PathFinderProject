@@ -2105,19 +2105,20 @@ html {
   
   .container-3 {
     width: 100%;
-    max-width: 940px;
+    max-width: 1150px;
     margin-left: auto;
     margin-right: auto;
   }
   
   .features-wrapper-two {
-    background-color: rgba(51, 0, 255, .28);
-    border: 10px solid rgba(0, 0, 0, 0);
+    background-color: rgb(0, 0, 0);
+    border: 10px solid rgb(0, 0, 0);
     justify-content: space-between;
     align-items: flex-start;
     font-family: Exo, sans-serif;
     font-weight: 500;
     display: flex;
+    height: 600px;
   }
   
   .features-left {
@@ -2126,6 +2127,11 @@ html {
     justify-content: flex-start;
     align-items: flex-start;
     display: flex;
+  }
+
+  .features-left h3 {
+    color: rgb(255, 255, 255);
+    text-align: center;
   }
   
   .features-paragraph {
@@ -2155,6 +2161,10 @@ html {
     align-items: flex-start;
     margin-bottom: -16px;
     display: flex;
+  }
+
+  .features-right {
+    color:rgb(255, 255, 255)
   }
   
   .features-block-two {
@@ -2394,7 +2404,7 @@ html {
   
   .container-4 {
     width: 100%;
-    max-width: 940px;
+    max-width: 1150px;
     margin-left: auto;
     margin-right: auto;
   }
