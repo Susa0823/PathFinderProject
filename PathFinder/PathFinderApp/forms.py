@@ -25,7 +25,7 @@ class RegisterUserForm(UserCreationForm):
     email = forms.EmailField(label='', widget=forms.EmailInput(
         attrs={'class': 'form-control form-control-sm', 'placeholder': 'Email'}))
     first_name = forms.CharField(label='', max_length=50, widget=forms.TextInput(
-        attrs={'class': 'form-control form-control-sm', 'placeholder': 'Name'}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': 'First Name'}))
     last_name = forms.CharField(label='', max_length=50, widget=forms.TextInput(
         attrs={'class': 'form-control form-control-sm', 'placeholder': 'Last name'}))
 
