@@ -37,6 +37,9 @@ ALLOWED_HOSTS.extend(
 PYTHONUNBUFFERED = 0
 # Application definition
 
+#for google sign in
+SITE_ID = 2
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,7 +49,24 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # below entry added so django knows about the app and its config
     'PathFinder.PathFinderApp.apps.PathfinderappConfig',
+    #This is for the google sign up
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+
+#google sign up pt2
+SOCIALACCOUNT_PROVIDERS = {
+    "google":{
+    "SCOPE": [
+    "profile",
+    "email"
+    ],
+    "AUTH_PARAMS": {"access_type": "online"}
+    }
+}
 
 MIDDLEWARE = [
 
@@ -87,13 +107,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         # pathfinderdb on remote server, only diff
-        'NAME': os.environ.get('DB_NAME', 'pathfinderdb'),
-        # 'NAME': os.environ.get('DB_NAME', 'AppDBdjango'),
+        # 'NAME': os.environ.get('DB_NAME', 'pathfinderdb'),
+        'NAME': os.environ.get('DB_NAME', 'AppDBdjango'),
         'USER': os.environ.get('DB_USER', 'pathfinderdbsu'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'pa$$wordFinder'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': os.environ.get('SQL_PORT', 5432),
-    
     }
 }
 
@@ -134,6 +153,9 @@ USE_TZ = False
 STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 ROOT_URLCONF = 'PathFinder.PathFinderBase.urls'
 
 
@@ -147,3 +169,23 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#google sign up pt3
+
+SOCIALACCOUNT_LOGIN_ON_GET=True
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend"
+)
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
+GOOGLE_CLIENT_ID = '320096241471-1o3b72no3kk8raqqg204qj9k07q3ss8c.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET = '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'
+GOOGLE_AUTH_URI = 'https://accounts.google.com/o/oauth2/auth'
+GOOGLE_TOKEN_URI = 'https://oauth2.googleapis.com/token'
+GOOGLE_USER_INFO_URI = 'https://www.googleapis.com/oauth2/v1/userinfo'
+GOOGLE_REDIRECT_URI = 'http://localhost:8000/google-auth-callback'

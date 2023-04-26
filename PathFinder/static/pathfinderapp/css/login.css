@@ -1,0 +1,103 @@
+
+.login-top{
+    text-align: center;
+    padding: 0%;
+}
+
+.login-logo{
+    display: block;
+    margin: 0 auto 20px;
+    width: 175px;
+}
+
+.login-bottom{
+    text-align: center;
+    size: 10px;
+}
+
+.login-top,
+.login-bottom {
+    padding: 8px;
+}
+
+
+.login-title {
+    margin-top: 0;
+    font-size: 2em;
+    font-family: 'Anuphan', monospace;
+    font-weight: 400;
+}
+
+.login-link{
+    color:cornflowerblue;
+    margin-top: 5px;
+}
+
+.login-label{
+    display:block;
+    margin-bottom: 10px;
+    padding-bottom: 10px; 
+}
+
+.login-input{
+    box-sizing: border-box;
+    outline: none;
+    border: 2px solid #393939;
+    width: 250px;
+    height: 35px;
+    font-size: 14px;
+}
+
+.login-input:focus{
+    border-color: darkorange;
+}
+
+.btn btn-secondary{
+    text-align: center;
+    display: block;
+    color: #FFFFFF;
+    margin: 0 auto;
+    margin-top: 25px;
+    padding: 10px 85px;
+    font-weight: bold;
+    font-size: 17px;
+    background-color: rgb(220, 103, 15);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+    font-family: 'Anuphan', monospace;
+}
+
+.login-desc{
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.forget-password{
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.login-button:active{
+    background-color: rgb(167, 92, 0) ;
+}
+
+
+footer {
+    background-color: #000000;
+    color: #666666;
+    font-size: 10px;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .form-control-sm {
+    width: 100%;
+    max-width: 300px;
+}
+.btn-secondary, .login-desc{
+    margin-top: 5px;
+}

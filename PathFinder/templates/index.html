@@ -1,19 +1,30 @@
 <!DOCTYPE html>
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'pathfinderapp/css/index_style.css' %}" />
-<html lang="en">
-  {%block template %} {% include "./navbar.html" %} {%endblock%}
 
+{% load static %} {% comment %}
+<link
+  rel="stylesheet"
+  href="{% static 'pathfinderapp/css/index_style.css' %}"
+/>
+{% endcomment %}
+<html lang="en">
+ {%block template %} {% include "./navbar.html" %} {%endblock%}
+
+  <!DOCTYPE html>
   <html
+    data-wf-domain="pathfinder2.webflow.io"
+    data-wf-page="64315cd33f44a7116b4e7c1d"
+    data-wf-site="64315cd33f44a757bf4e7c1c"
   >
+
+
     <head>
       <meta charset="utf-8" />
-      <title>Pathfinder</title>
+      <title>Pathfinder2</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
-      <meta content="Webflow" name="generator" />
+      <meta content="" name="" />
       <link
-        href="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/css/pathfinder2.webflow.9c6c3140a.css"
+        href="{% static 'pathfinderapp/css/index.css' %}"
         rel="stylesheet"
         type="text/css"
       />
@@ -53,17 +64,33 @@
         })(window, document);
       </script>
       <link
-        href=""
+        href="https://uploads-ssl.webflow.com/img/favicon.ico"
         rel="shortcut icon"
         type="image/x-icon"
       />
       <link
-        href=""
+        href="https://uploads-ssl.webflow.com/img/webclip.png"
         rel="apple-touch-icon"
       />
     </head>
     <body class="body">
+      {% if request.user.is_authenticated %}
+    <div class="alert alert-dark text-center mb-0" role="alert" style="border-radius: 0;">
+      <strong>Hello, {{ request.user.username }}!</strong> Welcome back.
+    </div>
+    {% else %}
+    <div class="alert alert-dark text-center mb-0" role="alert" style="border-radius: 0;">
+      <strong>Welcome!</strong> Please log in to access your account.
+    </div>
+    {% endif %}
+
       <section class="hero-heading-right wf-section">
+        <a
+          data-w-id="f67cbd33-09b5-47bf-4422-5000a636e649"
+          href="#"
+          class="button-5 w-button"
+          >Switch Theme
+        </a>
         <div class="container-2">
           <div class="hero-wrapper">
             <div class="hero-split">
@@ -85,8 +112,252 @@
                 simplified way for users to explore a range of topics they are
                 interested in.
               </p>
-              <a href="#" class="button-primary w-button">Ask A.I</a>
+              <a href="chatbot/" class="button-primary w-button">Ask A.I</a>
             </div>
+          </div>
+        </div>
+      </section>
+      <section class="features-list wf-section">
+        <div class="container-3">
+          <div class="features-wrapper-two">
+            <div class="features-left">
+              <h3 class="heading-2">How does this work?</h3>
+              <img
+                src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486ad1c1089564a26afdd0_0162febeaabfae41b8015229e6112f05.jpg"
+                loading="lazy"
+                width="469"
+                sizes="(max-width: 767px) 89vw, (max-width: 991px) 61vw, 37vw"
+                srcset="
+                  https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486ad1c1089564a26afdd0_0162febeaabfae41b8015229e6112f05-p-500.jpg 500w,
+                  https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486ad1c1089564a26afdd0_0162febeaabfae41b8015229e6112f05.jpg       564w
+                "
+                alt=""
+                class="image-2"
+              /><a href="signin/" class="button-4 w-button">Sign-up </a>
+            </div>
+            <ul role="list" class="features-right w-list-unstyled">
+              <li class="features-block-two">
+                <img
+                  src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486c4b21b960c6df160ae1_b9148104c83f18219b006433b2dde57b.jpg"
+                  loading="lazy"
+                  alt=""
+                  class="features-image"
+                />
+                <p>
+                  Head over to the &#x27;Ask A.I&#x27; Page and ask a question
+                  to Charlie on a topic of interest.
+                </p>
+              </li>
+              <li class="features-block-two">
+                <img
+                  src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486c5fe8c60b87000e9ac9_b027ad28f34e38a0c4fb18f2f57798a0.jpg"
+                  loading="lazy"
+                  alt=""
+                  class="features-image"
+                />
+                <p>
+                  Charlie will answer your questions in the simplest manner
+                  possible making it easy for you to understand.
+                </p>
+              </li>
+              <li class="features-block-two">
+                <img
+                  src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486c7a34e796e3349c73ff_864c5cc8860faa53abaa1298c6247d41.jpg"
+                  loading="lazy"
+                  alt=""
+                  class="features-image"
+                />
+                <p>
+                  Along with answers Charlie scours the web to find you the best
+                  and most helpful resources pertaining to your question so you
+                  do not have to.
+                </p>
+              </li>
+              <li class="features-block-two">
+                <img
+                  src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486c8b4b29fbc54e8bd7ef_f4379935954760dec4c2bbe9b35c8f08.jpg"
+                  loading="lazy"
+                  alt=""
+                  class="features-image"
+                />
+                <p>
+                  Explore and Save your favourite resources to view them later
+                  in the &#x27;Resources List&#x27;
+                </p>
+              </li>
+              <li class="features-block-two">
+                <img
+                  src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486add4b29fbe0028bc4cf_642b7b707774a707760567e1571bd4c6.jpg"
+                  loading="lazy"
+                  sizes="80px"
+                  srcset="
+                    https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486add4b29fbe0028bc4cf_642b7b707774a707760567e1571bd4c6-p-500.jpg 500w,
+                    https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486add4b29fbe0028bc4cf_642b7b707774a707760567e1571bd4c6.jpg       564w
+                  "
+                  alt=""
+                  class="features-image"
+                />
+                <p>With Pathfinder. Discover, Learn and Grow!</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="testimonial-slider-large-2 wf-section">
+        <div class="container-4">
+          <div
+            data-delay="4000"
+            data-animation="slide"
+            class="testimonial-slider-two-2 w-slider"
+            data-autoplay="false"
+            data-easing="ease"
+            data-hide-arrows="false"
+            data-disable-swipe="false"
+            data-autoplay-limit="0"
+            data-nav-spacing="12"
+            data-duration="500"
+            data-infinite="true"
+          >
+            <div class="w-slider-mask">
+              <div class="w-slide">
+                <div class="testimonial-slide-2">
+                  <div class="testimonial-content-2">
+                    <img
+                      src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124a91e612aae8_quote-mark.svg"
+                      loading="lazy"
+                      alt=""
+                      class="testimonial-quote-icon-2"
+                    />
+                    <div class="testimonial-quote-2">
+                      PathFinder has made it so much easier for me to explore
+                      new topics and find relevant resources. The personalized
+                      home page is a game-changer!
+                    </div>
+                    <div class="testimonial-info-two-2">
+                      <div>
+                        <div class="testimonial-author-name-2">
+                          Lucas Nguyen
+                        </div>
+                        <div>Marketing Manager</div>
+                      </div>
+                    </div>
+                  </div>
+                  <img
+                    src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/644869004b29fba0a38b9d97_f2f0bd0ab2ad2190eb3ccdca98e6392b.jpg"
+                    loading="lazy"
+                    alt=""
+                    class="testimonial-image-two-2"
+                  />
+                </div>
+              </div>
+              <div class="w-slide">
+                <div class="testimonial-slide-2">
+                  <div class="testimonial-content-2">
+                    <img
+                      src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124a91e612aae8_quote-mark.svg"
+                      loading="lazy"
+                      alt=""
+                      class="testimonial-quote-icon-2"
+                    />
+                    <div class="testimonial-quote-2">
+                      I&#x27;ve tried many search engines before, but Pathfinder
+                      is the only one that truly understands my interests and
+                      provides me with accurate and reliable information.
+                    </div>
+                    <div class="testimonial-info-two-2">
+                      <div>
+                        <div class="testimonial-author-name-2">
+                          Ava Thompson
+                        </div>
+                        <div>Journalist</div>
+                      </div>
+                    </div>
+                  </div>
+                  <img
+                    src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/644868ed73b4ea5556657a3a_fda7f23343111479776c01eaa6505dac.jpg"
+                    loading="lazy"
+                    alt=""
+                    class="testimonial-image-two-2"
+                  />
+                </div>
+              </div>
+              <div class="w-slide">
+                <div class="testimonial-slide-2">
+                  <div class="testimonial-content-2">
+                    <img
+                      src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124a91e612aae8_quote-mark.svg"
+                      loading="lazy"
+                      alt=""
+                      class="testimonial-quote-icon-2"
+                    />
+                    <div class="testimonial-quote-2">
+                      Thanks to Pathfinder, I no longer waste hours scrolling
+                      through irrelevant search results. It&#x27;s the ultimate
+                      time-saver!
+                    </div>
+                    <div class="testimonial-info-two-2">
+                      <div>
+                        <div class="testimonial-author-name-2">Ethan Kim</div>
+                        <div>Software Engineer</div>
+                      </div>
+                    </div>
+                  </div>
+                  <img
+                    src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/644867ffdd145f5669be5f2e_e06a5707a7e215ff44a7b928d87d42e1.jpg"
+                    loading="lazy"
+                    sizes="(max-width: 479px) 84vw, (max-width: 767px) 87vw, (max-width: 991px) 41vw, 350px"
+                    height=""
+                    srcset="
+                      https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/644867ffdd145f5669be5f2e_e06a5707a7e215ff44a7b928d87d42e1-p-500.jpg 500w,
+                      https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/644867ffdd145f5669be5f2e_e06a5707a7e215ff44a7b928d87d42e1.jpg       564w
+                    "
+                    alt=""
+                    class="testimonial-image-two-2"
+                  />
+                </div>
+              </div>
+              <div class="w-slide">
+                <div class="testimonial-slide-2">
+                  <div class="testimonial-content-2">
+                    <img
+                      src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124a91e612aae8_quote-mark.svg"
+                      loading="lazy"
+                      alt=""
+                      class="testimonial-quote-icon-2"
+                    />
+                    <div class="testimonial-quote-2">
+                      As a student, Pathfinder has become my go-to resource for
+                      research projects. It&#x27;s easy to use and always
+                      provides me with the information I need.
+                    </div>
+                    <div class="testimonial-info-two-2">
+                      <div>
+                        <div class="testimonial-author-name-2">
+                          Isabella Chen
+                        </div>
+                        <div>Student</div>
+                      </div>
+                    </div>
+                  </div>
+                  <img
+                    src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/644866cf2b2f773e9e9ba1e1_243a356aef04de5a4adf29fdd707a020.jpg"
+                    loading="lazy"
+                    alt=""
+                    class="testimonial-image-two-2"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-slider-arrow-2 w-slider-arrow-left">
+              <div class="w-icon-slider-left"></div>
+            </div>
+            <div class="testimonial-slider-arrow-2 w-slider-arrow-right">
+              <div class="w-icon-slider-right"></div>
+            </div>
+            <div
+              class="testimonial-slider-nav-2 w-slider-nav w-slider-nav-invert w-round"
+            ></div>
+            <a href="about/" class="button-3 w-button">About Us</a>
           </div>
         </div>
       </section>
@@ -96,10 +367,7 @@
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
         crossorigin="anonymous"
       ></script>
-      {% comment %} <script
-        src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/js/webflow.ef60f0ad8.js"
-        type="text/javascript"
-      ></script> {% endcomment %}
+      <script src="{% static 'pathfinderapp/js/index.js' %}" type="text/javascript"></script>
       <!--[if lte IE 9
         ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script
       ><![endif]-->

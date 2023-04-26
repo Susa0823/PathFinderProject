@@ -1,0 +1,131 @@
+
+.sign-up-top{
+    text-align: center;
+    padding: 0%;
+}
+
+.sign-up-logo{
+    display: block;
+    margin: 0 auto 20px;
+    width: 175px;
+}
+
+.sign-up-bottom{
+    text-align: center;
+    size: 10px;
+}
+
+.sign-up-top,
+.sign-up-bottom {
+    padding: 8px;
+}
+
+.sign-up-title {
+    margin-top: 0;
+    font-size: 2em;
+    font-family: 'Anuphan', monospace;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.sign-up-link{
+    color:cornflowerblue;
+}
+
+.sign-up-desc{
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
+.sign-up-desc-1{
+    margin-top: 0px;
+    font-size: 15px;
+    margin-bottom: 0px;
+    text-decoration: underline;
+}
+
+.google-signup {
+    
+    
+    
+    
+    
+   
+    margin: 0 auto;
+    margin-top: 15px;
+    margin-bottom: 20px;
+   /* border: none; */
+    font-family: 'Anuphan', monospace; 
+
+    background-color: #4285F4; /* Google brand blue color */
+    color: #FFFFFF; /* text color */
+    border-radius: 5px; /* rounded corners */
+    padding: 10px 20px; /* adjust padding as needed */
+    font-size: 16px; /* adjust font size as needed */
+    text-align: center; /* center align text */
+    display: inline-block; /* display as inline-block */
+    cursor: pointer; /* show hand cursor on hover */
+  }
+  
+  .google-signup a {
+        color: rgb(248, 248, 248);
+        text-decoration: none;
+        border-top-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+      
+      a:hover {
+        text-decoration: underline;
+      }
+
+      footer {
+        background-color: #000000;
+        color: #666666;
+        font-size: 10px;
+        padding: 10px;
+      }
+
+.form-control {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+#signup-form {
+    margin: 0 auto;
+    max-width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    border-radius: 50%;
+}
+.form-control-sm {
+    width: 100%;
+    max-width: 300px;
+}
+
+.btn-secondary{
+    background-color: #007bff;
+    border-color: #007bff;
+    
+}
+.btn-secondary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+  }
+  .btn-secondary:focus, .btn-primary.focus {
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+  }
+  .btn-secondary.disabled, .btn-secondary:disabled {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+
+  .mx-auto input[type=submit] {
+    margin-top: 0px; /* adjust the value to your liking */
+}
