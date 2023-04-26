@@ -17,6 +17,8 @@ urlpatterns = [
     path('logout/', views.logout_user, name="logout"),
     path('signin/', views.register_user, name="register_user"),
     path('social/signup/', views.signup_redirect, name='signup_redirect'),
+    path('games/', views.games, name='games'),
+
 ]
 
 
