@@ -70,16 +70,6 @@ def test_chatbotview(request):
     vectorstore = Pinecone.from_existing_index(
         'teamprojindex', OpenAIEmbeddings())
 
-    # try:
-    #     if request.method == 'POST':
-    #         message = request.POST.get('chatinput')
-    #     # message=''
-    #     if message is not None:
-    #         print(message)
-    #         print('message is not none')
-    # except UnboundLocalError as e:
-    #     print(e)
-    #     print('message is none')
     message = "The user is about to enter a conversation with you, greet them and let them know what you can do."
 
     pathfinder_chatbot = qamodel.make_chain(vectorstore)
@@ -136,6 +126,9 @@ def notemaker(request):
 
 def games(request):
     return render(request, 'games.html')
+
+def brickbreaker(request):
+    return render(request, 'brickbreaker.html')
 
 
 # def chatwindow(request):
