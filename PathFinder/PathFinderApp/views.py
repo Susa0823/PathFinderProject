@@ -127,6 +127,9 @@ def notemaker(request):
 def games(request):
     return render(request, 'games.html')
 
+def brickbreaker(request):
+    return render(request, 'brickbreaker.html')
+
 
 # def chatwindow(request):
     # return render(request, 'chatwindow.html')
