@@ -59,14 +59,14 @@
         
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href={% url 'logout' %}>Log out</a>
+          <a class="nav-link" href={% url 'logout' %}>Logout</a>
         </li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" href={% url 'register_user' %}>Sign in</a>
+          <a class="nav-link" href={% url 'register_user' %}>Signup</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href={% url 'login' %}>Log in</a>
+          <a class="nav-link" href={% url 'login' %}>Login</a>
         </li>
         {% endif %}
         {% comment %} <li class="nav-item"> <a data-w-id="435ba6b3-7fd0-9dc3-e77b-37f00a7e4f10" href="#" class="button-2 w-button">Mode Toggle</a>
