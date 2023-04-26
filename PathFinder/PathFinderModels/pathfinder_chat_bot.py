@@ -28,8 +28,11 @@ Assistant:"""
 
 
 # TODO: langchain has a prebuild QAchain -> VectorDBQA.from_chain_type(llm...)
-def load_embed_pickle() -> None:
+def load_embed_pinecone() -> None:
 
+    """
+        Creates a pinecone index for embeddings of the Sipser book.JK W
+    """
     # print(os.getcwd())
     loader = PyPDFLoader('../Sipser_theoryofcomp.pdf')
     # loader = TextLoader('./temp.txt')

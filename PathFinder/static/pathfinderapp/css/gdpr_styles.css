@@ -3236,8 +3236,9 @@ a:active {
 .button-2 {
   border-radius: 20px;
   border-color: #000000;
-  right: 100px;
-  top: -100px;
+  position: relative;
+  left: 1255px;
+  top: -190px;
 }
 
 @media screen and (min-width: 1440px) {
