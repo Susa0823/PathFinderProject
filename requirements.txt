@@ -1,20 +1,6 @@
-<<<<<<< HEAD
 gunicorn
 Django>=4.0.0
 psycopg2-binary
-virtualenv==20.0.0
-#waitress
-openai
-langchain==0.0130
-faiss-cpu==1.7.3
-pypdf==3.7.0
-tiktoken==0.3.3
-pinecone-client==2.2.1
-django-allauth==0.54.0
-=======
-gunicorn
-Django>=4.0.0
-#psycopg2-binary==2.9.0
 virtualenv==20.0.0
 #waitress
 openai
@@ -24,4 +10,3 @@ pypdf==3.7.0
 tiktoken==0.3.3
 pinecone-client==2.2.1
 django-allauth==0.54.0
->>>>>>> 53e63a367b1fb128d4882ec4dc5ee49a2f241e1f
