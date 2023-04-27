@@ -72,12 +72,15 @@ def test_chatbotview(request):
 
     message = "The user is about to enter a conversation with you, greet them and let them know what you can do."
 
+    ChatBotForm()
     pathfinder_chatbot = qamodel.make_chain(vectorstore)
 
     if request.method == 'POST':
         message = request.POST.get('chat-input')
         # print(message)
         # print('message is not none')
+
+    #! form = ChatBotForm(request.POST or None)
     if message=='':
         # TODO: Obviously a temporary fix
         message= 'I\'ve sent you an empty message, I will try again.'

@@ -7,7 +7,7 @@ from .models import UserChatPrompt, User
 class ChatBotForm(forms.ModelForm):
     class Meta:
         model = UserChatPrompt
-        fields = ['user_query', 'pathfinder_response']
+        fields = ['user_query']
 
     def t(self):
         data = self.cleaned_data

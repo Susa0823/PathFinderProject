@@ -1,4 +1,4 @@
-//Create variables to reference and store canvas 
+//Create variables to reference and store canvas
 let canvas = document.getElementById('mycanvas');
 let ctx = canvas.getContext('2d');
 let ballRadius = 10;
