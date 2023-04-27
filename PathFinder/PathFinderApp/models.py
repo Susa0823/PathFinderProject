@@ -13,6 +13,7 @@ class User(models.Model):
     user_address = models.CharField(max_length=50)
     user_country = models.CharField(max_length=50)
 
+    USERNAME_FIELD = 'username'
     def save(self, *args, **kwargs):
         super().save()
 
