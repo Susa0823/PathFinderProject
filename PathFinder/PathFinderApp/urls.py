@@ -11,7 +11,6 @@ urlpatterns = [
     path('chatbot/', views.chatbot, name='chatbot'),
     path('policy/', views.gdpr, name='policy'),
     path('about/', views.about, name='about'),
-    path('notemaker/', views.notemaker, name='notemaker'),
     path('chatbox/', views.test_chatbotview, name='chatbox'),
     path('login/', views.login_user, name='login'),
     path('logout/', views.logout_user, name="logout"),
@@ -21,6 +20,14 @@ urlpatterns = [
     path('brickbreaker/', views.brickbreaker, name='brickbreaker'),
     path('profile/', views.profile, name='profile'),
     path('edit/',views.edit_profile, name = 'edit'),
+
+    # For Notmaker
+    path('notemaker/', views.noteindex, name = 'noteindex'),
+    path('new_note', views.new_note, name = 'new'),
+    path('note/<str:pk>', views.note_detail, name = 'note'),
+    path('delete_note/<str:pk>', views.delete_note, name = 'delete'),
+    path('search_result', views.search_page, name = 'search'),
+
 ]
 
 
