@@ -330,23 +330,27 @@ def login_view(request):
         return render(request, 'login.html')
 
 def edit_profile(request):
+    
+    if not request.user.is_authenticated:
+        return redirect('/login')
+    
+    if request.method == 'POST':
+        user_form = EditProfileForm(request.POST, instance=request.user)
+        profile_form = UpdateProfile(request.POST, request.FILES, instance=request.user)
 
- if request.user.is_authenticated:
-               
-        if request.method == 'POST':
-            user_form = EditProfileForm(request.POST, instance=request.user)
-            profile_form = UpdateProfile(request.POST, request.FILES, instance=request.user)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect('/profile')
+    else:
+        user_form = EditProfileForm(instance=request.user)
+        profile_form = UpdateProfile(instance=request.user)
 
-            if user_form.is_valid() and profile_form.is_valid():
-                user_form.save()
-                profile_form.save()
-                messages.success(request, 'Your profile is updated successfully')
-                return redirect('/profile')
-        else:
-            user_form = EditProfileForm(instance=request.user)
-            profile_form = UpdateProfile(instance=request.user)
- else:
-             return redirect('/login')
+    if not request.user.is_authenticated:
+        return redirect('/login')
+    else:
+        return render(request, 'edit.html', {'user_form': user_form, 'profile_form': profile_form})
 
 def profile(request):
     context = {}
