@@ -17,7 +17,8 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import EditProfileForm,UpdateProfile
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
-
+from .models import Notes
+from .forms import NotesForm
 
 
 api_key = os.environ.get('OPENAI_API_KEY')
@@ -72,12 +73,15 @@ def test_chatbotview(request):
 
     message = "The user is about to enter a conversation with you, greet them and let them know what you can do."
 
+    ChatBotForm()
     pathfinder_chatbot = qamodel.make_chain(vectorstore)
 
     if request.method == 'POST':
         message = request.POST.get('chat-input')
         # print(message)
         # print('message is not none')
+
+    #! form = ChatBotForm(request.POST or None)
     if message=='':
         # TODO: Obviously a temporary fix
         message= 'I\'ve sent you an empty message, I will try again.'
@@ -121,14 +125,64 @@ def gdpr(request):
 def about(request):
     return render(request, 'about.html')
 
-def notemaker(request):
-    return render(request, 'notemaker.html')
-
+# For the Games Page
 def games(request):
     return render(request, 'games.html')
 
 def brickbreaker(request):
     return render(request, 'brickbreaker.html')
+
+def remembergame(request):
+    return render(request, 'remem.html')
+
+def rockps(request):
+    return render(request, 'rockps.html')
+
+def tictakpro(request):
+    return render(request, 'tictakpro.html')
+
+# For the Notemaker Page
+def noteindex(request):
+    notes = Notes.objects.all()
+    return render(request, "noteindex.html", {"notes": notes})
+
+def new_note(request):
+    form = NotesForm()
+    if request.method == 'POST':
+        form = NotesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("noteindex")
+    return render(request, "noteupdate.html", {"form": form})
+
+def note_detail(request, pk):
+    note = Notes.objects.get(id=pk)
+    form = NotesForm(instance=note)
+    if request.method == 'POST':
+        form = NotesForm(request.POST, instance=note)
+        if form.is_valid():
+            form.save()
+            return redirect("noteindex")
+    return render(request, "noteupdate.html", {"note": note, "form": form})
+
+# def delete_note(request, pk):
+def delete_note(request, pk):
+    note = Notes.objects.get(id=pk)
+    form = NotesForm(instance=note)
+    if request.method == 'POST':
+        note.delete()
+        messages.info(request, "The note has been deleted")
+    return render(request, "notedelete.html", {"note": note, "form": form})
+
+def search_page(request):
+    if request.method == 'POST':
+        search_text = request.POST['search']
+        notes = Notes.objects.filter(heading__icontains = search_text) | Notes.objects.filter(text__icontains = search_text)
+        # if notes is None:
+        #     messages.info(request, "Note not found")
+        return render(request, "notesearch.html", {"notes": notes})
+    
+
 
 
 # def chatwindow(request):
@@ -291,3 +345,7 @@ def edit_profile(request):
         profile_form = UpdateProfile(instance=request.user)
 
     return render(request, 'edit.html', {'user_form': user_form, 'profile_form': profile_form})
+
+def profile(request):
+    context = {}
+    return render(request, 'profile.html', context)
