@@ -23,10 +23,8 @@ urlpatterns = [
     # For Games
     path('games/', views.games, name='games'),
     path('brickbreaker/', views.brickbreaker, name='brickbreaker'),
-<<<<<<< HEAD
     path('profile/', views.profile, name='profile'),
     path('edit/',views.edit_profile, name = 'edit'),
-=======
     path('remembergame/', views.remembergame, name='remembergame'),
     path('rockps/', views.rockps, name='rockps'),
     path('tictakpro/', views.tictakpro, name='tictakpro'),
@@ -39,7 +37,6 @@ urlpatterns = [
     path('delete_note/<str:pk>', views.delete_note, name = 'delete'),
     path('search_result', views.search_page, name = 'search'),
 
->>>>>>> 1ba7bdc475ec478e159f86f2409bc34f89a3da49
 ]
 
 
