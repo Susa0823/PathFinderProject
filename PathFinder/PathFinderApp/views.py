@@ -132,6 +132,14 @@ def games(request):
 def brickbreaker(request):
     return render(request, 'brickbreaker.html')
 
+def remembergame(request):
+    return render(request, 'remem.html')
+
+def rockps(request):
+    return render(request, 'rockps.html')
+
+def tictakpro(request):
+    return render(request, 'tictakpro.html')
 
 # For the Notemaker Page
 def noteindex(request):
