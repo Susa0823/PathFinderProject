@@ -14,6 +14,7 @@ class User(models.Model):
     user_address = models.CharField(max_length=50)
     user_country = models.CharField(max_length=50)
 
+    USERNAME_FIELD = 'username'
     def save(self, *args, **kwargs):
         super().save()
 
@@ -29,6 +30,20 @@ class UserChatPrompt(models.Model):
     # need to figure out how to get user model after authentication
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     query = models.CharField(max_length=1000)
-    query_response = models.CharField(max_length=1000)
+    # query_response = models.CharField(max_length=1000)
     # query_date = models.DateField()
     # query_time = models.TimeField()
+
+
+class Notes(models.Model):
+    STATUS = (
+        ("new", "NEWEST"),
+        ("old", "OLDEST"),
+        ("title", "TITLE"),
+    )
+    heading = models.CharField(max_length=200)
+    text = models.TextField()
+    time = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=50, choices=STATUS, default="old")
+    def __str__(self):
+        return self.heading

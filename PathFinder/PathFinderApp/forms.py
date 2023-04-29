@@ -2,12 +2,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from .models import UserChatPrompt, User
+from django.forms import ModelForm, fields
+from . models import Notes
 
 
 class ChatBotForm(forms.ModelForm):
     class Meta:
         model = UserChatPrompt
-        fields = ['user_query', 'pathfinder_response']
+        fields = ['user_query']
 
     def t(self):
         data = self.cleaned_data
@@ -93,3 +95,18 @@ class UpdateProfile(forms.ModelForm):
     class Meta:
         model = User
         fields = ('profile_picture',)
+
+
+
+
+# NotesPage
+class NotesForm(ModelForm):
+    heading = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
+        "class": "form-control", "placeholder":"Enter Title"
+    }))
+    text = forms.CharField(max_length=500, widget=forms.Textarea(attrs={
+         "class": "form-control", "placeholder":"Enter Notes", "rows":"8"
+    }))
+    class Meta:
+        model = Notes
+        fields = ['heading', 'text']
