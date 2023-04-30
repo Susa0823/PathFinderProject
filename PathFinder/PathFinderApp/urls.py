@@ -23,6 +23,8 @@ urlpatterns = [
     # For Games
     path('games/', views.games, name='games'),
     path('brickbreaker/', views.brickbreaker, name='brickbreaker'),
+    path('profile/', views.profile, name='profile'),
+    path('edit/',views.edit_profile, name = 'edit'),
     path('remembergame/', views.remembergame, name='remembergame'),
     path('rockps/', views.rockps, name='rockps'),
     path('tictakpro/', views.tictakpro, name='tictakpro'),

@@ -329,8 +329,11 @@ def login_view(request):
         # Display login page
         return render(request, 'login.html')
 
-@login_required
 def edit_profile(request):
+    
+    if not request.user.is_authenticated:
+        return redirect('/login')
+    
     if request.method == 'POST':
         user_form = EditProfileForm(request.POST, instance=request.user)
         profile_form = UpdateProfile(request.POST, request.FILES, instance=request.user)
@@ -344,7 +347,10 @@ def edit_profile(request):
         user_form = EditProfileForm(instance=request.user)
         profile_form = UpdateProfile(instance=request.user)
 
-    return render(request, 'edit.html', {'user_form': user_form, 'profile_form': profile_form})
+    if not request.user.is_authenticated:
+        return redirect('/login')
+    else:
+        return render(request, 'edit.html', {'user_form': user_form, 'profile_form': profile_form})
 
 def profile(request):
     context = {}

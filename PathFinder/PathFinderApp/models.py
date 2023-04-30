@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ImageField
 
 # Create your models here.
 
@@ -17,7 +18,7 @@ class User(models.Model):
     def save(self, *args, **kwargs):
         super().save()
 
-        img = Image.open(self.avatar.path)
+        img = ImageField.open(self.avatar.path)
 
         if img.height > 100 or img.width > 100:
             new_img = (100, 100)
