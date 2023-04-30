@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {%load static%}
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-<link rel="stylesheet" href="{% static 'pathfinderapp/profile.css' %}" />
+<link rel="stylesheet" href="{% static 'pathfinderapp/css/profile.css' %}" />
 {% include "./navbar.html" %}
 <body>
   {% if user.is_authenticated %}
@@ -12,12 +12,6 @@
       id="navbar-main"
     >
       <div class="container-fluid">
-        <!-- Brand -->
-        <a
-          class="h4 mb-0 text-white text d-none d-lg-inline-block"
-          target="_blank"
-          >Profile Page</a
-        >
         <!-- Form -->
         <form
           class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto"
@@ -171,10 +165,6 @@
                   <i class="ni education_hat mr-2"></i>
                 </div>
                 <hr class="my-4" />
-                <p>
-            
-                </p>
-                <a href="http://127.0.0.1:8000/profile/">Scroll to the top</a>
               </div>
             </div>
           </div>
