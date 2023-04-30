@@ -2405,6 +2405,11 @@ a:hover {
   font-size: 17px;
 }
 
+.button-3:hover {
+  background-color: white;
+  color: #555;
+}
+
 .image-2 {
   border: 10px solid rgba(0, 0, 0, 0);
   border-radius: 0;
@@ -2421,6 +2426,11 @@ a:hover {
   display: block;
   padding: 11px 27px;
   font-size: 16px;
+}
+
+.button-4:hover {
+  background-color: white;
+  color: #555;
 }
 
 .button-5 {

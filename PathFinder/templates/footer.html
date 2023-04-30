@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'pathfinderapp/css/footer.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Exo' rel='stylesheet'>
+  </head>
+  <body>
+    <!-- Your HTML code here -->
+    <footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <p class="footer-text">&copy; 2023 PathFinder. All Rights Reserved.</p>
+            </div>
+            <div class="col-md-6 text-right">
+              <div class="footer-links">
+                <a href="{% url 'about' %}" class="footer-link">About Us</a>
+                <span class="mx-2">|</span>
+                <a href="{% url 'policy' %}" class="footer-link">Privacy Policy</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>      
+    {% comment %} <script type="text/javascript" src="{% static 'pathfinderapp/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'pathfinderapp/js/bootstrap.min.js' %}"></script> {% endcomment %}
+    {% comment %} <script type="text/javascript" src="{% static 'pathfinderapp/js/scripts.js' %}"></script> {% endcomment %}
+  </body>
+</html>
