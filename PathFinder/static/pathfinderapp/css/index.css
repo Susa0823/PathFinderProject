@@ -43,6 +43,8 @@ template {
 
 a {
   background-color: rgba(0, 0, 0, 0);
+  color: white;
+  padding: 0px;
 }
 
 a:active,
@@ -69,7 +71,7 @@ h1 {
 }
 
 mark {
-  color: #000;
+  color: #000000;
   background: #ff0;
 }
 
@@ -1906,7 +1908,7 @@ textarea.w-select {
 }
 
 a {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a:hover {
