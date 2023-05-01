@@ -15,16 +15,16 @@ from .models import Notes
 from .forms import NotesForm
 from django.contrib.auth.models import User
 import smtplib
+from .forms import ContactForm
+from django.core.mail import send_mail
+from django.conf import settings
+from django.core.mail import EmailMessage
 import os
 import json
 # import pickle
 # import warnings
 import openai
-import pineconefrom django.core.mail import send_mail
-from django.conf import settings
-from django.core.mail import EmailMessage
-
-
+import pinecone
 
 api_key = os.environ.get('OPENAI_API_KEY')
 
