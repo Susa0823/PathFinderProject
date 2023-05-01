@@ -20,7 +20,12 @@ from django.contrib.auth.decorators import login_required
 from .models import Notes
 from .forms import NotesForm
 from django.contrib.auth.models import User
+import smtplib
 from .forms import ContactForm
+from django.core.mail import send_mail
+from django.conf import settings
+from django.core.mail import EmailMessage
+
 
 
 api_key = os.environ.get('OPENAI_API_KEY')
@@ -358,6 +363,7 @@ def profile(request):
     context = {}
     return render(request, 'profile.html', context)
 
+
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -365,7 +371,19 @@ def contact(request):
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
             message = form.cleaned_data['message']
-            # code to send email
+
+            email_subject = 'New Contact Form Submission'
+            email_body = f'Name: {name}\nEmail: {email}\nMessage: {message}'
+            email = EmailMessage(
+                email_subject,
+                email_body,
+                settings.DEFAULT_FROM_EMAIL,
+                [settings.CONTACT_EMAIL],
+                reply_to=[email],
+            )
+            email.from_email = email
+            email.send(fail_silently=False)
+
             return render(request, 'thanks.html')
     else:
         form = ContactForm()

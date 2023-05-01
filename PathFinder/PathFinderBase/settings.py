@@ -191,3 +191,12 @@ GOOGLE_AUTH_URI = 'https://accounts.google.com/o/oauth2/auth'
 GOOGLE_TOKEN_URI = 'https://oauth2.googleapis.com/token'
 GOOGLE_USER_INFO_URI = 'https://www.googleapis.com/oauth2/v1/userinfo'
 GOOGLE_REDIRECT_URI = 'http://localhost:8000/google-auth-callback'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'contactus.pathfinder@gmail.com'
+EMAIL_HOST_PASSWORD = 'dqpp msri ebue nnhl'
+CONTACT_EMAIL = 'contactus.pathfinder@gmail.com' 
+DEFAULT_FROM_EMAIL = 'contactus.pathfinder@gmail.com'

@@ -1,5 +1,39 @@
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Form</title>
+    <style>
+        #contact-heading {
+            font-size: 36px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    {% include "./navbar.html" %}
+    <div id="contact-heading">
+        <h1>Contact Us</h1>
+    </div>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="name">Name:</label>
+            {{ form.name }}
+        </p>
+        <p>
+            <label for="email">Email:</label>
+            {{ form.email }}
+        </p>
+        <p>
+            <label for="message">Message:</label>
+            {{ form.message }}
+        </p>
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>
