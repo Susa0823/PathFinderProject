@@ -11,7 +11,6 @@ urlpatterns = [
     # path('chatbot/', views.chatbot, name='chatbot'),
     path('policy/', views.gdpr, name='policy'),
     path('about/', views.about, name='about'),
-    path('notemaker/', views.notemaker, name='notemaker'),
     path('chatbox/response', views.send_chat_response, name='chatbot'),
     path('chatbox/', views.render_chatbotview, name='chatbox'),
     path('login/', views.login_user, name='login'),
