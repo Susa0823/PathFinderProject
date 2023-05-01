@@ -1,12 +1,6 @@
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-import os
-import json
-# import pickle
-import warnings
-import openai
-import pinecone
 import PathFinder.PathFinderModels.pathfinder_chat_bot as qamodel
 from langchain.vectorstores import Pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings
@@ -17,101 +11,84 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import EditProfileForm,UpdateProfile
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
-
+from django.urls import reverse
+import os
+import json
+# import pickle
+# import warnings
+import openai
+import pinecone
 
 
 api_key = os.environ.get('OPENAI_API_KEY')
 
 # warnings.filterwarnings("ignore")
 
+pinecone.init(api_key='5bf2927b-0fb7-423b-b8f1-2f6a3347a15d',
+              environment='asia-northeast1-gcp')
+vectorstore = Pinecone.from_existing_index(
+    'teamprojindex', OpenAIEmbeddings())
+pathfinder_chatbot = qamodel.make_chain(vectorstore)
 
-def qachain(request):
+    # context = {
+    #     'pathfinder_response':send_chat_response(request),
+    #     'pathfinder_api_url': reverse('chatbox'),
+    # }
+    # request.session['pathfinder_response'] = send_chat_response(request)
+    # send_chat_response(request)
+    # if request.POST.get('user_message') not in [None, '']:
+        # print("yes")
 
-    # qamodel.load_embed_pickle()
-    pinecone.init(api_key='5bf2927b-0fb7-423b-b8f1-2f6a3347a15d',
-                  environment='asia-northeast1-gcp')
-    vectorstore = Pinecone.from_existing_index(
-        'teamprojindex', OpenAIEmbeddings())
-    pathfinder_chatbot = qamodel.make_chain(vectorstore)
-    chat_history = []
-    # print(vectorstore.similarity_search("what is a computer", 10))
-    question = input("Enter a question: ")
+        # print(f"USERMSG INSIDE RENDERER: {request.POST.get('user_message')}")
+    # print("hellop")
+    # if request.POST.get('user_message'):
+    #     send_chat_response(request)
+    #     print("yes")
 
-    # answer = pathfinder_chatbot({
-    #     "question": question,
-    #     "chat_history": []
-    # })
-    # print(answer)
-    # print(chatbot.)
-    while 1:
-        answer = pathfinder_chatbot({
-            "question": question,
-            "chat_history": chat_history
-        })
-        print()
-        print(answer)
-        chat_history.append({"role": "assistant", "content": answer})
-        print('type exit to exit...')
-        question = input()
-        if question == "exit":
-            break
+    # context = {
+        # 'pathfinder_response': request.session['pathfinder_response'],
+    # }
 
-    # with open("ndtmvecstore.pkl", "rb") as f:
-    #     vectorstore = pickle.load(f)
-    #     print(qamodel.make_chain_prebuilt(vectorstore))
+    # print(f"\ntypeof: {type(context['pathfinder_response'])}")
 
-    return 0
-# qachain(None)
+def render_chatbotview(request):
+    # # print(request.POST)
+    # print('ran')
+    return render(request, 'chatwindow.html')
 
-
-def test_chatbotview(request):
-    pinecone.init(api_key='5bf2927b-0fb7-423b-b8f1-2f6a3347a15d',
-                  environment='asia-northeast1-gcp')
-    vectorstore = Pinecone.from_existing_index(
-        'teamprojindex', OpenAIEmbeddings())
-
-    message = "The user is about to enter a conversation with you, greet them and let them know what you can do."
-
-    ChatBotForm()
-    pathfinder_chatbot = qamodel.make_chain(vectorstore)
+def send_chat_response(request):
+    print(request.POST)
+    pathfinder_response = ""
+    # if user_message in [None, '']:
+    #     # TODO: Obviously a temporary fix
+    #     user_message = "The user is about to start a conversation with you, greet them and let them know what you can do."
 
     if request.method == 'POST':
-        message = request.POST.get('chat-input')
-        # print(message)
-        # print('message is not none')
+        # user_message = request.POST.get('user_message')
+        dat = json.loads(request.body)
+        user_message = dat['user_message']
+        print(type(user_message))
+        # print("its allliiiivveee")
+        print(f"USER_MESSAGE: {user_message}")
+        # print(user_messaguser_message)
+        # print('user_messaguser_message is not none')
 
-    #! form = ChatBotForm(request.POST or None)
-    if message=='':
-        # TODO: Obviously a temporary fix
-        message= 'I\'ve sent you an empty message, I will try again.'
-    if message is not None:
-        response = pathfinder_chatbot({
-            "question": message,
-            # "name": name,
-            "chat_history": []
-        })  # query the chatbot
+        #! form = ChatBotForm(request.POST or None)
+        if user_message is not None:
+            response = pathfinder_chatbot({
+                "question": user_message,
+                # "name": name,
+                "chat_history": []
+            })  # query the chatbot
+            # print(user_message)
 
-    # # form = ChatBotForm(request.POST or None)
-    # # content = {
-    # #     'form': form
-    # # }
-    # # if form.is_valid():
-    # #     chat_prompt = form.save()
-    # #     print(chat_prompt)
-    # #     content['form'] = ChatBotForm()
-    # #     name = form.cleaned_data['name']
-    # message = form.cleaned_data['message']
-    # #     return JsonResponse({'response': response})
-    # else:
-    #     form = ChatBotForm(request.POST)
-    # test ={
-    #     'name': request.user.username,
-    # }
-    # return render(request, 'chatwindow.html', context=content)
-    pathfinder_response = response['answer']
-
-    return render(request, 'chatwindow.html', {'pathfinder_response': pathfinder_response, 'user_message': message})
-
+            pathfinder_response = response['answer']
+            # context = {'pathfinder_response': pathfinder_response}
+        # jsondata = json.dumps(jsonresp)
+    # reverse('/chatbox/')
+    return JsonResponse({'pathfinder_response': pathfinder_response})
+    # return JsonResponse({'pathfinder_response': pathfinder_response})
+    # return render(request, 'chatwindow.html', {'pathfinder_response': pathfinder_response, 'pathfinder_api_url': reverse('chatbot')})
 
 def index(request):
     return render(request, 'index.html')

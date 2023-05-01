@@ -18,7 +18,7 @@ class ChatBotForm(forms.ModelForm):
 #     user_query, pathfinder_response = None, None
     user_query = forms.CharField(label='User Query', max_length=1000)
     pathfinder_response = forms.CharField(
-       label='PathFinder Response', max_length=1000)
+        label='PathFinder Response', max_length=1000)
 
 
 class RegisterUserForm(UserCreationForm):
@@ -56,16 +56,16 @@ class RegisterUserForm(UserCreationForm):
 
 
 class EditProfileForm(forms.ModelForm):
-    username = forms.CharField(label='Username', max_length=100, required=False,widget=forms.TextInput(attrs={'class': 'form-control'}))
-    first_name = forms.CharField(label='First Name', max_length=100,required=False,widget=forms.TextInput(attrs={'class': 'form-control'}))
-    last_name = forms.CharField(label='Last Name', max_length=100,required=False,widget=forms.TextInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(label='Username', max_length=100, required=False,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(label='First Name', max_length=100,
+                                 required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(label='Last Name', max_length=100, required=False,
+                                widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name')
-        
-       
-
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -86,9 +86,11 @@ class EditProfileForm(forms.ModelForm):
         if not last_name:
             return self.instance.last_name
         return last_name
-    
+
+
 class UpdateProfile(forms.ModelForm):
-    profile_picture =  forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}),required=True)
+    profile_picture = forms.ImageField(widget=forms.FileInput(
+        attrs={'class': 'form-control-file'}), required=True)
 
     class Meta:
         model = User

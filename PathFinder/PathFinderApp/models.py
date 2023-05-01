@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -7,11 +8,13 @@ from django.db import models
 # to do so run `python manage.py makemigrations PathFinderAPP`
 class User(models.Model):
     # user_id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=50)
+    username = models.CharField(User, max_length=50)
     user_password = models.CharField(max_length=50)
     user_email = models.CharField(max_length=50)
     user_address = models.CharField(max_length=50)
     user_country = models.CharField(max_length=50)
+    def __str__(self) -> str:
+        return self.username
 
     USERNAME_FIELD = 'username'
     def save(self, *args, **kwargs):

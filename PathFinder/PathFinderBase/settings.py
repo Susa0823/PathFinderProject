@@ -77,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.contrib.sessions.models.Session',
 ]
 
 
@@ -107,8 +108,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         # pathfinderdb on remote server, only diff
-        # 'NAME': os.environ.get('DB_NAME', 'pathfinderdb'),
-        'NAME': os.environ.get('DB_NAME', 'AppDBdjango'),
+        'NAME': os.environ.get('DB_NAME', 'pathfinderdb'),
+        # 'NAME': os.environ.get('DB_NAME', 'AppDBdjango'),
         'USER': os.environ.get('DB_USER', 'pathfinderdbsu'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'pa$$wordFinder'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
