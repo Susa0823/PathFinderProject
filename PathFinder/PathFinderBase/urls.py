@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from PathFinder.PathFinderApp.views import register_user
+
 # from PathFinder.PathFinderApp import views, urls
 urlpatterns = [
     # create a path to the default django page
@@ -23,4 +25,6 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     #google sign up
     path("accounts/", include("allauth.urls")),
+    path('signup/', register_user, name="register_user"),
+
 ]

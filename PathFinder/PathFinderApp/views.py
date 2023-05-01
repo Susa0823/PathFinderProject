@@ -19,6 +19,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .models import Notes
 from .forms import NotesForm
+from django.contrib.auth.models import User
+
 
 
 api_key = os.environ.get('OPENAI_API_KEY')
