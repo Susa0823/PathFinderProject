@@ -20,7 +20,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Notes
 from .forms import NotesForm
 from django.contrib.auth.models import User
-
+from .forms import ContactForm
 
 
 api_key = os.environ.get('OPENAI_API_KEY')
@@ -357,3 +357,16 @@ def edit_profile(request):
 def profile(request):
     context = {}
     return render(request, 'profile.html', context)
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            # code to send email
+            return render(request, 'thanks.html')
+    else:
+        form = ContactForm()
+    return render(request, 'form.html', {'form': form})

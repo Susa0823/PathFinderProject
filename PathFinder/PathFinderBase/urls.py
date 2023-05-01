@@ -13,9 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django import views
 from django.contrib import admin
 from django.urls import path, include
 from PathFinder.PathFinderApp.views import register_user
+from django.urls import path
+from PathFinder.PathFinderApp.views import contact
+
 
 # from PathFinder.PathFinderApp import views, urls
 urlpatterns = [
@@ -26,5 +30,5 @@ urlpatterns = [
     #google sign up
     path("accounts/", include("allauth.urls")),
     path('signup/', register_user, name="register_user"),
-
+    path('contact/', contact, name='contact')
 ]
