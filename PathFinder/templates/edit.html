@@ -3,7 +3,7 @@
 <html>
 <head>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-<link rel="stylesheet" href="{% static 'pathfinderapp/profile.css' %}" />
+<link rel="stylesheet" href="{% static 'pathfinderapp/css/profile.css' %}" />
 {% include "./navbar.html" %}
 </head>
 <body>
@@ -203,7 +203,16 @@
       <p>Copyright &copy; 2023 PathFinder</p>
     </footer>
     {% else %}
-    <p>Please <a href="{% url 'login' %}">log in</a> to view your profile.</p>
+    <div
+        class="alert alert-dark text-center mb-0 text-white"
+        role="alert"
+        style="border-radius: 0; background-color: black"
+      >
+        Please <a href="{% url 'login' %}" class="alert-link text-white">log in</a> to
+        access your account.
+      </div>
     {% endif %}
+    {% include 'footer.html' %}
+
   </body>
 </html>

@@ -1,26 +1,30 @@
 <DOCTYPE html>
   {%load static%}
-  {% comment %} <link rel="stylesheet" href="{% static 'pathfinderapp/base_style.css' %}"> {% endcomment %}
+  {% comment %} <link rel="stylesheet" href="{% static 'pathfinderapp/base_style.css' %}">  {% endcomment %}
 
 <html>
-<head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'pathfinderapp/css/navbar_style.css' %}"> 
+    <link href='https://fonts.googleapis.com/css?family=Exo' rel='stylesheet'>
+    <style>
+      .logo {
+        width: 50px;
+        height: 50px;
+      }
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
   
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <style>
-    .logo {
-      width: 50px;
-      height: 50px;
-    }
-  </style>
-</head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="{% url 'index' %}">
       <img src="{% static 'pathfinderapp/img/pflogo.png' %}" alt="Logo" class="logo">
-
     </a>
     <button
       class="navbar-toggler"
@@ -34,88 +38,56 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'index' %}"
-            >Home</a
-            {% comment %} >Home <span class="sr-only">(rent)</span></a {% endcomment %}
-          >
+          <a class="nav-link" href="{% url 'index' %}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'chatbox' %}">Ask A.I</a>
         </li>
-        <li class="nav-item">
+        {% comment %} <li class="nav-item">
           <a class="nav-link" href="{% url 'about' %}">About Us</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'policy' %}">Policy</a>
-        </li>
-        
+        </li> {% endcomment %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'noteindex' %}">Notemaker</a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" href="{% url 'games' %}">Games</a>
         </li>
-
-    
-        <li class="nav-item">
-          <a class="nav-link" href="#">Profile</a>
-        </li>
-
-        <li class="nav-item accessibility">
-          <a class="nav-link" href="#" tabindex="0">Accessibility</a>
-        </li>
-        
-
-        <script type="text/javascript">
-          var _userway_config = {
-          /* uncomment the following line to override default position*/
-          /* position: 3,*/
-          /* uncomment the following line to override default size (values: small, large)*/
-          /* size: 'small', */
-          /* uncomment the following line to override default language (e.g., fr, de, es, he, nl, etc.)*/
-          /* language: 'en',*/
-          /* uncomment the following line to override color set via widget (e.g., #053f67)*/
-          /* color: '#053e67',*/
-          /* uncomment the following line to override type set via widget (1=person, 2=chair, 3=eye, 4=text)*/
-          /* type: '1', */
-          /* statement_text: 'Our Accessibility Statement', */
-          /* statement_url: 'http://www.example.com/accessibility', */
-          /* uncomment the following line to override support on mobile devices*/
-          /* mobile: true, */
-          /* uncomment the following line to set custom trigger action for accessibility menu*/
-          /* s.setAttribute("data-trigger", "triggerId"), */
-          account: 'wjbbHMNU7J'
-          };
-          </script>
-          <script type="text/javascript" src="https://cdn.userway.org/widget.js"></script>
-
-        
-        
-        
-        
-        
-
-        
+      </ul>
+      <ul class="navbar-nav">
         {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'profile' %}>My Profile</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href={% url 'logout' %}>Logout</a>
         </li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" href={% url 'register_user' %}>Signup</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href={% url 'login' %}>Login</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'register_user' %}>Sign Up</a>
+        </li>
+        
         {% endif %}
-        {% comment %} <li class="nav-item"> <a data-w-id="435ba6b3-7fd0-9dc3-e77b-37f00a7e4f10" href="#" class="button-2 w-button">Mode Toggle</a>
-        </li> {% endcomment %}
+        <li class="nav-item accessibility">
+          <a class="nav-link" href="#" tabindex="0">Accessibility</a>
+        </li>
+        <script type="text/javascript">
+          var _userway_config = {
+            account: 'wjbbHMNU7J'
+          };
+        </script>
+        <script type="text/javascript" src="https://cdn.userway.org/widget.js"></script>
       </ul>
     </div>
   </nav>
+  
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
           integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
           crossorigin="anonymous"></script>

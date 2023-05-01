@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {%load static%}
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-<link rel="stylesheet" href="{% static 'pathfinderapp/profile.css' %}" />
+<link rel="stylesheet" href="{% static 'pathfinderapp/css/profile.css' %}" />
 {% include "./navbar.html" %}
 <body>
   {% if user.is_authenticated %}
@@ -12,12 +12,6 @@
       id="navbar-main"
     >
       <div class="container-fluid">
-        <!-- Brand -->
-        <a
-          class="h4 mb-0 text-white text d-none d-lg-inline-block"
-          target="_blank"
-          >Profile Page</a
-        >
         <!-- Form -->
         <form
           class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto"
@@ -107,10 +101,6 @@
         <div class="row">
           <div class="col-lg-7 col-md-10">
             <h1 class="display-2 text-white">Hello {{ user.first_name|capfirst}}</h1>
-            <p class="text-white mt-0 mb-5">
-              This is your profile page. You can view your account information
-               here.
-            </p>
             <a href="http://127.0.0.1:8000/edit" class="btn btn-info">Edit profile</a>
           </div>
         </div>
@@ -171,10 +161,6 @@
                   <i class="ni education_hat mr-2"></i>
                 </div>
                 <hr class="my-4" />
-                <p>
-            
-                </p>
-                <a href="http://127.0.0.1:8000/profile/">Scroll to the top</a>
               </div>
             </div>
           </div>
@@ -264,19 +250,16 @@
       </div>
     </div>
   </div>
-  <footer class="footer">
-    <div class="row align-items-center justify-content-xl-between">
-      <div class="col-xl-6 m-auto text-center">
-        <div class="copyright"></div>
-      </div>
-    </div>
-  </footer>
-  <footer class="footer2">
-    <p>Copyright &copy; 2023 PathFinder</p>
-  </footer>
+  
   {% else %}
-<p>Please <a href="{% url 'login' %}">log in</a> to view your profile.</p>
+  <div class="alert alert-dark text-center mb-0 text-white" role="alert" style="border-radius: 0; background-color: black; padding-right: 0px; padding-left:0px;">
+    Please <a href="{% url 'login' %}" class="alert-link text-white" style="padding: 0px !important; color: #3958b6 !important;">log in</a> to access your profile.
+</div>
+
+
+  
 {% endif %}
+{% include 'footer.html' %}
 
 </body>
 </html>

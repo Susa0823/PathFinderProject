@@ -93,12 +93,12 @@
       {% endif %}
 
       <section class="hero-heading-right wf-section">
-        <a
+        {% comment %} <a
           data-w-id="f67cbd33-09b5-47bf-4422-5000a636e649"
           href="#"
           class="button-5 w-button"
           >Switch Theme
-        </a>
+        </a> {% endcomment %}
         <div class="container-2">
           <div class="hero-wrapper">
             <div class="hero-split">
@@ -120,7 +120,7 @@
                 simplified way for users to explore a range of topics they are
                 interested in.
               </p>
-              <a href="chatbot/" class="button-primary w-button">Ask A.I</a>
+              <a href="chatbox/" class="button-primary w-button">Ask A.I</a>
             </div>
           </div>
         </div>
@@ -137,7 +137,8 @@
                 sizes="(max-width: 767px) 89vw, (max-width: 991px) 61vw, 37vw"
                 alt="filler image"
                 class="image-2"
-              /><a href="signin/" class="button-4 w-button">Sign-up </a>
+              />
+              <a href="{% url 'register_user' %}" class="button-4 w-button">Sign-up </a>
             </div>
             <ul role="list" class="features-right w-list-unstyled">
               <li class="features-block-two">
@@ -380,7 +381,8 @@
       ></script>
       <!--[if lte IE 9
         ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script
-      ><![endif]-->
+      ><![endif]--> 
+      {% include 'footer.html' %}
     </body>
   </html>
 </html>
