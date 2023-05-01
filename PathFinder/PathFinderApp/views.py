@@ -21,7 +21,6 @@ import json
 import openai
 import pinecone
 
-
 api_key = os.environ.get('OPENAI_API_KEY')
 
 # warnings.filterwarnings("ignore")
@@ -346,3 +345,19 @@ def contact(request):
     else:
         form = ContactForm()
     return render(request, 'form.html', {'form': form})
+
+
+
+def my_view(request):
+    # Get the current user
+    user = request.user
+
+    # Get the user's first name
+    first_name = user.first_name
+
+    # Add the first name to the context dictionary
+    context = {
+        'first_name': first_name
+    }
+
+    return render(request, 'my_template.html', context)

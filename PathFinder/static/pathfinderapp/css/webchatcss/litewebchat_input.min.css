@@ -1,8 +1,4 @@
-@charset "UTF-8"; /*!
- * LiteWebChat_Frame 2.2.1 (https://lab.morfans.cn/LiteWebChat_Frame)
- * MorFans Lab(c) 2017-2023
- * Licensed under LGPL
- */
+@charset "UTF-8";
 .lite-chatbox {
   height: calc(100% - 150px);
 }
@@ -138,4 +134,3 @@
 .float-right {
   float: right;
 }
-/*# sourceMappingURL=map/litewebchat_input.min.css.map */
