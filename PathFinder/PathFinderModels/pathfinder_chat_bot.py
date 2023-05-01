@@ -90,7 +90,7 @@ def make_chain(vectorstore: VectorStore) -> ConversationalRetrievalChain:
         streaming=True,
         callback_manager=CallbackManager(
             [StreamingStdOutCallbackHandler()]),
-        verbose=True,
+        verbose=False,
         temperature=0.2,
         max_tokens=150
     )

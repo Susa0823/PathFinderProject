@@ -3,10 +3,9 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'pathfinderapp/css/signup.css' %}" />
 <html lang="en">
-{% include "./navbar.html" %}
+  {% include "./navbar.html" %}
 
-{% block content %} 
-{% if form.errors %}
+  {% block content %} {% if form.errors %}
 <p>There was an error while creating your account</p>
 {% endif %}
 {% endblock %}
@@ -14,7 +13,7 @@
   <html>
     <head>
       <meta charset="UTF-8" />
-      <title>Signup Page</title>
+      <title>Sign Up</title>      
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <link
@@ -55,7 +54,9 @@
             >
           </button>
       </div>
-      {% include 'footer.html' %}
+      <footer>
+        <p>Copyright &copy; 2023 PathFinder</p>
+      </footer>
     </body>
   </html>
 </html>

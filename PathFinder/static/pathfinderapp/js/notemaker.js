@@ -14,7 +14,7 @@ addNoteBtn.addEventListener("click", () => {
         notesObj = JSON.parse(notes);
     }
 
-    // Adding Note in notes 
+    // Adding Note in notes
     newNote = {
         "title": title,
         "description": description
@@ -54,7 +54,7 @@ function showNotes() {
         notesContainer.innerHTML = ``;
         // notesContainer.innerHTML = `<b class="text-danger">No notes added yet<br>Please Add Some Notes!</b>`;
     }
-    
+
 }
 
 function deleteNote(index) {
