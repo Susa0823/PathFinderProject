@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Exo');
+
 :root {
     --blue: #5e72e4;
     --indigo: #5603ad;
@@ -129,7 +131,7 @@
   }
   
   a:hover {
-    text-decoration: none;
+    text-decoration: underline;
     color: #233dd2;
   }
   
@@ -2038,3 +2040,5 @@
     padding: 10px;
   
   }
+
+  

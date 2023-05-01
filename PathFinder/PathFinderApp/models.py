@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms import ImageField
 
 # Create your models here.
 
@@ -20,7 +21,7 @@ class User(models.Model):
     def save(self, *args, **kwargs):
         super().save()
 
-        img = Image.open(self.avatar.path)
+        img = ImageField.open(self.avatar.path)
 
         if img.height > 100 or img.width > 100:
             new_img = (100, 100)
@@ -35,3 +36,17 @@ class UserChatPrompt(models.Model):
     # query_response = models.CharField(max_length=1000)
     # query_date = models.DateField()
     # query_time = models.TimeField()
+
+
+class Notes(models.Model):
+    STATUS = (
+        ("new", "NEWEST"),
+        ("old", "OLDEST"),
+        ("title", "TITLE"),
+    )
+    heading = models.CharField(max_length=200)
+    text = models.TextField()
+    time = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=50, choices=STATUS, default="old")
+    def __str__(self):
+        return self.heading

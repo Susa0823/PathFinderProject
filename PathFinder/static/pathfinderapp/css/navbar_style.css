@@ -1,25 +1,19 @@
 /* Navbar background color and height */
-.navbar {
-  background-color: #333;
-  height: 50px;
-}
 
 /* Navbar brand text color and padding */
 .navbar-brand {
   color: #fff;
   padding: 15px 0;
+
 }
 
 /* Navbar links text color, font size, and padding */
-.navbar-nav > li > a {
-  color: #fff;
-  font-size: 16px;
-  padding: 15px;
-}
 
 /* Navbar active link color */
 .navbar-nav > li.active > a {
   color: #ffcc00;
+  font-family: Exo, sans-serif;
+
 }
 
 /* Navbar dropdown menu styles */
@@ -32,6 +26,7 @@
 .navbar-nav .dropdown-menu li a {
   color: #fff;
   padding: 10px 20px;
+  text-decoration: none;
 }
 
 /* Navbar search input style */
@@ -54,6 +49,8 @@
 .navbar-nav.navbar-right > li > a {
   color: #fff;
   padding: 15px;
+  text-decoration: none;
+  font-family: Exo, sans-serif;
 }
 
 /* Navbar login/signup dropdown menu styles */
@@ -66,4 +63,41 @@
 .navbar-nav.navbar-right .dropdown-menu li a {
   color: #fff;
   padding: 10px 20px;
+  text-decoration: none;
+  font-family: Exo, sans-serif;
 }
+
+.navbar-nav .nav-link {
+  text-decoration: none;
+  font-family: Exo, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  font-size: 16px;
+  font-family: Exo, sans-serif;
+  padding: 15px;
+}
+
+.navbar {
+  background-color: #333;
+  height: 70px;
+}
+
+.navbar-nav > li > a {
+  color: #fff;
+  font-size: 16px;
+  font-family: Exo, sans-serif;
+  padding: 15px;
+  text-decoration: none;
+  letter-spacing: .25px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.navbar-nav li a:hover {
+  font-weight: bold;
+  font-family: Exo, sans-serif;
+
+}
+

@@ -11,7 +11,9 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import EditProfileForm,UpdateProfile
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
+from .models import Notes
+from .forms import NotesForm
+from django.contrib.auth.models import User
 import os
 import json
 # import pickle
@@ -101,14 +103,64 @@ def gdpr(request):
 def about(request):
     return render(request, 'about.html')
 
-def notemaker(request):
-    return render(request, 'notemaker.html')
-
+# For the Games Page
 def games(request):
     return render(request, 'games.html')
 
 def brickbreaker(request):
     return render(request, 'brickbreaker.html')
+
+def remembergame(request):
+    return render(request, 'remem.html')
+
+def rockps(request):
+    return render(request, 'rockps.html')
+
+def tictakpro(request):
+    return render(request, 'tictakpro.html')
+
+# For the Notemaker Page
+def noteindex(request):
+    notes = Notes.objects.all()
+    return render(request, "noteindex.html", {"notes": notes})
+
+def new_note(request):
+    form = NotesForm()
+    if request.method == 'POST':
+        form = NotesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("noteindex")
+    return render(request, "noteupdate.html", {"form": form})
+
+def note_detail(request, pk):
+    note = Notes.objects.get(id=pk)
+    form = NotesForm(instance=note)
+    if request.method == 'POST':
+        form = NotesForm(request.POST, instance=note)
+        if form.is_valid():
+            form.save()
+            return redirect("noteindex")
+    return render(request, "noteupdate.html", {"note": note, "form": form})
+
+# def delete_note(request, pk):
+def delete_note(request, pk):
+    note = Notes.objects.get(id=pk)
+    form = NotesForm(instance=note)
+    if request.method == 'POST':
+        note.delete()
+        messages.info(request, "The note has been deleted")
+    return render(request, "notedelete.html", {"note": note, "form": form})
+
+def search_page(request):
+    if request.method == 'POST':
+        search_text = request.POST['search']
+        notes = Notes.objects.filter(heading__icontains = search_text) | Notes.objects.filter(text__icontains = search_text)
+        # if notes is None:
+        #     messages.info(request, "Note not found")
+        return render(request, "notesearch.html", {"notes": notes})
+    
+
 
 
 # def chatwindow(request):
@@ -255,8 +307,11 @@ def login_view(request):
         # Display login page
         return render(request, 'login.html')
 
-@login_required
 def edit_profile(request):
+    
+    if not request.user.is_authenticated:
+        return redirect('/login')
+    
     if request.method == 'POST':
         user_form = EditProfileForm(request.POST, instance=request.user)
         profile_form = UpdateProfile(request.POST, request.FILES, instance=request.user)
@@ -270,8 +325,24 @@ def edit_profile(request):
         user_form = EditProfileForm(instance=request.user)
         profile_form = UpdateProfile(instance=request.user)
 
-    return render(request, 'edit.html', {'user_form': user_form, 'profile_form': profile_form})
+    if not request.user.is_authenticated:
+        return redirect('/login')
+    else:
+        return render(request, 'edit.html', {'user_form': user_form, 'profile_form': profile_form})
 
 def profile(request):
     context = {}
     return render(request, 'profile.html', context)
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            # code to send email
+            return render(request, 'thanks.html')
+    else:
+        form = ContactForm()
+    return render(request, 'form.html', {'form': form})

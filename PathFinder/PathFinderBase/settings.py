@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+
+    
 ]
 
 #google sign up pt2
