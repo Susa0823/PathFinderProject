@@ -70,7 +70,7 @@
   -webkit-box-shadow: 5px 5px 15px 0 rgba(102, 102, 102, 0.1);
           box-shadow: 5px 5px 15px 0 rgba(102, 102, 102, 0.1);
   border: none;
-  border-radius: 4px;
+  border-radius: 2em;
   -webkit-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
