@@ -1,0 +1,162 @@
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
+/* :root {
+  --stroke-color: #56ccf2;
+  --like-color: #f45252;
+  --follow-color: #0fb0e3;
+  --body-bgcolor: #f6f6f6;
+} */
+
+body {
+  background-color: var(--body-bgcolor);
+  font-family: "Open Sans", sans-serif;
+}
+
+/* .container {
+  width: 100%;
+  margin: auto;
+  padding: 2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+} */
+
+/* .col-8 {
+  flex: 0 0 66.66667%;
+  max-width: 66.66667%;
+  padding: 0 1rem;
+}
+
+.col-4 {
+  flex: 0 0 33.33333%;
+  max-width: 33.33333%;
+  padding: 0 1rem;
+} */
+
+/* .row::after {
+  content: "";
+  display: table;
+  clear: both;
+} */
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* .alert {
+  background-color: white;
+  border: 2px solid var(--stroke-color);
+  border-radius: 0.5rem;
+  box-shadow: 4px 4px 20px 0px #07617c4b;
+  padding: 1rem;
+  margin-bottom: 2rem;
+} */
+
+/* .alert .container .row {
+  align-items: center;
+} */
+
+/* .alert img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 0.6rem;
+  border: 2px solid var(--stroke-color);
+} */
+
+.alert small {
+  color: rgba(128, 128, 128, 0.945);
+  font-size: 0.7rem;
+}
+
+.alert .fa-heart,
+.alert .fa-heart-o {
+  color: var(--like-color);
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.alert .fa-heart-o:hover {
+  transform: scale(1.2);
+}
+
+.alert .fa-share {
+  color: gray;
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.alert .fa-share:hover {
+  transform: scale(1.2);
+}
+
+.alert .text-muted {
+  font-weight: 500;
+}
+
+.alert .text-muted a {
+  color: inherit;
+}
+
+.alert .text-muted a:hover {
+  text-decoration: none;
+}
+
+.alert .text-muted a:hover .fa-heart-o {
+  transform: scale(1.2);
+}
+
+.alert .text-muted a:hover .fa-heart {
+  transform: scale(1.2);
+}
+
+form {
+  border: 2px solid var(--stroke-color);
+  border-radius: 0.5rem;
+  box-shadow: 4px 4px 20px 0px #00c3ff4b;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+form h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+display: block;
+width: 100%;
+padding: 0.5rem;
+font-size: 1.2rem;
+border-radius: 0.25rem;
+border: 1px solid #ccc;
+margin-bottom: 1rem;
+}
+
+form button[type="submit"] {
+background-color: #007bff;
+color: #fff;
+padding: 0.5rem 1rem;
+font-size: 1.2rem;
+border: none;
+border-radius: 0.25rem;
+cursor: pointer;
+}
