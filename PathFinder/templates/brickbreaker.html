@@ -1,27 +1,25 @@
 <!DOCTYPE html>
-{%load static%}
-
+{% load static %}
 {% comment %} <link rel="stylesheet" href="{% static 'pathfinderapp/css/about_styles.css' %}"> {% endcomment %}
 <html>
-
-{%include "./navbar.html"%}
-
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'pathfinderapp/css/brickbreaker.css' %}">
-    <title>Bounce Ball Game using JavaScript with Source Code - @code.scientist x @codingtorque</title>
-</head>
-<body>
-    <canvas id="mycanvas" width="650" height="450">
-        I'm sorry your browser version does not support canvas
-        <!--Fallback Content-->
-    </canvas>
-        <!-- Further code here -->
-        <script src="{% static 'pathfinderapp/js/brickbreaker.js' %}" type="text/javascript"></script>
-
-</body>
-</html>
+    {% include "./navbar.html" %}
+    <html lang="en">
+        <head>
+            <!-- Required meta tags -->
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <!-- CSS -->
+            <link rel="stylesheet"
+                  href="{% static 'pathfinderapp/css/brickbreaker.css' %}">
+            <title>Bounce Ball Game using JavaScript with Source Code - @code.scientist x @codingtorque</title>
+        </head>
+        <body>
+            <canvas id="mycanvas" width="650" height="450">
+                I'm sorry your browser version does not support canvas
+                <!--Fallback Content-->
+            </canvas>
+            <!-- Further code here -->
+            <script src="{% static 'pathfinderapp/js/brickbreaker.js' %}"
+                    type="text/javascript"></script>
+        </body>
+    </html>

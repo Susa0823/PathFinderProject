@@ -99,34 +99,34 @@ class UpdateProfile(forms.ModelForm):
         fields = ('profile_picture',)
 
 
-
-
 # NotesPage
 class NotesForm(ModelForm):
     heading = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
-        "class": "form-control", "placeholder":"Enter Title"
+        "class": "form-control", "placeholder": "Enter Title"
     }))
     text = forms.CharField(max_length=500, widget=forms.Textarea(attrs={
-         "class": "form-control", "placeholder":"Enter Notes", "rows":"8"
+        "class": "form-control", "placeholder": "Enter Notes", "rows": "8"
     }))
+
     class Meta:
         model = Notes
         fields = ['heading', 'text']
+
 
 class ContactForm(forms.Form):
     name = forms.CharField(
         label='Your Name',
         max_length=100,
         widget=forms.TextInput(attrs={'class': 'form-control mb-2', 'placeholder': 'Name'}))
-    
+
     email = forms.EmailField(
         label='Your Email',
         widget=forms.EmailInput(attrs={'class': 'form-control mb-2', 'placeholder': 'Email'}))
-    
+
     message = forms.CharField(
         label='Message',
         widget=forms.Textarea(attrs={'class': 'form-control mb-2', 'rows': 5, 'placeholder': 'Message'}))
-    
+
     def send_email(self):
         # logic to send email
         pass

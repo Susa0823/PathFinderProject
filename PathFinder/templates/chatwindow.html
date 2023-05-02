@@ -11,14 +11,6 @@
   <link rel="stylesheet"
         type="text/css"
         href="{% static 'pathfinderapp/css/webchatcss/litewebchat_input.min.css' %}">
-  <style>
-      /* 全局 */
-
-      html,
-        /* 高宽分别对应横竖滚动条的尺寸 */
-        height: 1px;
-      }
-    </style>
     <head>
       <body>
         <!-- 主容器 -->
@@ -58,7 +50,7 @@
       <path d="M527.9 224H480v-48c0-26.5-21.5-48-48-48H272l-64-64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h400c16.5 0 31.9-8.5 40.7-22.6l79.9-128c20-31.9-3-73.4-40.7-73.4zM48 118c0-3.3 2.7-6 6-6h134.1l64 64H426c3.3 0 6 2.7 6 6v42H152c-16.8 0-32.4 8.8-41.1 23.2L48 351.4zm400 282H72l77.2-128H528z"></path>
     </svg>
   </button> -->
-  
+
             <form action={% url 'chatbox' %} method="post" id="chatform">
               {% csrf_token %}
               <input class="editor chatinput"
@@ -82,7 +74,7 @@
     const minput = document.getElementById("userMsgInput");
     const chatForm = document.getElementById("chatform");
     const pathfinder_api_url = "{% url 'chatbot' %}";
-  
+
     async function submitChat(usrquery) {
       try {
         const response = await fetch(pathfinder_api_url, {
@@ -133,20 +125,6 @@
     beforeRenderingHTML(bot_response, '.lite-chatbox');
   });
 </script>
-{% comment %} {% if pathfinder_response %}
-    console.log("{{pathfinder_response}}");
-    bot_response =[
-          {
-            messageType: 'raw',
-            headIcon: '../static/pathfinderapp/img/A.jpg',
-            name: 'PathFinder Knowledge Bot',
-            position: 'left',
-            html: "{{pathfinder_response}}",
-          },
-          ];
-          beforeRenderingHTML(bot_response, '.lite-chatbox');
-{% endif %} {% endcomment %}
-
 <script>
           const init =[
             {
@@ -159,27 +137,3 @@
             ];
             beforeRenderingHTML(init, ".lite-chatbox");
 </script>
-<script>
-      const domarray = [
-      {
-        messageType: "raw",
-        headIcon: "../static/pathfinderapp/img/B.jpg",
-        name: "RealHumanUser4000",
-        position: "right",
-        html:  "shello",
-      },
-      {
-        messageType: "raw",
-        html: "{{pathfinder_response}}",
-      },
-      ];
-    </script>
-    <script>
-          const btns = document.querySelectorAll("#theme-switch");
-          const html = document.documentElement;
-    
-          btns.forEach((btn) => {
-            addEvent(btn);
-          });
-        </script>    
-            
