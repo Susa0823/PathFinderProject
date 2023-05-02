@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.forms import ImageField
 
 # Create your models here.
@@ -8,13 +9,17 @@ from django.forms import ImageField
 # to do so run `python manage.py makemigrations PathFinderAPP`
 class User(models.Model):
     # user_id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=50)
+    username = models.CharField(User, max_length=50)
     user_password = models.CharField(max_length=50)
     user_email = models.CharField(max_length=50)
     user_address = models.CharField(max_length=50)
     user_country = models.CharField(max_length=50)
 
+    def __str__(self) -> str:
+        return self.username
+
     USERNAME_FIELD = 'username'
+
     def save(self, *args, **kwargs):
         super().save()
 
@@ -24,6 +29,7 @@ class User(models.Model):
             new_img = (100, 100)
             img.thumbnail(new_img)
             img.save(self.avatar.path)
+
 
 class UserChatPrompt(models.Model):
     # query_id = models.AutoField(primary_key=True)
@@ -45,6 +51,7 @@ class Notes(models.Model):
     text = models.TextField()
     time = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, choices=STATUS, default="old")
+
     def __str__(self):
         return self.heading
 

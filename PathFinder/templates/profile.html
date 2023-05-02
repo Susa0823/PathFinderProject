@@ -1,27 +1,23 @@
 <!DOCTYPE html>
-{%load static%}
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+{% load static %}
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+      rel="stylesheet" />
 <link rel="stylesheet" href="{% static 'pathfinderapp/css/profile.css' %}" />
 {% include "./navbar.html" %}
 <body>
   {% if user.is_authenticated %}
-  <div class="main-content">
-    <!-- Top navbar -->
-    <nav
-      class="navbar navbar-top navbar-expand-md navbar-dark"
-      id="navbar-main"
-    >
-      <div class="container-fluid">
-        <!-- Form -->
-        <form
-          class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto"
-        ></form>
+    <div class="main-content">
+      <!-- Top navbar -->
+      <nav class="navbar navbar-top navbar-expand-md navbar-dark"
+           id="navbar-main">
+        <div class="container-fluid">
+          <!-- Form -->
+          <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+          </form>
           <div class="form-group mb-0">
             <div class="input-group input-group-alternative">
               <div class="input-group-prepend">
-                <span class="input-group-text"
-                  ><i class="fas fa-search"></i
-                ></span>
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
               </div>
             </div>
           </div>
@@ -29,14 +25,12 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
-            <a
-              class="nav-link pr-0"
-              href="http://127.0.0.1:8000/profile/"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
+            <a class="nav-link pr-0"
+               href="http://127.0.0.1:8000/profile/"
+               role="button"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                   {% comment %} <img {% endcomment %}
@@ -52,7 +46,7 @@
                   /> {% endcomment %}
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm font-weight-bold">{{user.first_name|capfirst}}</span>
+                  <span class="mb-0 text-sm font-weight-bold">{{ user.first_name|capfirst }}</span>
                 </div>
               </div>
             </a>
@@ -87,15 +81,11 @@
       </div>
     </nav>
     <!-- Header -->
-    <div
-      class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
-      style="
-        min-height: 600px;
-        background-image: url(https://raw.githubusercontent.com/creativetimofficial/argon-dashboard/gh-pages/assets-old/img/theme/profile-cover.jpg);
-        background-size: cover;
-        background-position: center top;
-      "
-    >
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+         style="min-height: 600px;
+                background-image: url(https://raw.githubusercontent.com/creativetimofficial/argon-dashboard/gh-pages/assets-old/img/theme/profile-cover.jpg);
+                background-size: cover;
+                background-position: center top">
       <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
       <!-- Header container -->
@@ -253,11 +243,7 @@
   <div class="alert alert-dark text-center mb-0 text-white" role="alert" style="border-radius: 0; background-color: black; padding-right: 0px; padding-left:0px;">
     Please <a href="{% url 'login' %}" class="alert-link text-white" style="padding: 0px !important; color: #3958b6 !important;">log in</a> to access your profile.
 </div>
-
-
-  
 {% endif %}
 {% include 'footer.html' %}
-
 </body>
 </html>

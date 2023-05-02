@@ -66,14 +66,14 @@ def load_embed_pinecone() -> None:
 
 
 def make_chain(vectorstore: VectorStore) -> ConversationalRetrievalChain:
-    alignment_prompt = """You will be asked theoretical computer science questions, if you are unsure of the answer try to answer to the best of your abilities but state that you are unsure. Use the given context to the best of your abilities, do not try to make up an answer.
+    alignment_prompt = """You will be asked theoretical computer science questions, if you are unsure of the answer try to answer to the best of your abilities but state that you are unsure. Use the given context to the best of your abilities, your goal is to help the questioner understand the context and answer the question.
     {context}
 
     Question: {question}
     Helpful Answer:"""
 
     qa_template = """Given the following chat history and a follow up question, rephrase the follow up input question to be a standalone question.
-    Or end the conversation if it seems like it's done.
+    if there is no chat history, just rephrase the follow up input question to be a standalone question and answer it to the fullest extent.
     Chat History:\"""
     {chat_history}
     \"""
@@ -86,11 +86,11 @@ def make_chain(vectorstore: VectorStore) -> ConversationalRetrievalChain:
     QUESTIONGEN_PROMPT = PromptTemplate.from_template(qa_template)
 
     main_llm = OpenAI(temperature=0.5)
-    steaming_llm = OpenAI(
+    streaming_llm = OpenAI(
         streaming=True,
         callback_manager=CallbackManager(
             [StreamingStdOutCallbackHandler()]),
-        verbose=True,
+        verbose=False,
         temperature=0.2,
         max_tokens=150
     )
@@ -99,7 +99,7 @@ def make_chain(vectorstore: VectorStore) -> ConversationalRetrievalChain:
         prompt = QUESTIONGEN_PROMPT
     )
     qa_doc_chain = load_qa_chain(
-        llm = steaming_llm,
+        llm = streaming_llm,
         chain_type="stuff",
         prompt = ALIGNMENT_QA_PROMPT,
     )

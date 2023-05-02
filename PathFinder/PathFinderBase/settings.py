@@ -37,7 +37,7 @@ ALLOWED_HOSTS.extend(
 PYTHONUNBUFFERED = 0
 # Application definition
 
-#for google sign in
+# for google sign in
 SITE_ID = 2
 
 INSTALLED_APPS = [
@@ -49,24 +49,24 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # below entry added so django knows about the app and its config
     'PathFinder.PathFinderApp.apps.PathfinderappConfig',
-    #This is for the google sign up
+    # This is for the google sign up
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 
-    
+
 ]
 
-#google sign up pt2
+# google sign up pt2
 SOCIALACCOUNT_PROVIDERS = {
-    "google":{
-    "SCOPE": [
-    "profile",
-    "email"
-    ],
-    "AUTH_PARAMS": {"access_type": "online"}
+    "google": {
+        "SCOPE": [
+            "profile",
+            "email"
+        ],
+        "AUTH_PARAMS": {"access_type": "online"}
     }
 }
 
@@ -79,6 +79,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.contrib.sessions.models.Session',
 ]
 
 
@@ -173,9 +174,9 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-#google sign up pt3
+# google sign up pt3
 
-SOCIALACCOUNT_LOGIN_ON_GET=True
+SOCIALACCOUNT_LOGIN_ON_GET = True
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
@@ -191,3 +192,12 @@ GOOGLE_AUTH_URI = 'https://accounts.google.com/o/oauth2/auth'
 GOOGLE_TOKEN_URI = 'https://oauth2.googleapis.com/token'
 GOOGLE_USER_INFO_URI = 'https://www.googleapis.com/oauth2/v1/userinfo'
 GOOGLE_REDIRECT_URI = 'http://localhost:8000/google-auth-callback'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'contactus.pathfinder@gmail.com'
+EMAIL_HOST_PASSWORD = 'dqpp msri ebue nnhl'
+CONTACT_EMAIL = 'contactus.pathfinder@gmail.com'
+DEFAULT_FROM_EMAIL = 'contactus.pathfinder@gmail.com'

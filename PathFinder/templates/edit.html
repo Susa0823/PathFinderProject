@@ -143,39 +143,39 @@
                     </div>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                {% endif %}
-
-                <form method="post" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  <h6 class="heading-small text-muted mb-4">User information</h6>
-                  <div class="pl-lg-4">
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="form-group focused">
-                          <label class="form-control-label" for="input-username">Username</label>
-                          <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" {{user_form.username}}>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="input-email">Profile Picture</label>
-                          <input type="file" id="input-email" class="form-control form-control-alternative" {{ profile_form.profile_picture}}>
-                        </div>
-                      </div>
+                      </button>
                     </div>
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="form-group focused">
-                          <label class="form-control-label" for="input-first-name">First name</label>
-                          <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" {{user_form.first_name}}>
+                  {% endif %}
+                  <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h6 class="heading-small text-muted mb-4">User information</h6>
+                    <div class="pl-lg-4">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-username">Username</label>
+                            <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" {{ user_form.username }}>
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label class="form-control-label" for="input-email">Profile Picture</label>
+                            <input type="file" id="input-email" class="form-control form-control-alternative" {{ profile_form.profile_picture }}>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-lg-6">
-                        <div class="form-group focused">
-                          <label class="form-control-label" for="input-last-name">Last name</label>
-                          <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" {{user_form.last_name}}>
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-first-name">First name</label>
+                            <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" {{ user_form.first_name }}>
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-last-name">Last name</label>
+                            <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" {{ user_form.last_name }}>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -203,14 +203,7 @@
       <p>Copyright &copy; 2023 PathFinder</p>
     </footer>
     {% else %}
-    <div
-        class="alert alert-dark text-center mb-0 text-white"
-        role="alert"
-        style="border-radius: 0; background-color: black"
-      >
-        Please <a href="{% url 'login' %}" class="alert-link text-white">log in</a> to
-        access your account.
-      </div>
+    <p>Please <a href="{% url 'login' %}">log in</a> to view your profile.</p>
     {% endif %}
     {% include 'footer.html' %}
 

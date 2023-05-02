@@ -20,7 +20,7 @@ class ChatBotForm(forms.ModelForm):
 #     user_query, pathfinder_response = None, None
     user_query = forms.CharField(label='User Query', max_length=1000)
     pathfinder_response = forms.CharField(
-       label='PathFinder Response', max_length=1000)
+        label='PathFinder Response', max_length=1000)
 
 
 class RegisterUserForm(UserCreationForm):
@@ -58,16 +58,16 @@ class RegisterUserForm(UserCreationForm):
 
 
 class EditProfileForm(forms.ModelForm):
-    username = forms.CharField(label='Username', max_length=100, required=False,widget=forms.TextInput(attrs={'class': 'form-control'}))
-    first_name = forms.CharField(label='First Name', max_length=100,required=False,widget=forms.TextInput(attrs={'class': 'form-control'}))
-    last_name = forms.CharField(label='Last Name', max_length=100,required=False,widget=forms.TextInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(label='Username', max_length=100, required=False,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(label='First Name', max_length=100,
+                                 required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(label='Last Name', max_length=100, required=False,
+                                widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name')
-        
-       
-
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -88,43 +88,45 @@ class EditProfileForm(forms.ModelForm):
         if not last_name:
             return self.instance.last_name
         return last_name
-    
+
+
 class UpdateProfile(forms.ModelForm):
-    profile_picture =  forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}),required=True)
+    profile_picture = forms.ImageField(widget=forms.FileInput(
+        attrs={'class': 'form-control-file'}), required=True)
 
     class Meta:
         model = User
         fields = ('profile_picture',)
 
 
-
-
 # NotesPage
 class NotesForm(ModelForm):
     heading = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
-        "class": "form-control", "placeholder":"Enter Title"
+        "class": "form-control", "placeholder": "Enter Title"
     }))
     text = forms.CharField(max_length=500, widget=forms.Textarea(attrs={
-         "class": "form-control", "placeholder":"Enter Notes", "rows":"8"
+        "class": "form-control", "placeholder": "Enter Notes", "rows": "8"
     }))
+
     class Meta:
         model = Notes
         fields = ['heading', 'text']
+
 
 class ContactForm(forms.Form):
     name = forms.CharField(
         label='Your Name',
         max_length=100,
         widget=forms.TextInput(attrs={'class': 'form-control mb-2', 'placeholder': 'Name'}))
-    
+
     email = forms.EmailField(
         label='Your Email',
         widget=forms.EmailInput(attrs={'class': 'form-control mb-2', 'placeholder': 'Email'}))
-    
+
     message = forms.CharField(
         label='Message',
         widget=forms.Textarea(attrs={'class': 'form-control mb-2', 'rows': 5, 'placeholder': 'Message'}))
-    
+
     def send_email(self):
         # logic to send email
         pass
