@@ -1,41 +1,29 @@
-FROM python:3.11-alpine3.16
+FROM python:3.11-slim-buster
 
 # No buffered std output from python is ensured by the following line
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONWRITEBYTECODE=1
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 
 WORKDIR /PathFinder
-
-RUN apk update && \
-    apk add postgresql-dev gcc python3-dev musl-dev build-essential
-
-COPY ./requirements.txt .
-
+COPY ./requirements.prod.txt .
 COPY . .
+
+RUN buildDeps='gcc' \
+    && set -x \
+    && apt-get update && apt-get install -y $buildDeps --no-install-recommends \
+    && apt-get install -y libc6-dev --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install --upgrade pip setuptools wheel \
+    && pip install -r requirements.prod.txt \
+    && apt-get purge -y --auto-remove $buildDep
+
 # apk -> Alpine Package Keeper
-RUN apk add --no-cache --update postgresql-client && \
-    apk add --virtual build-deps gcc python3-dev musl-dev && \
-    apk add --no-cache --update postgresql-client && \
-    apk add --no-cache --update --virtual .tmp-build-deps
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
-# RUN python -m venv /py && \
-#     apk update && \
-#     /py/bin/pip install --upgrade pip && \
-#     apk add --virtual build-deps gcc python3-dev musl-dev && \
-#     apk add --no-cache --update postgresql-client && \
-#     apk add --no-cache --update --virtual .tmp-build-deps \
-#     build-base postgresql-dev &&\
-#     /py/bin/pip install -r /requirements.txt && \
-#     apk del .tmp-build-deps && \
-#     adduser --disabled-password --no-create-home PathFinderDevUser
 
-
-#CMD python manage.py runserver 0.0.0.0:8000
-# ENV PATH="/py/bin:$PATH"
-# USER PathFinderDevUser
-
-# CMD ["python3 manage.py runserver &"]
-
-# EXPOSE 2375
+# RUN apk add --no-cache --update musl-dev && \
+#     apk add python3 python3-dev gcc g++ && \
+#     apk add postgresql-dev  postgresql-client && \
+#     pip3 install --upgrade pip && \
+#     pip3 install --upgrade pip setuptools && \
+#     pip3 install -r requirements.prod.txt && \
+#     apk add build-base libffi-dev && \
+#     apk add --no-cache --update --virtual .tmp-build-deps

@@ -8,3 +8,4 @@ pypdf==3.7.0
 tiktoken==0.3.3
 pinecone-client==2.2.1
 django-allauth==0.54.0
+#numpy==1.20.3
