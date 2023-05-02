@@ -10,27 +10,16 @@
 
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'pathfinderapp/css/games.css' %}">
     <meta charset="utf-8" />
     <title>Chill</title>
     <meta content="Chill" property="og:title" />
     <meta content="Chill" property="twitter:title" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="Webflow" name="generator" />
-    <link
-      href="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/css/pathfinder2.webflow.2ca6a39be.css"
-      rel="stylesheet"
-      type="text/css"
-    />
+    <link href="{% static 'pathfinderapp/css/games.css' %}" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link
-      href="https://fonts.gstatic.com"
-      rel="preconnect"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
-      type="text/javascript"
-    ></script>
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/>
+    {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript" ></script> {% endcomment %}
     <script type="text/javascript">
       WebFont.load({
         google: {
@@ -56,97 +45,55 @@
             (n.className += t + "touch");
       })(window, document);
     </script>
-    <link
-      href="https://uploads-ssl.webflow.com/img/favicon.ico"
-      rel="shortcut icon"
-      type="image/x-icon"
-    />
-    <link
-      href="https://uploads-ssl.webflow.com/img/webclip.png"
-      rel="apple-touch-icon"
-    />
   </head>
   <body>
     <div class="wf-section"></div>
     <section class="gallery-scroll wf-section">
       <div class="container-5">
         <div class="gallery-wrapper">
-          <div
-            id="w-node-c6f85286-5f05-b7ea-19b3-60d5e34ab202-83bc5b53"
-            class="gallery-sticky"
-          >
-            <a href="{% url 'brickbreaker' %}" class="gallery-link">Brick Breaker Ultimate!<br /></a
-            ><a href="{% url 'tictakpro' %}" class="gallery-link">Tic Tac Pro!<br /></a
-            ><a href="{% url 'remembergame' %}" class="gallery-link">Remember!<br /></a
-            ><a href="{% url 'rockps' %}" class="gallery-link">Rock Paper Loser<br /></a>
-          </div>
-          <div
-            id="w-node-c6f85286-5f05-b7ea-19b3-60d5e34ab212-83bc5b53"
-            class="gallery-grid"
-          >
-            <div
-              id="virtual-booths"
-              class="gallery-image-wrapper w-node-c6f85286-5f05-b7ea-19b3-60d5e34ab213-83bc5b53"
-            >
-              <img
-                src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/6448c07657947a1f92a842fc_image_2023-04-26_101058464.png"
-                loading="lazy"
-                id="w-node-c6f85286-5f05-b7ea-19b3-60d5e34ab214-83bc5b53"
-                alt=""
-                class="gallery-image shadow-two"
-              />
+          <div class="gallery-image-wrapper virtual-booths">
+            <a href="{% url 'brickbreaker' %}">
+              <img src="../static/pathfinderapp/img/brickbreaker.png" 
+              loading="lazy" 
+              alt="brick breaker image" 
+              class="gallery-image shadow-two" />
+            </a>
+            <a href="{% url 'brickbreaker' %}">
               <h3 class="gallery-image-text">BRICK BREAKER ULTIMATE!</h3>
-            </div>
-            <div
-              id="access-dash"
-              class="gallery-image-wrapper w-node-c6f85286-5f05-b7ea-19b3-60d5e34ab217-83bc5b53"
-            >
-              <img
-                src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/6448c479f04e2518cc0a5554_61NYklafduL.png"
-                loading="lazy"
-                id="w-node-c6f85286-5f05-b7ea-19b3-60d5e34ab218-83bc5b53"
-                sizes="(max-width: 479px) 91vw, (max-width: 767px) 44vw, (max-width: 991px) 43vw, 29vw"
-                srcset="
-                  https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/6448c479f04e2518cc0a5554_61NYklafduL-p-500.png 500w,
-                  https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/6448c479f04e2518cc0a5554_61NYklafduL.png       512w
-                "
-                alt=""
-                class="gallery-image shadow-two"
-              />
-              <h3 class="gallery-image-text">TIC TAC PRO!</h3>
-            </div>
-            <div
-              id="lead-retrieval"
-              class="gallery-image-wrapper w-node-c6f85286-5f05-b7ea-19b3-60d5e34ab21b-83bc5b53"
-            >
-              <img
-                src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/6448c5e25ccca4044ced66c4_parents-video-tips-memory-game.jpg"
-                loading="lazy"
-                id="w-node-c6f85286-5f05-b7ea-19b3-60d5e34ab21c-83bc5b53"
-                alt=""
-                class="gallery-image shadow-two"
-              />
-              <h3 class="gallery-image-text">YOU HAVE TO REMEMBER!</h3>
-            </div>
-            <div
-              id="lead-scoring"
-              class="gallery-image-wrapper w-node-c6f85286-5f05-b7ea-19b3-60d5e34ab21f-83bc5b53"
-            >
-              <img
-                src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/6448c65654c51666f244c55f_0_pwDqZoXvHo79MoT7.png"
-                loading="lazy"
-                id="w-node-c6f85286-5f05-b7ea-19b3-60d5e34ab220-83bc5b53"
-                sizes="(max-width: 479px) 91vw, (max-width: 767px) 44vw, (max-width: 991px) 43vw, 29vw"
-                srcset="
-                  https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/6448c65654c51666f244c55f_0_pwDqZoXvHo79MoT7-p-500.png  500w,
-                  https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/6448c65654c51666f244c55f_0_pwDqZoXvHo79MoT7-p-800.png  800w,
-                  https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/6448c65654c51666f244c55f_0_pwDqZoXvHo79MoT7.png       1000w
-                "
-                alt=""
-                class="gallery-image shadow-two"
-              />
-              <h3 class="gallery-image-text">Rock Paper Loser!</h3>
-            </div>
+            </a>
+          </div>
+          <div class="gallery-image-wrapper access-dash">
+            <a href="{% url 'tictakpro' %}">
+              <img src="../static/pathfinderapp/img/tictactoe.png" 
+              loading="lazy" 
+              alt="tic tac toe image" 
+              class="gallery-image shadow-two" />
+            </a>
+            <a href="{% url 'tictakpro' %}">
+            <h3 class="gallery-image-text">TIC TAC PRO!</h3>
+            </a>
+          </div>
+          <div class="gallery-image-wrapper lead-retrieval">
+            <a href="{% url 'remembergame' %}">
+              <img src="/static/pathfinderapp/img/memory.png" 
+              loading="lazy" 
+              alt="memory game image" 
+              class="gallery-image shadow-two" />
+            </a>
+            <a href="{% url 'remembergame' %}">
+            <h3 class="gallery-image-text">YOU HAVE TO REMEMBER!</h3>
+            </a>
+          </div>
+          <div class="gallery-image-wrapper lead-scoring">
+            <a href="{% url 'rockps' %}">
+              <img src="../static/pathfinderapp/img/rockpaper.png" 
+              loading="lazy" 
+              alt="rock paper image" 
+              class="gallery-image shadow-two" />
+            </a>
+            <a href="{% url 'rockps' %}">
+            <h3 class="gallery-image-text">ROCK PAPER LOSER!</h3>
+            </a>
           </div>
         </div>
       </div>
@@ -168,13 +115,9 @@
             forward.
           </p>
           <img
-            src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486aa7564afc2c0e6736fe_740580219a6a6f112419d5d3f5d05f8c.jpg"
+            src="../static/pathfinderapp/img/games.jpeg"
             loading="lazy"
             sizes="(max-width: 479px) 94vw, (max-width: 767px) 95vw, (max-width: 991px) 92vw, 750px"
-            srcset="
-              https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486aa7564afc2c0e6736fe_740580219a6a6f112419d5d3f5d05f8c-p-500.jpg 500w,
-              https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486aa7564afc2c0e6736fe_740580219a6a6f112419d5d3f5d05f8c.jpg       564w
-            "
             alt=""
             class="hero-image shadow-two"
           />

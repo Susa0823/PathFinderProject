@@ -86,7 +86,7 @@
                    ref="editor"
                    id="userMsgInput"
                    name="user_message"
-                   placeholder=" Enter your question here"
+                   placeholder="  Enter your question here"
                    >
             <input type="submit" class="send" id="sendbutton" value="Submit">
           </form>
@@ -105,14 +105,14 @@
             height: 30px;
             border-radius: 2em !important;
             margin-top: 10px;
+            height: 35px;
           }
           
           .send {
             width: 100px;
-            height: 30px;
+            height: 35px;
             border-radius: 2em;
             margin-top: 9px !important;
-
           }
           </style>        
   
@@ -165,7 +165,7 @@
     const bot_response = [
       {
         messageType: 'raw',
-        headIcon: '../static/pathfinderapp/img/A.jpg',
+        headIcon: '../static/pathfinderapp/img/chatbot.png',
         name: 'Charlie',
         position: 'left',
         html: await submitChat(usermessage),
@@ -174,7 +174,7 @@
     const usr_query = [
       {
         messageType: 'raw',
-        headIcon: '../static/pathfinderapp/img/B.jpg',
+        headIcon: '../static/pathfinderapp/img/user.png',
         name: "{{ request.user.first_name }}",
         position: 'right',
         html: usermessage,
@@ -202,7 +202,7 @@
           const init =[
             {
               messageType: "raw",
-              headIcon: "../static/pathfinderapp/img/A.jpg",
+              headIcon: '../static/pathfinderapp/img/chatbot.png',
               name: "Charlie",
               position: "left",
               html: "Please type a question to get started!",
@@ -214,15 +214,15 @@
       const domarray = [
       {
         messageType: "raw",
-        headIcon: "../static/pathfinderapp/img/B.jpg",
+        headIcon: '../static/pathfinderapp/img/user.png',
         name: "{{ request.user.first_name }}",
         position: "right",
         html:  "shello",
       },
       {
         messageType: "raw",
-        headIcon: "../static/pathfinderapp/img/A.jpg",
-        name: "PathFinder Knowledge Bot",
+        headIcon: '../static/pathfinderapp/img/chatbot.png',
+        name: "Charlie",
         position: "left",
         html: "{{pathfinder_response}}",
       },
