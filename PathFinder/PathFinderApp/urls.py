@@ -12,12 +12,23 @@ urlpatterns = [
     path('policy/', views.gdpr, name='policy'),
     path('about/', views.about, name='about'),
     path('chatbox/', views.test_chatbotview, name='chatbox'),
-    path('login/', views.login_user, name='login'),
-    path('logout/', views.logout_user, name="logout"),
-    path('signup/', views.register_user, name="register_user"),
-    path('social/signup/', views.signup_redirect, name='signup_redirect'),
-    path('profile/', views.profile, name='profile'),
-    path('edit/',views.edit_profile, name = 'edit'),
+    # path('login/', views.login_user, name='login'),
+    # path('logout/', views.logout_user, name="logout"),
+    # path('signup/', views.register_user, name="register_user"),
+    # path('social/signup/', views.signup_redirect, name='signup_redirect'),
+    # path('profile/', views.profile, name='profile'),
+    # path('edit/',views.edit_profile, name = 'edit'),
+
+    path('bloghome/',views.bloghome, name = 'bloghome'),
+    path('profilelist/',views.profilelist, name = 'profilelist'),
+    path('profile/<int:pk>', views.profile, name='profile'),
+    path('login/',views.login_user, name = 'login'),
+    path('logout', views.logout_user, name='logout'),
+    path('register/', views.register_user, name='register'),
+    path('update_user/', views.update_user, name='update_user'),
+    path('meep_like/<int:pk>', views.meep_like, name="meep_like"),
+    path('meep_show/<int:pk>', views.meep_show, name="meep_show"),
+
 
 
     # For Games

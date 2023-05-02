@@ -19,7 +19,8 @@ from django.urls import path, include
 from PathFinder.PathFinderApp.views import register_user
 from django.urls import path
 from PathFinder.PathFinderApp.views import contact
-
+from django.conf.urls.static import static
+from django.conf import settings
 
 # from PathFinder.PathFinderApp import views, urls
 urlpatterns = [
@@ -31,4 +32,4 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path('signup/', register_user, name="register_user"),
     path('contact/', contact, name='contact')
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -39,15 +39,17 @@
             >
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
-                  <img
-                  {% if user.profile_picture %}
-                    alt="Image placeholder"
-                    src="{{ user.profile_picture.url }}"
-                    {% else %}
-                    alt = "Image placeholder"
+                  {% comment %} <img {% endcomment %}
+                  {% if profile.profile_image %}
+                  <img src="{{ profile.profile_image.url }}" class="rounded-circle" />
+                  <br /><br />
+                  {% endif %}
+
+            
+                    {% comment %} alt = "Image placeholder"
                     src="https://www.civictheatre.ie/wp-content/uploads/2016/05/blank-profile-picture-973460_960_720.png"
                     {% endif %}
-                  />
+                  /> {% endcomment %}
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
                   <span class="mb-0 text-sm font-weight-bold">{{user.first_name|capfirst}}</span>
@@ -101,7 +103,7 @@
         <div class="row">
           <div class="col-lg-7 col-md-10">
             <h1 class="display-2 text-white">Hello {{ user.first_name|capfirst}}</h1>
-            <a href="http://127.0.0.1:8000/edit" class="btn btn-info">Edit profile</a>
+            <a href="{% url 'update_user' %}"  class="btn btn-info">Edit profile</a>
           </div>
         </div>
       </div>
@@ -114,15 +116,11 @@
             <div class="row justify-content-center">
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
-                  <img
-                  {% if user.profile_picture %}
-                    alt="Image placeholder"
-                    src="{{ user.profile_picture.url }}"
-                    {% else %}
-                    alt = "Image placeholder"
-                    src="https://www.civictheatre.ie/wp-content/uploads/2016/05/blank-profile-picture-973460_960_720.png"
-                    {% endif %}
-                  />
+                  {% if profile.profile_image %}
+                  <img src="{{ profile.profile_image.url }}" class="rounded-circle" />
+                  <br /><br />
+                  {% endif %}
+                  
 
                   </a>
                 </div>

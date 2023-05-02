@@ -60,12 +60,22 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'contact' %}">Contact</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'bloghome' %}">Blog</a>
+        </li>
       </ul>
       <ul class="navbar-nav">
+
+
+
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href={% url 'profile' %}>My Profile</a>
+          <a class="nav-link" href="{% url 'profile' request.user.id %}">My Profile</a>
         </li>
+        {% comment %} <li class="nav-item">
+          <a class="nav-link" 
+          href="{% url 'profilelist' %}">Profile List</a>
+        </li> {% endcomment %}
         <li class="nav-item">
           <a class="nav-link" href={% url 'logout' %}>Logout</a>
         </li>
@@ -74,10 +84,21 @@
           <a class="nav-link" href={% url 'login' %}>Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href={% url 'register_user' %}>Sign Up</a>
+          <a class="nav-link" href={% url 'register' %}>Sign Up</a>
         </li>
         
         {% endif %}
+       
+
+
+
+
+
+
+
+
+
+
         <li class="nav-item accessibility">
           <a class="nav-link" href="#" tabindex="0">Accessibility</a>
         </li>
