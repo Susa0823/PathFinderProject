@@ -311,7 +311,7 @@ def contact(request):
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Profile, Meep
-from .forms import MeepForm, SignUpForm, ProfilePicForm
+from .forms import MeepForm, SignUpForm, ProfilePicForm, EditProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -420,7 +420,7 @@ def update_user(request):
 		current_user = User.objects.get(id=request.user.id)
 		profile_user = Profile.objects.get(user__id=request.user.id)
 		# Get Forms
-		user_form = SignUpForm(request.POST or None, request.FILES or None, instance=current_user)
+		user_form = EditProfileForm(request.POST or None, request.FILES or None, instance=current_user)
 		profile_form = ProfilePicForm(request.POST or None, request.FILES or None, instance=profile_user)
 		if user_form.is_valid() and profile_form.is_valid():
 			user_form.save()

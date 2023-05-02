@@ -19,7 +19,7 @@ urlpatterns = [
     # path('signup/', views.register_user, name="register_user"),
     # path('social/signup/', views.signup_redirect, name='signup_redirect'),
     # path('profile/', views.profile, name='profile'),
-    # path('edit/', views.edit_profile, name='edit'),
+    path('edit/', views.edit_profile, name='edit'),
 
     path('bloghome/',views.bloghome, name = 'bloghome'),
     path('profilelist/',views.profilelist, name = 'profilelist'),
