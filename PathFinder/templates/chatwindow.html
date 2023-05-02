@@ -15,21 +15,6 @@
       /* 全局 */
 
       html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-      }
-
-      .lite-chatmaster {
-        height: 100%;
-        width: 100%;
-      }
-
-      ::-webkit-scrollbar {
-        /* 滚动条整体样式 */
-        width: 10px;
         /* 高宽分别对应横竖滚动条的尺寸 */
         height: 1px;
       }
@@ -55,29 +40,24 @@
                   style="border: solid 1px;
                          border-radius: 2em;
                          cursor: pointer;
-                         color: #10a5d3;
-                         margin-left: 20px;
-                         padding: 5px;
-                         "
-                        
+                         color: #10a5d3"
                   type="button">
-            Switch-Theme
+            Theme-switch
             <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0m0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10"></path>
-    <path d="M8 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 8 7M16 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 16 7M15.232 15c-.693 1.195-1.87 2-3.349 2-1.477 0-2.655-.805-3.347-2H15m3-2H6a6 6 0 1 0 12 0"></path>
-  </svg> -->
+      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0m0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10"></path>
+      <path d="M8 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 8 7M16 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 16 7M15.232 15c-.693 1.195-1.87 2-3.349 2-1.477 0-2.655-.805-3.347-2H15m3-2H6a6 6 0 1 0 12 0"></path>
+    </svg> -->
           </button>
           <!-- <button class="tool-button float-left" id="imageBtn" title="插入图片" type="button">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-    <path d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 336H54a6 6 0 0 1-6-6V118a6 6 0 0 1 6-6h404a6 6 0 0 1 6 6v276a6 6 0 0 1-6 6zM128 152c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zM96 352h320v-80l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L192 304l-39.515-39.515c-4.686-4.686-12.284-4.686-16.971 0L96 304v48z"></path>
-  </svg>
-</button>
-<button class="tool-button float-left" id="fileBtn" title="发送文件" type="button">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-    <path d="M527.9 224H480v-48c0-26.5-21.5-48-48-48H272l-64-64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h400c16.5 0 31.9-8.5 40.7-22.6l79.9-128c20-31.9-3-73.4-40.7-73.4zM48 118c0-3.3 2.7-6 6-6h134.1l64 64H426c3.3 0 6 2.7 6 6v42H152c-16.8 0-32.4 8.8-41.1 23.2L48 351.4zm400 282H72l77.2-128H528z"></path>
-  </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <path d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 336H54a6 6 0 0 1-6-6V118a6 6 0 0 1 6-6h404a6 6 0 0 1 6 6v276a6 6 0 0 1-6 6zM128 152c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zM96 352h320v-80l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L192 304l-39.515-39.515c-4.686-4.686-12.284-4.686-16.971 0L96 304v48z"></path>
+    </svg>
+  </button>
+  <button class="tool-button float-left" id="fileBtn" title="发送文件" type="button">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+      <path d="M527.9 224H480v-48c0-26.5-21.5-48-48-48H272l-64-64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h400c16.5 0 31.9-8.5 40.7-22.6l79.9-128c20-31.9-3-73.4-40.7-73.4zM48 118c0-3.3 2.7-6 6-6h134.1l64 64H426c3.3 0 6 2.7 6 6v42H152c-16.8 0-32.4 8.8-41.1 23.2L48 351.4zm400 282H72l77.2-128H528z"></path>
+    </svg>
 </button> -->
-
           <form action={% url 'chatbox' %} method="post" id="chatform">
             {% csrf_token %}
             <input class="editor chatinput"
@@ -86,7 +66,7 @@
                    ref="editor"
                    id="userMsgInput"
                    name="user_message"
-                   placeholder="  Enter your question here"
+                   placeholder=" Enter your question here"
                    >
             <input type="submit" class="send" id="sendbutton" value="Submit">
           </form>
@@ -105,14 +85,14 @@
             height: 30px;
             border-radius: 2em !important;
             margin-top: 10px;
-            height: 35px;
           }
           
           .send {
             width: 100px;
-            height: 35px;
+            height: 30px;
             border-radius: 2em;
             margin-top: 9px !important;
+
           }
           </style>        
   
@@ -125,37 +105,33 @@
 <!-- 抽离的聊天信息组件 -->
 <script src="{%static 'pathfinderapp/js/lite-chatbox-dependencies/litewebchat_render.min.js' %}"></script>
 <script>
-  const minput = document.getElementById("userMsgInput");
-  const chatForm = document.getElementById("chatform");
-  const pathfinder_api_url = "{% url 'chatbot' %}";
-
-  async function submitChat(usrquery) {
-    try {
-      const response = await fetch(pathfinder_api_url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-        },
-        body: JSON.stringify({'user_message': usrquery})
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+    const minput = document.getElementById("userMsgInput");
+    const chatForm = document.getElementById("chatform");
+    const pathfinder_api_url = "{% url 'chatbot' %}";
+  
+    async function submitChat(usrquery) {
+      try {
+        const response = await fetch(pathfinder_api_url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+          },
+          body: JSON.stringify({'user_message': usrquery})
+        });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        return data.pathfinder_response;
+      } catch (error) {
+        console.error('Error:', error);
+        return 'Sorry, an error occurred while communicating with the server.';
       }
-
-      const data = await response.json();
-      return data.pathfinder_response;
-    } catch (error) {
-      console.error('Error:', error);
-      return 'Sorry, an error occurred while communicating with the server.';
     }
-  }
-
-  chatForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const usermessage = minput.value.trim();
+    chatForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const usermessage = minput.value.trim();
     minput.value = '';
 
     if (usermessage === '') {
@@ -165,7 +141,7 @@
     const bot_response = [
       {
         messageType: 'raw',
-        headIcon: '../static/pathfinderapp/img/chatbot.png',
+        headIcon: '../static/pathfinderapp/img/A.jpg',
         name: 'Charlie',
         position: 'left',
         html: await submitChat(usermessage),
@@ -174,7 +150,7 @@
     const usr_query = [
       {
         messageType: 'raw',
-        headIcon: '../static/pathfinderapp/img/user.png',
+        headIcon: '../static/pathfinderapp/img/B.jpg',
         name: "{{ request.user.first_name }}",
         position: 'right',
         html: usermessage,
@@ -184,25 +160,11 @@
     beforeRenderingHTML(bot_response, '.lite-chatbox');
   });
 </script>
-{% comment %} {% if pathfinder_response %}
-    console.log("{{pathfinder_response}}");
-    bot_response =[
-          {
-            messageType: 'raw',
-            headIcon: '../static/pathfinderapp/img/A.jpg',
-            name: 'PathFinder Knowledge Bot',
-            position: 'left',
-            html: "{{pathfinder_response}}",
-          },
-          ];
-          beforeRenderingHTML(bot_response, '.lite-chatbox');
-{% endif %} {% endcomment %}
-
 <script>
           const init =[
             {
               messageType: "raw",
-              headIcon: '../static/pathfinderapp/img/chatbot.png',
+              headIcon: "../static/pathfinderapp/img/A.jpg",
               name: "Charlie",
               position: "left",
               html: "Please type a question to get started!",
@@ -247,4 +209,3 @@
         addEvent(btn);
       });
 </script>
-

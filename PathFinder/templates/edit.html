@@ -27,7 +27,7 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
-            <a class="nav-link pr-0" href="http://127.0.0.1:8000/profile/" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link pr-0" href="{% url 'profile' %}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                   <img {% if user.profile_picture %} alt="Image placeholder" src="{{ user.profile_picture.url }}" {% else %} alt="Image placeholder" src="https://www.civictheatre.ie/wp-content/uploads/2016/05/blank-profile-picture-973460_960_720.png" {% endif %} />
@@ -58,7 +58,7 @@
                 <span>Support</span>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="http://127.0.0.1:8000/profile/" class="dropdown-item">
+              <a href="{% url 'profile' %}" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
                 <span>Logout</span>
               </a>
@@ -69,7 +69,11 @@
         </div>
       </nav>
       <!-- Header -->
-      <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(https://raw.githubusercontent.com/creativetimofficial/argon-dashboard/gh-pages/assets-old/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+      <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" 
+      style="min-height: 600px; 
+             background-image: url(https://raw.githubusercontent.com/creativetimofficial/argon-dashboard/gh-pages/assets-old/img/theme/profile-cover.jpg); 
+             background-size: cover; 
+             background-position: center top;">
         <!-- Mask -->
         <span class="mask bg-gradient-default opacity-8"></span>
         <!-- Header container -->
@@ -77,6 +81,7 @@
           <div class="row">
             <div class="col-lg-7 col-md-10">
               <h1 class="display-2 text-white">Hello {{ user.first_name|capfirst}}</h1>
+            
             </div>
           </div>
         </div>
@@ -114,7 +119,7 @@
                   </div>
                   <hr class="my-4" />
                   <p></p>
-                  <a href="http://127.0.0.1:8000/profile/">Return to profile</a>
+                  <a href="{% url 'profile' %}">Return to profile</a>
                 </div>
               </div>
             </div>
@@ -139,39 +144,39 @@
                     </div>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                {% endif %}
-
-                <form method="post" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  <h6 class="heading-small text-muted mb-4">User information</h6>
-                  <div class="pl-lg-4">
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="form-group focused">
-                          <label class="form-control-label" for="input-username">Username</label>
-                          <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" {{user_form.username}}>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="input-email">Profile Picture</label>
-                          <input type="file" id="input-email" class="form-control form-control-alternative" {{ profile_form.profile_picture}}>
-                        </div>
-                      </div>
+                      </button>
                     </div>
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="form-group focused">
-                          <label class="form-control-label" for="input-first-name">First name</label>
-                          <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" {{user_form.first_name}}>
+                  {% endif %}
+                  <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h6 class="heading-small text-muted mb-4">User information</h6>
+                    <div class="pl-lg-4">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-username">Username</label>
+                            <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" {{ user_form.username }}>
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label class="form-control-label" for="input-email">Profile Picture</label>
+                            <input type="file" id="input-email" class="form-control form-control-alternative" {{ profile_form.profile_picture }}>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-lg-6">
-                        <div class="form-group focused">
-                          <label class="form-control-label" for="input-last-name">Last name</label>
-                          <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" {{user_form.last_name}}>
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-first-name">First name</label>
+                            <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" {{ user_form.first_name }}>
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-last-name">Last name</label>
+                            <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" {{ user_form.last_name }}>
+                          </div>
                         </div>
                       </div>
                     </div>

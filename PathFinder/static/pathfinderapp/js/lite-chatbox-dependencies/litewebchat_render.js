@@ -16,7 +16,7 @@ var TitleType = {
   admin: 'admin',
   owner: 'owner'
 };
-function beforeRenderingHTML(data, chatboxClass) {
+export function beforeRenderingHTML(data, chatboxClass) {
   var htmlStr = '';
   var chatBox = document.querySelector(chatboxClass);
   for (var i = 0; i < data.length; i++) {

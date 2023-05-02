@@ -1,42 +1,37 @@
 <!DOCTYPE html>
-
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'pathfinderapp/css/signup.css' %}" />
+<link rel="stylesheet"
+      type="text/css"
+      href="{% static 'pathfinderapp/css/signup.css' %}" />
 <html lang="en">
   {% include "./navbar.html" %}
-
-  {% block content %} {% if form.errors %}
-<p>There was an error while creating your account</p>
-{% endif %}
-{% endblock %}
-
+  {% block content %}
+    {% if form.errors %}<p>There was an error while creating your account</p>{% endif %}
+  {% endblock %}
   <html>
     <head>
       <meta charset="UTF-8" />
       <title>Sign Up</title>      
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Anuphan&display=swap"
-        rel="stylesheet"
-      />
+      <link href="https://fonts.googleapis.com/css2?family=Anuphan&display=swap"
+            rel="stylesheet" />
       <script src="https://apis.google.com/js/platform.js" async defer></script>
-      <meta
-        name="google-signin-client_id"
-        content="320096241471-1o3b72no3kk8raqqg204qj9k07q3ss8c.apps.googleusercontent.com"
-      />
+      <meta name="google-signin-client_id"
+            content="320096241471-1o3b72no3kk8raqqg204qj9k07q3ss8c.apps.googleusercontent.com" />
     </head>
     <body>
       <div class="sign-up-top">
-        <img
-          class="sign-up-logo"
-          src="/static/pathfinderapp/img/pflogo.png"
-          alt="Logo"
-        />
+        <img class="sign-up-logo"
+             src="/static/pathfinderapp/img/pflogo.png"
+             alt="Logo" />
         <h1 class="sign-up-title">Create An Account!</h1>
       </div>
       <div class="sign-up-bottom">
-        <form action="{% url 'register_user' %}" method="POST" class="mx-auto" style="max-width: 300px;">
+        <form action="{% url 'register_user' %}"
+              method="POST"
+              class="mx-auto"
+              style="max-width: 300px">
           {% csrf_token %} {{ form.as_p }}
         <br></br>
           <input type="submit" value="Create Account" class="btn btn-secondary" />
@@ -58,6 +53,3 @@
     </body>
   </html>
 </html>
-
-
-
