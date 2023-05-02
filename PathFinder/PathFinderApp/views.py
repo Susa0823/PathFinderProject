@@ -52,21 +52,13 @@ def send_chat_response(request):
     pathfinder_response = ""
 
     if request.method == 'POST':
-        # user_message = request.POST.get('user_message')
-        dat = json.loads(request.body)
-        user_message = dat['user_message']
-        print(type(user_message))
-        # print("its allliiiivveee")
-        print(f"USER_MESSAGE: {user_message}")
-        # print(user_messaguser_message)
-        # print('user_messaguser_message is not none')
-
-        #! form = ChatBotForm(request.POST or None)
+        json_user_input = json.loads(request.body)
+        user_message = json_user_input['user_message']
         if user_message is not None:
             response = pathfinder_chatbot({
                 "question": user_message,
                 # "name": name,
-                # "chat_history": []
+                "chat_history": [],
             })  # query the chatbot
             # print(user_message)
 
