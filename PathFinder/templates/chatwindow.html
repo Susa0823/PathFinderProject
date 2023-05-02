@@ -12,12 +12,26 @@
         type="text/css"
         href="{% static 'pathfinderapp/css/webchatcss/litewebchat_input.min.css' %}">
   <style>
-      /* 全局 */
 
       html,
-        /* 高宽分别对应横竖滚动条的尺寸 */
+      body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+      }
+
+      .lite-chatmaster {
+        height: 100%;
+        width: 100%;
+      }
+
+      ::webkit-scrollbar {
+        width: 10px:
         height: 1px;
       }
+
+
   </style>
   <head>
     <body>
@@ -40,9 +54,11 @@
                   style="border: solid 1px;
                          border-radius: 2em;
                          cursor: pointer;
-                         color: #10a5d3"
+                         color: #10a5d3
+                         margin-left: 20px;
+                         padding 5px;"
                   type="button">
-            Theme-switch
+            Switch Theme 
             <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0m0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10"></path>
       <path d="M8 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 8 7M16 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 16 7M15.232 15c-.693 1.195-1.87 2-3.349 2-1.477 0-2.655-.805-3.347-2H15m3-2H6a6 6 0 1 0 12 0"></path>
@@ -66,7 +82,7 @@
                    ref="editor"
                    id="userMsgInput"
                    name="user_message"
-                   placeholder=" Enter your question here"
+                   placeholder="  Enter your question here"
                    >
             <input type="submit" class="send" id="sendbutton" value="Submit">
           </form>
@@ -85,11 +101,12 @@
             height: 30px;
             border-radius: 2em !important;
             margin-top: 10px;
+            height: 35px;
           }
           
           .send {
             width: 100px;
-            height: 30px;
+            height: 35px;
             border-radius: 2em;
             margin-top: 9px !important;
 
@@ -141,7 +158,7 @@
     const bot_response = [
       {
         messageType: 'raw',
-        headIcon: '../static/pathfinderapp/img/A.jpg',
+        headIcon: '../static/pathfinderapp/img/chatbot.png',
         name: 'Charlie',
         position: 'left',
         html: await submitChat(usermessage),
@@ -150,7 +167,7 @@
     const usr_query = [
       {
         messageType: 'raw',
-        headIcon: '../static/pathfinderapp/img/B.jpg',
+        headIcon: '../static/pathfinderapp/img/user.png',
         name: "{{ request.user.first_name }}",
         position: 'right',
         html: usermessage,
@@ -164,7 +181,7 @@
           const init =[
             {
               messageType: "raw",
-              headIcon: "../static/pathfinderapp/img/A.jpg",
+              headIcon: "../static/pathfinderapp/img/chatbot.png",
               name: "Charlie",
               position: "left",
               html: "Please type a question to get started!",
