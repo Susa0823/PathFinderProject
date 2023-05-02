@@ -1,1 +1,19 @@
-Thank you for contacting us! We will get back to you shortly.
+{% include "./navbar.html" %}
+{% block content %}
+    <div style="display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh">
+        <h1 style="font-size: 32px; font-weight: bold; text-align: center;">
+            Thank you for contacting us! We will get back to you shortly.
+        </h1>
+    </div>
+{% endblock %}
+{% include 'footer.html' %}
+<style>
+    footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+</style>

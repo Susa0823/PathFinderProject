@@ -15,12 +15,20 @@ from django.contrib.auth.decorators import login_required
 from .models import Notes
 from .forms import NotesForm, ContactForm
 from django.contrib.auth.models import User
+import smtplib
+from .forms import ContactForm
+from django.core.mail import send_mail
+from django.conf import settings
+from django.core.mail import EmailMessage
 import os
 import json
 # import pickle
 # import warnings
 import openai
 import pinecone
+from django.urls import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.views import PasswordChangeView
 
 
 api_key = os.environ.get('OPENAI_API_KEY')
@@ -32,6 +40,7 @@ pinecone.init(api_key='5bf2927b-0fb7-423b-b8f1-2f6a3347a15d',
 vectorstore = Pinecone.from_existing_index(
     'teamprojindex', OpenAIEmbeddings())
 pathfinder_chatbot = qamodel.make_chain(vectorstore)
+
 
 def render_chatbotview(request):
     # # print(request.POST)
@@ -130,6 +139,7 @@ def note_detail(request, pk):
             form.save()
             return redirect("noteindex")
     return render(request, "noteupdate.html", {"note": note, "form": form})
+
 
 def delete_note(request, pk):
     note = Notes.objects.get(id=pk)
@@ -286,8 +296,41 @@ def contact(request):
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
             message = form.cleaned_data['message']
-            # code to send email
+
+            email_subject = 'New Contact Form Submission'
+            email_body = f'Name: {name}\nEmail: {email}\nMessage: {message}'
+            email = EmailMessage(
+                email_subject,
+                email_body,
+                settings.DEFAULT_FROM_EMAIL,
+                [settings.CONTACT_EMAIL],
+                reply_to=[email],
+            )
+            email.from_email = email
+            email.send(fail_silently=False)
+
             return render(request, 'thanks.html')
     else:
         form = ContactForm()
     return render(request, 'form.html', {'form': form})
+
+
+def my_view(request):
+    # Get the current user
+    user = request.user
+
+    # Get the user's first name
+    first_name = user.first_name
+
+    # Add the first name to the context dictionary
+    context = {
+        'first_name': first_name
+    }
+
+    return render(request, 'my_template.html', context)
+
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'password.html'
+    success_message = "Successfully changed your pasword"
+    success_url = reverse_lazy('profile')
