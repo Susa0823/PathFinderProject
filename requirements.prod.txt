@@ -1,0 +1,10 @@
+gunicorn
+Django>=4.0.0
+psycopg2-binary
+virtualenv==20.0.0
+openai
+langchain==0.0.130
+pypdf==3.7.0
+tiktoken==0.3.3
+pinecone-client==2.2.1
+django-allauth==0.54.0
