@@ -110,9 +110,9 @@ h1 {
 }
 
 .logo {
-	position: absolute;
-	top: 30px;
-	right: 30px;
+	position: relative !important;
+	top: 20px !important;
+	right: 20px !important;
 	display: block;
 	z-index: 100;
 	transition: all 250ms linear;

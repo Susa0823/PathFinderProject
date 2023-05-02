@@ -33,26 +33,23 @@
               class="mx-auto"
               style="max-width: 300px">
           {% csrf_token %} {{ form.as_p }}
-          <br>
-        </br>
-        <input type="submit" value="Create Account" class="btn btn-secondary" />
-        {% if user.is_authenticated %}
-        {% else %}
-        {% endif %}
-      </form>
-      <p class="sign-up-desc">
-        Already have an account?
-        <a class="sign-up-link" href="{% url 'login' %}">Sign in</a>
-      </p>
-      <p class="sign-up-desc-1">OR</p>
-      {% load socialaccount %}
-      <button class="google-signup">
-        <a href="{% provider_login_url 'google' %}?next=/">Sign up with Google</a>
-      </button>
-    </div>
-    <footer>
-      <p>Copyright &copy; 2023 PathFinder</p>
-    </footer>
-  </body>
-</html>
+        <br></br>
+          <input type="submit" value="Create Account" class="btn btn-secondary" />
+          {%if user.is_authenticated%} {% else %} {% endif %}
+        </form>
+          <p class="sign-up-desc">
+            Already have an account?
+            <a class="sign-up-link" href="{% url 'login' %}">Sign in</a>
+          </p>
+          <p class="sign-up-desc-1">OR</p>
+          {%load socialaccount %}
+          <button class="google-signup">
+            <a href="{% provider_login_url 'google' %}?next=/"
+              >Sign up with Google</a
+            >
+          </button>
+      </div>
+      {% include 'footer.html' %}
+    </body>
+  </html>
 </html>
