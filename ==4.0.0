@@ -1,9 +1,0 @@
-Collecting Django
-  Using cached Django-4.2-py3-none-any.whl (8.0 MB)
-Collecting asgiref<4,>=3.6.0 (from Django)
-  Using cached asgiref-3.6.0-py3-none-any.whl (23 kB)
-Collecting sqlparse>=0.3.1 (from Django)
-  Downloading sqlparse-0.4.4-py3-none-any.whl (41 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 41.2/41.2 kB 99.0 kB/s eta 0:00:00
-Installing collected packages: sqlparse, asgiref, Django
-Successfully installed Django-4.2 asgiref-3.6.0 sqlparse-0.4.4
