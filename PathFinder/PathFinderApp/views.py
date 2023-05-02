@@ -234,23 +234,23 @@ def search_page(request):
 # from django.contrib.auth import authenticate, login
 # from django.shortcuts import render, redirect
 
-def login_view(request):
-    # Handle user login
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            print(user.username)
-            request.session['username'] = user.username
-            return redirect('home')
-        else:
-            # Handle login failure
-            pass
-    else:
-        # Display login page
-        return render(request, 'login.html')
+# def login_view(request):
+#     # Handle user login
+#     if request.method == 'POST':
+#         username = request.POST['username']
+#         password = request.POST['password']
+#         user = authenticate(request, username=username, password=password)
+#         if user is not None:
+#             login(request, user)
+#             print(user.username)
+#             request.session['username'] = user.username
+#             return redirect('home')
+#         else:
+#             # Handle login failure
+#             pass
+#     else:
+#         # Display login page
+#         return render(request, 'bloglogin.html')
 
 def edit_profile(request):
 
