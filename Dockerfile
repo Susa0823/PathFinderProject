@@ -8,11 +8,9 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 WORKDIR /PathFinder
 
 RUN apk update && \
-    apk add postgresql-dev gcc python3-dev musl-dev
+    apk add postgresql-dev gcc python3-dev musl-dev build-essential
 
 COPY ./requirements.txt .
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
 
 COPY . .
 # apk -> Alpine Package Keeper
@@ -20,7 +18,9 @@ RUN apk add --no-cache --update postgresql-client && \
     apk add --virtual build-deps gcc python3-dev musl-dev && \
     apk add --no-cache --update postgresql-client && \
     apk add --no-cache --update --virtual .tmp-build-deps
-    # RUN python -m venv /py && \
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+# RUN python -m venv /py && \
 #     apk update && \
 #     /py/bin/pip install --upgrade pip && \
 #     apk add --virtual build-deps gcc python3-dev musl-dev && \
