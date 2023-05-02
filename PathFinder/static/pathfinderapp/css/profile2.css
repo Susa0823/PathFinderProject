@@ -1,0 +1,53 @@
+/* Set global font family */
+/* body {
+    font-family: 'Open Sans', sans-serif;
+  } */
+  
+  /* Style the header */
+  h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  /* Center the form */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Style the form fields */
+  input[type=text], input[type=email], select {
+    width: 100%;
+    padding: 12px 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Style the form labels */
+  label {
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+  
+  /* Style the form button */
+  button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    margin-top: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  /* Style the form button on hover */
+  button:hover {
+    background-color: #0069d9;
+  }
+  
