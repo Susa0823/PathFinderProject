@@ -3,7 +3,7 @@
 <html>
 <head>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-<link rel="stylesheet" href="{% static 'pathfinderapp/css/profile.css' %}" />
+<link rel="stylesheet" href="{% static 'pathfinderapp/profile.css' %}" />
 {% include "./navbar.html" %}
 </head>
 <body>
@@ -78,9 +78,10 @@
             <div class="col-lg-7 col-md-10">
               <h1 class="display-2 text-white">Hello {{ user.first_name|capfirst}}</h1>
               <p class="text-white mt-0 mb-5">
-                This is your profile page. You can view your account information
+                This is your Edit profile page. You can Edit your account information
                  here.
               </p>
+              <a href="http://127.0.0.1:8000/password" class="btn btn-info">Change Password</a>
             </div>
           </div>
         </div>
@@ -93,7 +94,7 @@
               <div class="row justify-content-center">
                 <div class="col-lg-3 order-lg-2">
                   <div class="card-profile-image">
-                    <img {% if user.profile_picture %} src="{{ user.profile_picture.url }}" class="rounded-circle" {% else %} src="https://www.civictheatre.ie/wp-content/uploads/2016/05/blank-profile-picture-973460_960_720.png" class="rounded-circle" {% endif %} />
+                    <img {% if user.profile_picture %} {{ user.profile_picture.url }} class="rounded-circle" {% else %} src="https://www.civictheatre.ie/wp-content/uploads/2016/05/blank-profile-picture-973460_960_720.png" class="rounded-circle" {% endif %} />
                   </div>
                 </div>
               </div>
@@ -155,13 +156,13 @@
                       <div class="col-lg-6">
                         <div class="form-group focused">
                           <label class="form-control-label" for="input-username">Username</label>
-                          <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" {{user_form.username}}>
+                          <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" {{user_form.username}}
                         </div>
                       </div>
                       <div class="col-lg-6">
                         <div class="form-group">
                           <label class="form-control-label" for="input-email">Profile Picture</label>
-                          <input type="file" id="input-email" class="form-control form-control-alternative" {{ profile_form.profile_picture}}>
+                          <input type="file" id="input-email" class="form-control form-control-alternative" {{ profile_form.profile_picture}}
                         </div>
                       </div>
                     </div>
@@ -169,13 +170,13 @@
                       <div class="col-lg-6">
                         <div class="form-group focused">
                           <label class="form-control-label" for="input-first-name">First name</label>
-                          <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" {{user_form.first_name}}>
+                          <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" {{user_form.first_name}}
                         </div>
                       </div>
                       <div class="col-lg-6">
                         <div class="form-group focused">
                           <label class="form-control-label" for="input-last-name">Last name</label>
-                          <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" {{user_form.last_name}}>
+                          <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" {{user_form.last_name}}
                         </div>
                       </div>
                     </div>
@@ -203,16 +204,7 @@
       <p>Copyright &copy; 2023 PathFinder</p>
     </footer>
     {% else %}
-    <div
-        class="alert alert-dark text-center mb-0 text-white"
-        role="alert"
-        style="border-radius: 0; background-color: black"
-      >
-        Please <a href="{% url 'login' %}" class="alert-link text-white">log in</a> to
-        access your account.
-      </div>
+    <p>Please <a href="{% url 'login' %}">log in</a> to view your profile.</p>
     {% endif %}
-    {% include 'footer.html' %}
-
   </body>
 </html>

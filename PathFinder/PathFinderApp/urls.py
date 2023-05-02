@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from .views import ChangePasswordView
 
 
 urlpatterns = [
@@ -36,6 +37,8 @@ urlpatterns = [
     path('note/<str:pk>', views.note_detail, name = 'note'),
     path('delete_note/<str:pk>', views.delete_note, name = 'delete'),
     path('search_result', views.search_page, name = 'search'),
+    path('password/', ChangePasswordView.as_view(),name='password'),
+
 
 ]
 

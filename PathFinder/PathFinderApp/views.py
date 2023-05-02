@@ -25,6 +25,11 @@ import json
 # import warnings
 import openai
 import pinecone
+from django.urls import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.views import PasswordChangeView
+
+
 
 api_key = os.environ.get('OPENAI_API_KEY')
 
@@ -379,3 +384,8 @@ def my_view(request):
     }
 
     return render(request, 'my_template.html', context)
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'password.html'
+    success_message = "Successfully changed your pasword"
+    success_url = reverse_lazy('profile')
