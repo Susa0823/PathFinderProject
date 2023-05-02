@@ -57,8 +57,8 @@ def send_chat_response(request):
         if user_message is not None:
             response = pathfinder_chatbot({
                 "question": user_message,
-                # "name": name,
-                "chat_history": [],
+                # [("Q","A")]
+                "chat_history": [("", "")],
             })  # query the chatbot
             # print(user_message)
 
