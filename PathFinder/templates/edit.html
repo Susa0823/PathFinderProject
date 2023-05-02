@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% extends 'blogbase.html' %}
 {% load static %}
 <html>
   <head>
@@ -31,7 +31,7 @@
             <ul class="navbar-nav align-items-center d-none d-md-flex">
               <li class="nav-item dropdown">
                 <a class="nav-link pr-0"
-                   href="http://127.0.0.1:8000/profile/"
+                   href="{% url 'profile' %}"
                    role="button"
                    data-toggle="dropdown"
                    aria-haspopup="true"
@@ -49,19 +49,19 @@
                   <div class="dropdown-header noti-title">
                     <h6 class="text-overflow m-0">Welcome!</h6>
                   </div>
-                  <a href="../examples/profile.html" class="dropdown-item">
+                  <a href="profile.html" class="dropdown-item">
                     <i class="ni ni-single-02"></i>
                     <span>My profile</span>
                   </a>
-                  <a href="../examples/profile.html" class="dropdown-item">
+                  <a href="profile.html" class="dropdown-item">
                     <i class="ni ni-settings-gear-65"></i>
                     <span>Settings</span>
                   </a>
-                  <a href="../examples/profile.html" class="dropdown-item">
+                  <a href="profile.html" class="dropdown-item">
                     <i class="ni ni-calendar-grid-58"></i>
                     <span>Activity</span>
                   </a>
-                  <a href="../examples/profile.html" class="dropdown-item">
+                  <a href="profile.html" class="dropdown-item">
                     <i class="ni ni-support-16"></i>
                     <span>Support</span>
                   </a>
