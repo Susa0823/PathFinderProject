@@ -2180,8 +2180,7 @@ a:active {
 }
 
 .container {
-  width: 100%;
-  max-width: 940px;
+  width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
