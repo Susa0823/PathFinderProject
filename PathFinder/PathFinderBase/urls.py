@@ -25,11 +25,11 @@ from django.conf import settings
 # from PathFinder.PathFinderApp import views, urls
 urlpatterns = [
     # create a path to the default django page
-    path('', include('PathFinder.PathFinderApp.urls')),
-    path('admin/', admin.site.urls),
-    path('', include('django.contrib.auth.urls')),
-    #google sign up
+    path("", include("PathFinder.PathFinderApp.urls")),
+    path("admin/", admin.site.urls),
+    path("", include("django.contrib.auth.urls")),
+    # google sign up
     path("accounts/", include("allauth.urls")),
-    path('signup/', register_user, name="register_user"),
-    path('contact/', contact, name='contact')
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path("signup/", register_user, name="register_user"),
+    path("contact/", contact, name="contact"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

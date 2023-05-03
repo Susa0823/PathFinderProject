@@ -21,18 +21,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'shawarma')
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECRET_KEY = os.environ.get("SECRET_KEY", "shawarma")
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-DEBUG = bool(int(os.environ.get('DEBUG', 1)))
+DEBUG = bool(int(os.environ.get("DEBUG", 1)))
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # Security measure to prevent HTTP Host header attacks (see https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts)
 # Only when DEBUG is False, the ALLOWED_HOSTS list is used
-ALLOWED_HOSTS = ['143.198.222.14', 'localhost',
-                 'www.pathfinder.ink', 'pathfinder.ink', '127.0.0.1']
-ALLOWED_HOSTS.extend(
-    filter(None, os.environ.get('ALLOWED_HOSTS', '').split(',')))
+ALLOWED_HOSTS = [
+    "143.198.222.14",
+    "localhost",
+    "www.pathfinder.ink",
+    "pathfinder.ink",
+    "127.0.0.1",
+]
+ALLOWED_HOSTS.extend(filter(None, os.environ.get("ALLOWED_HOSTS", "").split(",")))
 
 PYTHONUNBUFFERED = 0
 # Application definition
@@ -41,81 +45,72 @@ PYTHONUNBUFFERED = 0
 SITE_ID = 2
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
     # below entry added so django knows about the app and its config
-    'PathFinder.PathFinderApp.apps.PathfinderappConfig',
+    "PathFinder.PathFinderApp.apps.PathfinderappConfig",
     # This is for the google sign up
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-
-
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
 ]
 
 # google sign up pt2
 SOCIALACCOUNT_PROVIDERS = {
-    "google": {
-        "SCOPE": [
-            "profile",
-            "email"
-        ],
-        "AUTH_PARAMS": {"access_type": "online"}
-    }
+    "google": {"SCOPE": ["profile", "email"], "AUTH_PARAMS": {"access_type": "online"}}
 }
 
 MIDDLEWARE = [
-
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
     # 'django.contrib.sessions.models.Session',
 ]
 
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'PathFinder.PathFinderBase.wsgi.application'
-ASGI_APPLICATION = 'PathFinder.PathFinderBase.asgi.application'
+WSGI_APPLICATION = "PathFinder.PathFinderBase.wsgi.application"
+ASGI_APPLICATION = "PathFinder.PathFinderBase.asgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 # These are the credentials for the local psql database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
         # pathfinderdb on remote server, only diff
         # 'NAME': os.environ.get('DB_NAME', 'pathfinderdb'),
-        'NAME': os.environ.get('DB_NAME', 'AppDBdjango'),
-        'USER': os.environ.get('DB_USER', 'pathfinderdbsu'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'pa$$wordFinder'),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('SQL_PORT', 5432),
+        "NAME": os.environ.get("DB_NAME", "AppDBdjango"),
+        "USER": os.environ.get("DB_USER", "pathfinderdbsu"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "pa$$wordFinder"),
+        "HOST": os.environ.get("DB_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", 5432),
     }
 }
 
@@ -124,16 +119,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -141,7 +136,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
 # TIME_ZONE = 'UTC'
 
@@ -153,17 +148,17 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
-STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
+STATIC_URL = "/static/"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-ROOT_URLCONF = 'PathFinder.PathFinderBase.urls'
+ROOT_URLCONF = "PathFinder.PathFinderBase.urls"
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, "static"),
     # os.path.join(BASE_DIR, 'static/pathfinderapp'),
     # os.path.join(BASE_DIR, 'static/admin')
 ]
@@ -171,7 +166,7 @@ STATICFILES_DIRS = [
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # google sign up pt3
@@ -180,24 +175,26 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend"
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
-GOOGLE_CLIENT_ID = '320096241471-1o3b72no3kk8raqqg204qj9k07q3ss8c.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET = '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'
-GOOGLE_AUTH_URI = 'https://accounts.google.com/o/oauth2/auth'
-GOOGLE_TOKEN_URI = 'https://oauth2.googleapis.com/token'
-GOOGLE_USER_INFO_URI = 'https://www.googleapis.com/oauth2/v1/userinfo'
-GOOGLE_REDIRECT_URI = 'http://localhost:8000/google-auth-callback'
+GOOGLE_CLIENT_ID = (
+    "320096241471-1o3b72no3kk8raqqg204qj9k07q3ss8c.apps.googleusercontent.com"
+)
+GOOGLE_CLIENT_SECRET = "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"
+GOOGLE_AUTH_URI = "https://accounts.google.com/o/oauth2/auth"
+GOOGLE_TOKEN_URI = "https://oauth2.googleapis.com/token"
+GOOGLE_USER_INFO_URI = "https://www.googleapis.com/oauth2/v1/userinfo"
+GOOGLE_REDIRECT_URI = "http://localhost:8000/google-auth-callback"
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'contactus.pathfinder@gmail.com'
-EMAIL_HOST_PASSWORD = 'dqpp msri ebue nnhl'
-CONTACT_EMAIL = 'contactus.pathfinder@gmail.com'
-DEFAULT_FROM_EMAIL = 'contactus.pathfinder@gmail.com'
+EMAIL_HOST_USER = "contactus.pathfinder@gmail.com"
+EMAIL_HOST_PASSWORD = "dqpp msri ebue nnhl"
+CONTACT_EMAIL = "contactus.pathfinder@gmail.com"
+DEFAULT_FROM_EMAIL = "contactus.pathfinder@gmail.com"

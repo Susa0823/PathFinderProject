@@ -12,7 +12,6 @@
         type="text/css"
         href="{% static 'pathfinderapp/css/webchatcss/litewebchat_input.min.css' %}">
   <style>
-
       html,
       body {
           height: 100%;
@@ -54,11 +53,10 @@
                   style="border: solid 1px;
                          border-radius: 2em;
                          cursor: pointer;
-                         color: #10a5d3
-                         margin-left: 20px;
-                         padding 5px;"
+                         color: #10a5d3 margin-left: 20px;
+                         padding 5px"
                   type="button">
-            Switch Theme 
+            Switch Theme
             <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0m0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10"></path>
       <path d="M8 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 8 7M16 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 16 7M15.232 15c-.693 1.195-1.87 2-3.349 2-1.477 0-2.655-.805-3.347-2H15m3-2H6a6 6 0 1 0 12 0"></path>
@@ -82,8 +80,7 @@
                    ref="editor"
                    id="userMsgInput"
                    name="user_message"
-                   placeholder="  Enter your question here"
-                   >
+                   placeholder="  Enter your question here">
             <input type="submit" class="send" id="sendbutton" value="Submit">
           </form>
         </div>
@@ -93,7 +90,6 @@
             align-items: center;
             justify-content: space-between;
           }
-          
           .chatinput {
             width: 500px;
             margin-right: 10px;
@@ -103,7 +99,6 @@
             margin-top: 10px;
             height: 35px;
           }
-          
           .send {
             width: 100px;
             height: 35px;
@@ -111,8 +106,7 @@
             margin-top: 9px !important;
 
           }
-          </style>        
-  
+        </style>
       </div>
     </head>
   </body>
@@ -125,7 +119,7 @@
     const minput = document.getElementById("userMsgInput");
     const chatForm = document.getElementById("chatform");
     const pathfinder_api_url = "{% url 'chatbot' %}";
-  
+
     async function submitChat(usrquery) {
       try {
         const response = await fetch(pathfinder_api_url, {
@@ -168,7 +162,7 @@
       {
         messageType: 'raw',
         headIcon: '../static/pathfinderapp/img/user.png',
-        name: "{{ request.user.first_name }}",
+        name: "RealHumanUser4000",
         position: 'right',
         html: usermessage,
       },
@@ -194,7 +188,7 @@
       {
         messageType: "raw",
         headIcon: '../static/pathfinderapp/img/user.png',
-        name: "{{ request.user.first_name }}",
+        name: "RealHumanUser4000",
         position: "right",
         html:  "shello",
       },
