@@ -44,40 +44,6 @@
     text-decoration: underline;
 }
 
-.google-signup {
-    margin: 0 auto;
-    margin-top: 15px;
-    margin-bottom: 20px;
-   /* border: none; */
-    font-family: 'Anuphan', monospace; 
-
-    background-color: #4285F4; /* Google brand blue color */
-    color: #FFFFFF; /* text color */
-    border-radius: 5px; /* rounded corners */
-    padding: 10px 20px; /* adjust padding as needed */
-    font-size: 16px; /* adjust font size as needed */
-    text-align: center; /* center align text */
-    display: inline-block; /* display as inline-block */
-    cursor: pointer; /* show hand cursor on hover */
-  }
-  
-  .google-signup a {
-        color: rgb(248, 248, 248);
-        text-decoration: none;
-        border-top-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-      }
-      
-      a:hover {
-        text-decoration: underline;
-      }
-
-      footer {
-        background-color: #ffffff;
-        color: #000000;
-        font-size: 15px;
-        padding: 10px;
-      }
 
 .form-control {
     width: 100%;

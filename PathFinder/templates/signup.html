@@ -41,14 +41,14 @@
             Already have an account?
             <a class="sign-up-link" href="{% url 'login' %}">Sign in</a>
           </p>
-          <p class="sign-up-desc-1">OR</p>
+          {% comment %} <p class="sign-up-desc-1">OR</p> {% endcomment %}
           {%load socialaccount %}
-          <button class="google-signup">
+          {% comment %} <button class="google-signup">
             <a href="{% provider_login_url 'google' %}?next=/"
               >Sign up with Google</a
             >
           </button>
-      </div>
+      </div> {% endcomment %}
       {% include 'footer.html' %}
     </body>
   </html>
