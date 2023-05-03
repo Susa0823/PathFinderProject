@@ -2818,13 +2818,14 @@ html {
     }
   
     .team-card {
-      background-color: #0f5;
+      background-color: white;
     }
   
     .team-member-image {
       width: 270px;
       height: 270px;
       max-height: none;
+      padding: 10px;
     }
   }
   

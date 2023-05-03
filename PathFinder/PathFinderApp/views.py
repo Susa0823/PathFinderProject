@@ -139,6 +139,7 @@ def delete_note(request, pk):
     if request.method == 'POST':
         note.delete()
         messages.info(request, "The note has been deleted")
+        return redirect('noteindex')
     return render(request, "notedelete.html", {"note": note, "form": form})
 
 
@@ -379,7 +380,7 @@ def login_user(request):
 		if user is not None:
 			login(request, user)
 			messages.success(request, ("You Have Been Logged In!"))
-			return redirect('bloghome')
+			return redirect('index')
 		else:
 			messages.success(request, ("There was an error logging in. Please Try Again..."))
 			return redirect('login')
@@ -410,7 +411,7 @@ def register_user(request):
 			user = authenticate(username=username, password=password)
 			login(request,user)
 			messages.success(request, ("You have successfully registered! Welcome!"))
-			return redirect('bloghome')
+			return redirect('index')
 	
 	return render(request, "signup.html", {'form':form})
 
