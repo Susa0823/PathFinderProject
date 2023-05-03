@@ -10,10 +10,12 @@
   {%block template %} {% include "./navbar.html" %} {%endblock%}
 
   <!DOCTYPE html>
+  <!-- This site was created in Webflow. https://www.webflow.com --><!-- Last Published: Wed May 03 2023 11:42:07 GMT+0000 (Coordinated Universal Time) -->
   <html
     data-wf-domain="pathfinder2.webflow.io"
     data-wf-page="64315cd33f44a7116b4e7c1d"
     data-wf-site="64315cd33f44a757bf4e7c1c"
+    
   >
     <head>
       <meta charset="utf-8" />
@@ -71,36 +73,29 @@
       />
     </head>
     <body class="body">
-      {% if request.user.is_authenticated %}
-      <div
-        class="alert alert-dark text-center mb-0 text-white"
-        role="alert"
-        style="border-radius: 0; background-color: black"
-      >
-        <strong>Hello, {{ request.user.username }}!</strong> Welcome back.
-      </div>
-      {% else %}
-      <div
-        class="alert alert-dark text-center mb-0 text-white"
-        role="alert"
-        style="border-radius: 0; background-color: black"
-      >
-        <strong>Welcome!</strong> Please
-        <a href="{% url 'login' %}" class="alert-link text-white">log in</a> to
-        access your account.
-      </div>
-
-      {% endif %}
-
-      <section class="hero-heading-right wf-section">
-        {% comment %}
-        <a
-          data-w-id="f67cbd33-09b5-47bf-4422-5000a636e649"
-          href="#"
-          class="button-5 w-button"
-          >Switch Theme
-        </a>
-        {% endcomment %}
+      <body class="body">
+        {% if request.user.is_authenticated %}
+        <div
+          class="alert alert-dark text-center mb-0 text-white"
+          role="alert"
+          style="border-radius: 0; background-color: black"
+        >
+          <strong>Hello, {{ request.user.username }}!</strong> Welcome back.
+        </div>
+        {% else %}
+        <div
+          class="alert alert-dark text-center mb-0 text-white"
+          role="alert"
+          style="border-radius: 0; background-color: black"
+        >
+          <strong>Welcome!</strong> Please
+          <a href="{% url 'login' %}" class="alert-link text-white">log in</a> to
+          access your account.
+        </div>
+  
+        {% endif %}
+        
+        <section class="hero-heading-right wf-section">
         <div class="container-2">
           <div class="hero-wrapper">
             <div class="hero-split">
@@ -118,7 +113,7 @@
                 queries and prompts from its users,it can provide resources
                 citing the responses it generated and saves these resources as
                 well as the type of questions the user asked as part of the
-                users interests.Part of our aim at PathFinder is to provide a
+                users interests. Part of our aim at PathFinder is to provide a
                 simplified way for users to explore a range of topics they are
                 interested in.
               </p>
@@ -135,21 +130,22 @@
               <img
                 src="/static/pathfinderapp/img/hmpg.png"
                 loading="lazy"
-                width="500"
+                width="469"
                 sizes="(max-width: 767px) 89vw, (max-width: 991px) 61vw, 37vw"
-                alt="filler image"
+                srcset="
+                  https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486ad1c1089564a26afdd0_0162febeaabfae41b8015229e6112f05-p-500.jpg 500w,
+                  https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486ad1c1089564a26afdd0_0162febeaabfae41b8015229e6112f05.jpg       564w
+                "
+                alt=""
                 class="image-2"
-              />
-              <a href="{% url 'register_user' %}" class="button-4 w-button"
-                >Sign-up
-              </a>
+              /><a href="{% url 'register_user' %}" class="button-4 w-button">Sign-up </a>
             </div>
             <ul role="list" class="features-right w-list-unstyled">
               <li class="features-block-two">
                 <img
                   src="https://uploads-ssl.webflow.com/64315cd33f44a757bf4e7c1c/64486c4b21b960c6df160ae1_b9148104c83f18219b006433b2dde57b.jpg"
                   loading="lazy"
-                  alt="dice"
+                  alt=""
                   class="features-image"
                 />
                 <p>
@@ -177,9 +173,8 @@
                   class="features-image"
                 />
                 <p>
-                  Along with answers Charlie scours the web to find you the best
-                  and most helpful resources pertaining to your question so you
-                  do not have to.
+                  Along with chatting with Charlie, you can make note of your
+                  discoveries in the notemaker page.
                 </p>
               </li>
               <li class="features-block-two">
@@ -190,8 +185,8 @@
                   class="features-image"
                 />
                 <p>
-                  Explore and Save your favourite resources to view them later
-                  in the &#x27;Resources List&#x27;
+                  Or explore and have fun in our discussion board/blog page
+                  sharing your discoveries and engaging with other pathfinders.
                 </p>
               </li>
               <li class="features-block-two">
@@ -272,8 +267,7 @@
                     <div class="testimonial-quote-2">
                       I&#x27;ve tried many search engines before, but Pathfinder
                       is the only one that truly understands my interests and
-                      provides me with simple, accurate and reliable
-                      information.
+                      provides me with accurate and reliable information.
                     </div>
                     <div class="testimonial-info-two-2">
                       <div>
