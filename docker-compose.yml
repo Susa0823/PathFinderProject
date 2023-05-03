@@ -9,41 +9,41 @@ services:
       # cache_from:
       #   - "${WEB_IMAGE}"
     # image: "${WEB_IMAGE}"
-    command: gunicorn PathFinder.PathFinderBase.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn PathFinder.PathFinderBase.wsgi:application --bind 0.0.0.0:8001
     volumes:
       - .:/pathfinderapp
       - static_volume:/PathFinder/static
       #- media_volume:/PathFinder/media
     ports:
-      - "8000:8000"
-    env_file:
-      - ./.env.staging
+      - "8001:8001"
+    # env_file:
+    #   - ./.env.staging
     expose:
-      - "8000"
+      - "8001"
     depends_on:
       - pathfinderdb
 
-  nginx-proxy:
-    container_name: nginx-proxy
-    hostname: nginx-proxy
-    build:
-      context: .
-      dockerfile: ./nginx/Dockerfile-nginx
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /etc/nginx/:/etc/nginx
-      - static_volume:/PathFinder/static
-      #- html:/usr/share/nginx/html
-      #- vhost:/etc/nginx/vhost.d
-      #- /var/run/docker.sock:/tmp/docker.sock:ro
-    depends_on:
-      - pathfinderapp
-      #- media_volume:/app/media
-      # cache_from:
-      #   - "${NGINX_IMAGE}"
+  # nginx-proxy:
+  #   container_name: nginx-proxy
+  #   hostname: nginx-proxy
+  #   build:
+  #     context: .
+  #     dockerfile: ./nginx/Dockerfile-nginx
+  #   restart: always
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - /etc/nginx/:/etc/nginx
+  #     - static_volume:/PathFinder/static
+  #     #- html:/usr/share/nginx/html
+  #     #- vhost:/etc/nginx/vhost.d
+  #     #- /var/run/docker.sock:/tmp/docker.sock:ro
+  #   depends_on:
+  #     - pathfinderapp
+  #     #- media_volume:/app/media
+  #     # cache_from:
+  #     #   - "${NGINX_IMAGE}"
 
   pathfinderdb:
     container_name: pathfinderdb
@@ -58,7 +58,7 @@ services:
       - DB_USER=pathfinderdbsu
       - DB_PASSWORD=pa$$wordFinder
     ports:
-      - 0.0.0.0:5432:5432
+      - 0.0.0.0:5433:5433
 volumes:
   pathfinderdb_data:
   static_volume:

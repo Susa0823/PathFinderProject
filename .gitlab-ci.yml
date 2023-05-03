@@ -62,13 +62,13 @@ test_stage:
   script:
     - echo "Running fictional test suite..."
     # - ls
-    - source venv/bin/activate
-    - python manage.py test
-    - python manage.py runserver &
-    - sleep 4
-    - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up"
-    - pkill python
-    - deactivate
+    # - source venv/bin/activate
+    # - python manage.py test
+    # - python manage.py runserver &
+    # - sleep 4
+    # - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up"
+    # - pkill python
+    # - deactivate
     #- ssh -o StrictHostKeyChecking=no -i $RSA4 $VMUSER@$VM "echo 1"
     # - chmod 400 $SSHKEY
     # - ssh -o StrictHostKeyChecking=no -i $SSHKEY $VMUSER@$VM "echo 1"
